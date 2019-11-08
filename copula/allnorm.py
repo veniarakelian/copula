@@ -18,11 +18,11 @@ def allnorm(x, y):
     sigmay = phat2[1]
 
     # Calculate hessian matrix of log-likelihood #
-    hess_normx = np.array([[-sample / (sigmax**2), -2*np.sum(x - meanx) / (sigmax**3)],
+    hes_normx = np.array([[-sample / (sigmax**2), -2*np.sum(x - meanx) / (sigmax**3)],
                            [-2*np.sum(x - meanx) / (sigmax**3), (sample / (sigmax**2)) - (3*np.sum((x - meanx)**2) / (sigmax**4))]
                           ])
 
-    hess_normy = np.array([[-sample / (sigmay**2), -2*np.sum(y - meany) / (sigmay**3)],
+    hes_normy = np.array([[-sample / (sigmay**2), -2*np.sum(y - meany) / (sigmay**3)],
                            [-2*np.sum(x - meany) / (sigmay**3), (sample / (sigmay**2)) - (3*np.sum((y - meany)**2) / sigmay**4)]
                           ])
 
@@ -34,15 +34,15 @@ def allnorm(x, y):
     # Fix output #
     zeros_tmp = np.zeros((2, 2))
 
-    new_hess_normx = np.concatenate((hess_normx, zeros_tmp), axis=1)
-    new_hess_normy = np.concatenate((zeros_tmp, hess_normy), axis=1)
+    new_hes_normx = np.concatenate((hes_normx, zeros_tmp), axis=1)
+    new_hes_normy = np.concatenate((zeros_tmp, hes_normy), axis=1)
 
-    hess_norm = np.concatenate((new_hess_normx, new_hess_normy), axis=0)
+    hes_norm = np.concatenate((new_hes_normx, new_hes_normy), axis=0)
 
     sigma = [sigmax, sigmay, meanx, meany]
 
     result = {"sigma": sigma,
-              "hess_norm": hess_norm,
+              "hes_norm": hes_norm,
               "u": u, "v": v
               }
 
@@ -65,6 +65,6 @@ if __name__ == "__main__":
 
     print("[ALLNORM]\n")
     print("sigma\n", result["sigma"])
-    print("hess_norm\n", result["hess_norm"])
+    print("hess_norm\n", result["hes_norm"])
     print("u\n", result["u"])
     print("v\n", result["v"])
