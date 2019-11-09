@@ -30,23 +30,20 @@ def allclayton(x, y):
     cop1 = logLikelihood(theta, sample, sigma, xbar, ybar, u, v)
 
     # Calculate hessian of log-copula's density #
-    hes_cop = (-sample / ((theta + 1)**2)) - (-2 * (theta ** (-3) * np.sum(np.log((u **(-theta)) + (v ** (-theta)) - 1))) - 2*(theta ** (-2)) * np.sum(np.divide(np.multiply(np.log(u), u **(-theta)) +  np.multiply(np.log(v), v **(-theta)), (u **(-theta)) + (v ** (-theta))  - 1))
+    hes_cop = (-sample / ((theta + 1)**2)) -2 * (theta ** (-3) * np.sum(np.log((u **(-theta)) + (v ** (-theta)) - 1))) - 2*(theta ** (-2)) * np.sum(np.divide(np.multiply(np.log(u), u **(-theta)) +  np.multiply(np.log(v), v **(-theta)), (u **(-theta)) + (v ** (-theta))  - 1)) - (2 + (1/theta))*np.sum(np.divide(np.multiply(np.multiply(np.log(u) ** 2, u ** (-theta)) + np.multiply(np.log(v) ** 2, v ** (-theta)), (u **(-theta)) + (v ** (-theta))  - 1) - ((np.multiply((u **(-theta)), np.log(u)) + np.multiply((v **(-theta)), np.log(v)))** 2), (((u ** (-theta))  + (v ** (-theta)) - 1) ** 2)))
 
     s = -sample / hes_cop
     hes_prior_cop = -1 / (s ** 2)
 
-    if norm.pdf(theta, loc=0, scale=s) != 0:
-        log_prior = np.log(norm.pdf(theta, loc=0, scale=s)) + np.log(expon.pdf(sigma[0], loc=1)) + np.log(expon.pdf(sigma[1], loc=1))
-        BFu = cop1 + log_prior + 0.5 * np.log(-inv(det(hes_norm) * (hes_cop - hes_prior_cop)))
-        hes = det(hes_norm) * (hes_cop - hes_prior_cop)
-    else:
+    log_prior = np.log(norm.pdf(theta, loc=0, scale=s)) + np.log(expon.pdf(sigma[0], loc=1)) + np.log(expon.pdf(sigma[1], loc=1))
+    BF = 1
+    BFu = cop1 + log_prior + 0.5 * np.log(-inv(det(hes_norm) * (hes_cop - hes_prior_cop)))
+    hes = det(hes_norm) * (hes_cop - hes_prior_cop)
+
+    if theta < 10**(-5):
         theta = 0
         cop1 = 0
-        log_prior = np.log(10 **(-300)) + np.log(expon.pdf(sigma[0], loc=1)) + np.log(expon.pdf(sigma[1], loc=1))
-        BFu = cop1 = log_prior + 0.5 * np.log(inv(hes_norm))
-        hes = det(hes_norm)
-
-    BF = 1
+        BFu = cop1 + log_prior + 0.5 * np.log(-det(np.matmul(hes_norm, hes_cop - hes_prior_cop)))
 
     result = {"theta": theta, "cop1": cop1, "hes": hes, "hes_prior_cor": hes_prior_cop, "BF": BF, "BFu": BFu}
 
@@ -77,6 +74,6 @@ if __name__ == "__main__":
                   [0.10796665], [-0.10832592], [-0.05327015], [-0.02708483],  [0.07881769],  [0.10335654]
                   ])
 
-    result = allfrank(x, y)
+    result = allclayton(x, y)
 
     print(result)
