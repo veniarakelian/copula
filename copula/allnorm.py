@@ -1,6 +1,8 @@
 from scipy.stats import norm
 import numpy as np
 
+# Test comment
+
 # TODO fminsearch + indeterminacy #
 
 # Transform to normal distribution #
