@@ -26,7 +26,6 @@ def allnorm(x, y):
                            [-2*np.sum(x - meany) / (sigmay**3), (sample / (sigmay**2)) - (3*np.sum((y - meany)**2) / sigmay**4)]
                           ])
 
-
     # Calculate cumulative of x and y #
     u = norm.cdf((x - meanx) / sigmax, loc=0, scale=1)
     v = norm.cdf((y - meany) / sigmay, loc=0, scale=1)
