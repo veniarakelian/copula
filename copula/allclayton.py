@@ -4,6 +4,7 @@ from scipy.linalg import det, inv
 from math import pi
 import numpy as np
 from allnorm import allnorm
+from copulalib.copulalib import Copula
 
 def allclayton(x, y):
 
@@ -16,16 +17,13 @@ def allclayton(x, y):
     v = result["v"]
     sigma = result["sigma"]
     hes_norm = result["hes_norm"]
-    print(hes_norm)
 
     # x - mean, y - mean #
     xbar = x - sigma[2]
     ybar = y - sigma[3]
 
     # Calculate theta #
-    minimizeArgs = (sample, sigma, xbar, ybar, u, v)
-    res = minimize(logLikelihood, x0 = 0, args=minimizeArgs, method='Nelder-Mead')
-    theta = res.x[0]
+    theta = Copula(x.flatten(),y.flatten(), family='clayton').theta
 
     # Find logLikelihood of theta #
     cop1 = logLikelihood(theta, sample, sigma, xbar, ybar, u, v)
@@ -53,7 +51,7 @@ def allclayton(x, y):
 # Log-likelihood #
 def logLikelihood(theta, sample, sigma, xbar, ybar, u, v):
 
-    lLikelihood =  (sample * np.log(1 + theta)) - ((theta + 1) * np.sum(np.log(u ** v)))  - ((np.sum(np.log((u ** (-theta)) +  (v ** (-theta)) -1))) * (2 + (1/theta))) - (0.5 * sample * np.log(2 * pi * (sigma[0] ** 2))) - (0.5 * np.sum(xbar ** 2) / (sigma[0] ** 2)) - (0.5 * sample * np.log(2 * pi * (sigma[1] ** 2))) - (0.5 * np.sum(ybar ** 2) / (sigma[1] ** 2))
+    lLikelihood =  (sample * np.log(1 + theta)) - ((theta + 1) * np.sum(np.log(u * v)))  - ((np.sum(np.log((u ** (-theta)) +  (v ** (-theta)) -1))) * (2 + (1/theta))) - (0.5 * sample * np.log(2 * pi * (sigma[0] ** 2))) - (0.5 * np.sum(xbar ** 2) / (sigma[0] ** 2)) - (0.5 * sample * np.log(2 * pi * (sigma[1] ** 2))) - (0.5 * np.sum(ybar ** 2) / (sigma[1] ** 2))
 
     return lLikelihood
 
