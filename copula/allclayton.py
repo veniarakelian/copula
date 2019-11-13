@@ -33,10 +33,11 @@ def allclayton(x, y):
 
     s = -sample / hes_cop
     hes_prior_cop = -1 / (s ** 2)
-
-    log_prior = np.log(norm.pdf(theta, loc=0, scale=s)) + np.log(expon.pdf(sigma[0], loc=1)) + np.log(expon.pdf(sigma[1], loc=1))
+    # Opou loc valame scale apo ton deutero log kai meta.
+    log_prior = np.log(norm.pdf(theta, loc=0, scale=s)) + np.log(expon.pdf(sigma[0], scale=1)) + np.log(expon.pdf(sigma[1], scale=1))
     BF = 1
-    BFu = cop1 + log_prior + 0.5 * np.log(-inv(det(hes_norm) * (hes_cop - hes_prior_cop)))
+    # Vgazoume to inv kai vazoume -1/
+    BFu = cop1 + log_prior + 0.5 * np.log(-1/(det(hes_norm) * (hes_cop - hes_prior_cop)))
     hes = det(hes_norm) * (hes_cop - hes_prior_cop)
 
     if theta < 10**(-5):
