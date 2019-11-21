@@ -17,7 +17,7 @@ def allfrank(x, y):
     v = result["v"]
     sigma = result["sigma"]
     hes_norm = result["hes_norm"]
-
+    print(u)
     # x - mean, y - mean #
     xbar = x - sigma[2]
     ybar = y - sigma[3]
