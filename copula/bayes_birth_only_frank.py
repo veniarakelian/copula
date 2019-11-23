@@ -64,11 +64,9 @@ def bayes_birth_only_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chai
             QQ = q
             w = 38
 
+        result = {"new_model": new_model, "rejected": rejected, "w": w, "QQ": QQ, "ss": ss}
     else:
-        # bayes_birth_frank
-        print("")
-
-    result = {"new_model": new_model, "rejected": rejected, "w": w, "QQ": QQ, "ss": ss}
+        result =  bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain)
 
     return result
 
