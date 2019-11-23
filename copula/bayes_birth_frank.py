@@ -29,32 +29,34 @@ def bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
         min_old = np.min(t1)
         max_old = np.max(t1)
 
-        if(s[1] == 2 and s[2] == 2):
-            result1 = allfrank(u[:max_new], v[:max_new])
-            result2 = allfrank(u[max_new:L], v[max_new:L])
-            R = R * 3
-        else:
-            if(s[1] == 1 and s[2] == 2):
-                result1 = allclayton(u[:max_new], v[:max_new])
-                result2 = allfrank(u[max_new:L], v[max_new:L])
-                R = R * 3/2
+        if min_new < min_old:
+
+            if(s[1] == 2 and s[2] == 2):
+                result1 = allfrank(u[:min_new], v[:min_new])
+                result2 = allfrank(u[min_new:min_old], v[min_new:min_old])
+                R = R * 3
             else:
-                if(s[1] == 2 and s[2] == 1):
-                    result1 = allfrank(u[:max_new], v[:max_new])
-                    result2 = allclayton(u[max_new:L], v[max_new:L])
+                if(s[1] == 1 and s[2] == 2):
+                    result1 = allclayton(u[:min_new], v[:min_new])
+                    result2 = allfrank(u[min_new:min_old], v[min_new:min_old])
                     R = R * 3/2
                 else:
-                    if(s[1] == 2 and s[2] == 3):
-                        result1 = allfrank(u[:max_new], v[:max_new])
-                        #result2 = allgumbel(u[max_new:L], v[max_new:L])
+                    if(s[1] == 2 and s[2] == 1):
+                        result1 = allfrank(u[:min_new], v[:min_new])
+                        result2 = allclayton(u[min_new:min_old], v[min_new:min_old])
                         R = R * 3/2
                     else:
-                        if(s[1] == 3 and s[2] == 2):
-                            #result1 = allgumbel(u[:max_new], v[:max_new])
-                            result2 = allfrank(u[max_new:L], v[max_new:L])
+                        if(s[1] == 2 and s[2] == 3):
+                            result1 = allfrank(u[:min_new], v[:min_new])
+                            #result2 = allgumbel(u[min_new:min_old], v[min_new:min_old])
                             R = R * 3/2
+                        else:
+                            if(s[1] == 3 and s[2] == 2):
+                                #result1 = allgumbel(u[:min_new], v[:min_new])
+                                result2 = allfrank(u[min_new:min_old], v[min_new:min_old])
+                                R = R * 3/2
 
-        resultOld = allfrank(u, v)
+        resultOldresult2 = allfrank(u[:min_old], v[:min_old])
 
         BFu = result1["BFu"] + result2["BFu"] - resultOld["BFu"]
 
@@ -68,16 +70,66 @@ def bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
             new_model = new
             rejected = current
             QQ = Q
-            w = 37
+            w = 29
         else:
             new_model = current
             rejected = new
             QQ = q
-            w = 38
+            w = 30
 
     else:
-        # bayes_birth_frank
-        print("")
+        if max_new > max_old and max_old != 0:
+
+            if(s[1] == 2 and s[2] == 2):
+                result1 = allfrank(u[max_old:max_new], v[max_old:max_new])
+                result2 = allfrank(u[max_new:L], v[max_new:L])
+                R = R * 3
+            else:
+                if(s[1] == 1 and s[2] == 2):
+                    result1 = allclayton(u[max_old:max_new], v[max_old:max_new])
+                    result2 = allfrank(u[max_new:L], v[max_new:L])
+                    R = R * 3/2
+                else:
+                    if(s[1] == 2 and s[2] == 1):
+                        result1 = allfrank(u[max_old:max_new], v[max_old:max_new])
+                        result2 = allclayton(u[max_new:L], v[max_new:L])
+                        R = R * 3/2
+                    else:
+                        if(s[1] == 2 and s[2] == 3):
+                            result1 = allfrank(u[max_old:max_new], v[max_old:max_new])
+                            #result2 = allgumbel(u[max_new:L], v[max_new:L])
+                            R = R * 3/2
+                        else:
+                            if(s[1] == 3 and s[2] == 2):
+                                #result1 = allgumbel(u[max_old:max_new], v[max_old:max_new])
+                                result2 = allfrank(u[max_new:L], v[max_new:L])
+                                R = R * 3/2
+
+            resultOldresult2 = allfrank(u[max_old:L], v[max_old:L])
+
+            BFu = result1["BFu"] + result2["BFu"] - resultOld["BFu"]
+
+            if BFu.imag:
+                ss = -2
+                print("Error\n")
+
+            U2 = np.random.uniform()
+
+            if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and BFu.imag == 0:
+                new_model = new
+                rejected = current
+                QQ = Q
+                w = 31
+            else:
+                new_model = current
+                rejected = new
+                QQ = q
+                w = 32
+
+        else:
+
+            num = new[new != 0]
+
 
     result = {"new_model": new_model, "rejected": rejected, "w": w, "QQ": QQ, "ss": ss}
 
