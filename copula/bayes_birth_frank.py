@@ -1,6 +1,7 @@
 import numpy as np
 from allfrank import allfrank
 from allclayton import allclayton
+from bayes_birth_only_frank import bayes_birth_only_frank
 
 def bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
@@ -8,7 +9,7 @@ def bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
     new = np.sort(newModel)
 
     # Find index of last occurrence of 0 #
-    j2 = np.argwhere(x == 0).max()
+    j2 = np.argwhere(new == 0).max()
 
     t2 = new[new != 0]
     min_new = np.min(t2)
@@ -128,40 +129,37 @@ def bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
             else:
 
+                place = np.where(new == kn)
 
-
-
-
-               if(s[1] == 2 and s[2] == 2):
-                    result1 = allfrank(u[max_old:max_new], v[max_old:max_new])
-                    result2 = allfrank(u[max_new:L], v[max_new:L])
+                if(s[1] == 2 and s[2] == 2):
+                    result1 = allfrank(u[new[place - 2]:new[place - 1]], v[new[place - 2]:new[place - 1]])
+                    result2 = allfrank(u[new[place - 1]:new[place]], v[new[place - 1]:new[place]])
                     R = R * 3
                 else:
                     if(s[1] == 1 and s[2] == 2):
-                        result1 = allclayton(u[max_old:max_new], v[max_old:max_new])
-                        result2 = allfrank(u[max_new:L], v[max_new:L])
+                        result1 = allclayton(u[new[place - 2]:new[place - 1]], v[new[place - 2]:new[place - 1]])
+                        result2 = allfrank(u[new[place - 1]:new[place]], v[new[place - 1]:new[place]])
                         R = R * 3/2
                     else:
                         if(s[1] == 2 and s[2] == 1):
-                            result1 = allfrank(u[max_old:max_new], v[max_old:max_new])
-                            result2 = allclayton(u[max_new:L], v[max_new:L])
+                            result1 = allfrank(u[new[place - 2]:new[place - 1]], v[new[place - 2]:new[place - 1]])
+                            result2 = allclayton(u[new[place - 1]:new[place]], v[new[place - 1]:new[place]])
                             R = R * 3/2
                         else:
                             if(s[1] == 2 and s[2] == 3):
-                                result1 = allfrank(u[max_old:max_new], v[max_old:max_new])
-                                #result2 = allgumbel(u[max_new:L], v[max_new:L])
+                                result1 = allfrank(u[new[place - 2]:new[place - 1]], v[new[place - 2]:new[place - 1]])
+                                #result2 = allgumbel(u[new[place - 1]:new[place]], v[new[place - 1]:new[place]])
                                 R = R * 3/2
                             else:
                                 if(s[1] == 3 and s[2] == 2):
-                                    #result1 = allgumbel(u[max_old:max_new], v[max_old:max_new])
-                                    result2 = allfrank(u[max_new:L], v[max_new:L])
+                                    #result1 = allgumbel(u[new[place - 2]:new[place - 1]], v[new[place - 2]:new[place - 1]])
+                                    result2 = allfrank(u[new[place - 1]:new[place]], v[new[place - 1]:new[place]])
                                     R = R * 3/2
-
 
         result = {"new_model": new_model, "rejected": rejected, "w": w, "QQ": QQ, "ss": ss}
 
     else:
-        result = bayes_birth_only_frank(currentModel, new_model, kn, u, v, s, q, Q, zita, chain)
+        result = bayes_birth_only_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain)
 
 
     return result
