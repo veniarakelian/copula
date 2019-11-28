@@ -29,24 +29,21 @@ def allgumbel(x, y):
     theta = Copula(x.flatten(),y.flatten(), family='gumbel').theta
 
     # Find logLikelihood of theta #
-    cop1 = logLikelihood(theta, lu, lv, sample, sigma, xbar, ybar, u, v)
+    cop1 = logLikelihood(theta, lu, lv, sample, sigma, xbar, ybar, u, v) - 
 
     # Calculate hessian of log-copula's density #
-    hes_cop = (-sample / (theta ** 2)) - (sample * np.exp(-theta) / ((2 - np.exp(-theta)) ** 2)) + 2 * np.sum(np.divide(((-np.exp(-theta)) - (np.multiply((u + v) ** 2,   np.exp(-theta * (u+v)))) + (np.multiply(u ** 2, np.exp(-theta * u))) + (np.multiply(v ** 2, np.exp(-theta * v)))), np.exp(-theta) - 1 + np.multiply(np.exp(-theta * u) - 1, np.exp(-theta*v) - 1))) + 2 * np.sum((np.divide(((-np.exp(-theta)) + (np.multiply(u + v,   np.exp(-theta * (u+v)))) - (np.multiply(u, np.exp(-theta * u))) - (np.multiply(v, np.exp(-theta * v)))), np.exp(-theta) - 1 + np.multiply(np.exp(-theta * u) - 1, np.exp((-theta*v) - 1)))) ** 2)
+    hes = ((2 * (theta ** (-3))) * np.log((lu * theta) + (lv * theta)))
+ 
+    (-sample / (theta ** 2)) - (sample * np.exp(-theta) / ((2 - np.exp(-theta)) ** 2)) + 2 * np.sum(np.divide(((-np.exp(-theta)) - (np.multiply((u + v) ** 2,   np.exp(-theta * (u+v)))) + (np.multiply(u ** 2, np.exp(-theta * u))) + (np.multiply(v ** 2, np.exp(-theta * v)))), np.exp(-theta) - 1 + np.multiply(np.exp(-theta * u) - 1, np.exp(-theta*v) - 1))) + 2 * np.sum((np.divide(((-np.exp(-theta)) + (np.multiply(u + v,   np.exp(-theta * (u+v)))) - (np.multiply(u, np.exp(-theta * u))) - (np.multiply(v, np.exp(-theta * v)))), np.exp(-theta) - 1 + np.multiply(np.exp(-theta * u) - 1, np.exp((-theta*v) - 1)))) ** 2)
+
+    hes_cop = - hes
 
     s = -sample / hes_cop
     hes_prior_cop = -1 / (s ** 2)
 
-    if norm.pdf(theta, loc=0, scale=s) != 0:
-        log_prior = np.log(norm.pdf(theta, loc=0, scale=s)) + np.log(expon.pdf(sigma[0], scale=1)) + np.log(expon.pdf(sigma[1], scale=1))
-        BFu = cop1 + log_prior + 0.5 * np.log(-1/(det(hes_norm) * (hes_cop - hes_prior_cop)))
-        hes = det(hes_norm) * (hes_cop - hes_prior_cop)
-    else:
-        theta = 0
-        cop1 = 0
-        log_prior = np.log(10 **(-300)) + np.log(expon.pdf(sigma[0], scale=1)) + np.log(expon.pdf(sigma[1], scale=1))
-        BFu = cop1 = log_prior + 0.5 * np.log(inv(hes_norm))
-        hes = det(hes_norm)
+    log_prior = np.log(norm.pdf(theta, loc=0, scale=s)) + np.log(expon.pdf(sigma[0], scale=1)) + np.log(expon.pdf(sigma[1], scale=1))
+    BFu = cop1 + log_prior + 0.5 * np.log(-1/(det(hes_norm) * (hes_cop - hes_prior_cop)))
+    hes = det(hes_norm) * (hes_cop - hes_prior_cop)
 
     BF = 1
 
@@ -57,7 +54,7 @@ def allgumbel(x, y):
 # Log-likelihood #
 def logLikelihood(theta, lu, lv, sample, sigma, xbar, ybar, u, v):
 
-    lLikelihood = np.sum(np.log(np.exp(np.multiply(-(lu ** theta) + (lv ** theta), 1/theta)))) - np.sum(np.log(u) + np.log(v)) + ((-2 + (1/theta)) * np.sum(np.log((lu ** theta) + (lv ** theta)))) + ((theta - 1) * np.sum(np.log(lu) + np.log(lv))) + np.sum(np.log((theta - 1) + np.multiply((lu ** theta) + (lv ** theta), 1/theta))) - (0.5 * sample * np.log(2* pi * (sigma[1] ** 2))) - (0.5 * np.sum(xbar ** 2) / (sigma[1] ** 2)) - (0.5 * sample * np.log(2* pi * (sigma[2] ** 2))) - (0.5 * np.sum(ybar ** 2) / (sigma[2] ** 2)) 
+    lLikelihood = np.sum(np.log(np.exp(np.multiply(-(lu * theta) + (lv * theta), 1/theta)))) - np.sum(np.log(u) + np.log(v)) + ((-2 + (1/theta)) * np.sum(np.log((lu * theta) + (lv * theta)))) + ((theta - 1) * np.sum(np.log(lu) + np.log(lv))) + np.sum(np.log((theta - 1) + np.multiply((lu * theta) + (lv * theta), 1/theta))) - (0.5 * sample * np.log(2* pi * (sigma[1] ** 2))) - (0.5 * np.sum(xbar ** 2) / (sigma[1] ** 2)) - (0.5 * sample * np.log(2* pi * (sigma[2] ** 2))) - (0.5 * np.sum(ybar ** 2) / (sigma[2] ** 2))
 
     return lLikelihood
 
