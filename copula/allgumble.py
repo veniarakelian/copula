@@ -6,7 +6,7 @@ import numpy as np
 from allnorm import allnorm
 from copulalib.copulalib import Copula
 
-def allfrank(x, y):
+def allgumbel(x, y):
 
     sample = len(x)
 
@@ -18,15 +18,18 @@ def allfrank(x, y):
     sigma = result["sigma"]
     hes_norm = result["hes_norm"]
 
+    lu = -np.log(u)
+    lv = -np.log(v)
+
     # x - mean, y - mean #
     xbar = x - sigma[2]
     ybar = y - sigma[3]
 
     # Calculate theta #
-    theta = Copula(x.flatten(),y.flatten(), family='frank').theta
+    theta = Copula(x.flatten(),y.flatten(), family='gumbel').theta
 
     # Find logLikelihood of theta #
-    cop1 = logLikelihood(theta, sample, sigma, xbar, ybar, u, v)
+    cop1 = logLikelihood(theta, lu, lv, sample, sigma, xbar, ybar, u, v)
 
     # Calculate hessian of log-copula's density #
     hes_cop = (-sample / (theta ** 2)) - (sample * np.exp(-theta) / ((2 - np.exp(-theta)) ** 2)) + 2 * np.sum(np.divide(((-np.exp(-theta)) - (np.multiply((u + v) ** 2,   np.exp(-theta * (u+v)))) + (np.multiply(u ** 2, np.exp(-theta * u))) + (np.multiply(v ** 2, np.exp(-theta * v)))), np.exp(-theta) - 1 + np.multiply(np.exp(-theta * u) - 1, np.exp(-theta*v) - 1))) + 2 * np.sum((np.divide(((-np.exp(-theta)) + (np.multiply(u + v,   np.exp(-theta * (u+v)))) - (np.multiply(u, np.exp(-theta * u))) - (np.multiply(v, np.exp(-theta * v)))), np.exp(-theta) - 1 + np.multiply(np.exp(-theta * u) - 1, np.exp((-theta*v) - 1)))) ** 2)
@@ -52,9 +55,9 @@ def allfrank(x, y):
     return result
 
 # Log-likelihood #
-def logLikelihood(theta, sample, sigma, xbar, ybar, u, v):
+def logLikelihood(theta, lu, lv, sample, sigma, xbar, ybar, u, v):
 
-    lLikelihood = (0.5 * sample * np.log(theta ** 2)) + (0.5 * sample * np.log((1 - np.exp(-theta)) ** 2)) - (theta * np.sum(u + v)) - (np.sum(np.log((np.exp(-theta) - 1 +  np.multiply(np.exp(-theta*u) - 1, np.exp(-theta*v) - 1)) ** 2))) - (0.5 * sample * np.log(2 * pi * (sigma[0] ** 2))) - (0.5 * np.sum(xbar ** 2) / (sigma[0] ** 2)) - (0.5 * sample * np.log(2 * pi * (sigma[1] ** 2))) - (0.5 * np.sum(ybar ** 2) / (sigma[1] ** 2))
+    lLikelihood = np.sum(np.log(np.exp(np.multiply(-(lu ** theta) + (lv ** theta), 1/theta)))) - np.sum(np.log(u) + np.log(v)) + ((-2 + (1/theta)) * np.sum(np.log((lu ** theta) + (lv ** theta)))) + ((theta - 1) * np.sum(np.log(lu) + np.log(lv))) + np.sum(np.log((theta - 1) + np.multiply((lu ** theta) + (lv ** theta), 1/theta))) - (0.5 * sample * np.log(2* pi * (sigma[1] ** 2))) - (0.5 * np.sum(xbar ** 2) / (sigma[1] ** 2)) - (0.5 * sample * np.log(2* pi * (sigma[2] ** 2))) - (0.5 * np.sum(ybar ** 2) / (sigma[2] ** 2)) 
 
     return lLikelihood
 
