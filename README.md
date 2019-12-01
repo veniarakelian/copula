@@ -4,7 +4,7 @@ To-do
 - [x] allclayton.py
 - [x] allfrank.py
 - [x] allnorm.py
-- [ ] allgumbel.py
+- [x] allgumbel.py
 - [x] bayes_birth_only_frank.py
 - [x] bayes_birth_frank.py
 - [x] bayes_move_frank.py
