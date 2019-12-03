@@ -1,4 +1,5 @@
 import numpy as np
+from itertools import combinations
 from allfrank import allfrank
 from allclayton import allclayton
 from bayes_birth_only_frank import bayes_birth_only_frank
@@ -14,19 +15,47 @@ def birth(currentModel, u, dist, numbrk, q):
     k = np.random.uniform(low=dist, high=sample - dist)
     w = np.random.uniform()
 
-
-    if j < numbrk and (np.any(np.absolute(k * np.ones(shape=(L+j, 1)) - new)) <= dist* np.ones(shape=(L + j, 1))) == 0:
+    if j < numbrk and (np.any(np.absolute(k * np.ones(shape=(L+j,1)) - new)) <= dist* np.ones(shape=(L + j,1))) == 0:
 
         z = 1
         kn = k
         new[j][0] = kn
         bir = np.sort(new) 
 
-
         t2 = currentModel[np.sort(currentModel) != 0]
 
         if kn > np.max(t2):
-    
+
+            Q = q[:numbrk - j2 - 1]
+            temp = combinations([1, 2, 3], 2)
+            j = 1
+            G = 0
+
+            while j <= 3 and G == 0:
+                if np.all(temp[j:] != np.ones(shape=(1,2)) * q[:numbrk - j2 - 1]):
+                    G = 1
+                    temp = []
+
+                j += 1
+
+            a = np.random.uniform()
+            row = np.random.uniform(low=1 , high=2)
+
+            if a < 1/3:
+                Q[numbrk - j2: numbrk - j2 + 1] = temp[row:]
+            else:
+                if a >= 1/3 and a < 2/3:
+                    Q[numbrk - j2: numbrk - j2 + 1] = np.fliplr(temp[row:]).H
+                else:
+                    if a >= 2/3:
+                        Q[numbrk - j2: numbrk - j2 + 1] = np.ones(shape=(2,1)) * q[numbrk - j2]
+
+            #???#
+            Q[d - j2 + 2: numbrk + 1] = np.ones(shape=(1,1)) * Q(d- j2 + 1)
+            s = np.array([q[numbrk - j2], Q[numbrk - j2]: numbrk - j2 + 1])
+
+        else:
+
 
 
     bir = 0
