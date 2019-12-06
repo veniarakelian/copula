@@ -1,8 +1,5 @@
 import numpy as np
 from itertools import combinations
-from allfrank import allfrank
-from allclayton import allclayton
-from bayes_birth_only_frank import bayes_birth_only_frank
 
 def birth(currentModel, u, dist, numbrk, q):
 
