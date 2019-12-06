@@ -1,6 +1,7 @@
 import numpy as np
 from allfrank import allfrank
 from allclayton import allclayton
+from allgumbel import allgumbel
 
 def bayes_birth_only_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
@@ -35,11 +36,11 @@ def bayes_birth_only_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chai
                 else:
                     if(s[1] == 2 and s[2] == 3):
                         result1 = allfrank(u[:max_new], v[:max_new])
-                        #result2 = allgumbel(u[max_new:L], v[max_new:L])
+                        result2 = allgumbel(u[max_new:L], v[max_new:L])
                         R = R * 3/2
                     else:
                         if(s[1] == 3 and s[2] == 2):
-                            #result1 = allgumbel(u[:max_new], v[:max_new])
+                            result1 = allgumbel(u[:max_new], v[:max_new])
                             result2 = allfrank(u[max_new:L], v[max_new:L])
                             R = R * 3/2
 
