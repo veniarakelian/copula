@@ -10,7 +10,7 @@ def bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
     new = np.sort(newModel)
 
     # Find index of last occurrence of 0 #
-    j2 = np.argwhere(new == 0).max()
+    j2 = np.count_nonzero(new == 0, axis=0)[0]
 
     t2 = new[new != 0]
     min_new = np.min(t2)

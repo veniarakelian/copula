@@ -4,7 +4,7 @@ from itertools import combinations
 def birth(currentModel, u, dist, numbrk, q):
 
     sample = len(u)
-    j = np.argwhere(currentModel == 0).max()
+    j = np.count_nonzero(currentModel== 0, axis=0)[0]
     L = len(currentModel) - j
 
     new = np.sort(currentModel)
@@ -17,7 +17,7 @@ def birth(currentModel, u, dist, numbrk, q):
         kn = k
         new[j][0] = kn
         bir = np.sort(new)
-        j2 = np.argwhere(currentModel == 0).max()
+        j2 = np.count_nonzero(currentModel == 0, axis=0)[0]
 
         t2 = currentModel[np.sort(currentModel) != 0]
 

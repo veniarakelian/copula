@@ -4,7 +4,7 @@ from itertools import combinations
 def birth(currentModel, numbrk, q):
 
     current = np.sort(currentModel)
-    j = np.argwhere(currentModel == 0).max()
+    j = np.count_nonzero(currentModel == 0, axis=0)[0]
     L = len(currentModel) - j
     l = len(currentModel)
 
