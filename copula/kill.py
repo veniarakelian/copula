@@ -8,7 +8,7 @@ def birth(currentModel, numbrk, q):
     L = len(currentModel) - j
     l = len(currentModel)
 
-    kn = np.random.randint(low=-1, high=L - 1)
+    kn = np.random.randint(low=0, high=L - 1)
 
     currentModel[kn + j - 1:] = 0
     newModel = np.sort(currentModel)
