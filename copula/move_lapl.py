@@ -1,8 +1,4 @@
 import numpy as np
-from allfrank import allfrank
-from allclayton import allclayton
-from allgumbel import allgumbel
-from bayes_birth_only_frank import bayes_birth_only_frank
 
 def move_lapl(currentModel, u, v, dist, numbrk, q):
 
@@ -11,164 +7,48 @@ def move_lapl(currentModel, u, v, dist, numbrk, q):
     j = np.count_nonzero(currentModel == 0, axis=0)[0]
     L = len(currentModel) - j
 
-    current = np.count_nonzero(new == 0, axis=0)[0]
-    place_new = new[new != 0]
+    current = new[new != 0]
+    pick = np.random.randint(low=1, high=len(current) + 1)
+    b2 = current[pick - 1]
+    scale = 5
 
-    pick = np.random.randint(low=0, high=place_new)
+    kn = np.random.randint(low = b2 - scale, high = b2 + scale)
+    current[pick - 1] = kn
+    current[L:L + j] = 0
+    current = np.sort(current)
 
-    print(current)
-    b2 = current[pick][0]
+    if pick == 1 and j < numbrk - 1:
 
-    print(b2)
+        z = (np.absolute(kn - current[pick + j][0]) >= dist) and (kn >= dist - 1) and (sample - kn > dist) and (kn - new[pick + j - 1][0] != 0)
 
-    t2 = new[new != 0]
-    min_new = np.min(t2)
-    max_new = np.max(t2)
-    L = len(u)
-    l = len(current)
-
-    ss = -1
-
-    if j2 == 0:
-        R = 4/3
-    else:
-        R = 1
-
-    if np.all(current):
-
-        t1 = current[current != 0]
-        min_old = np.min(t1)
-        max_old = np.max(t1)
-
-        if min_new < min_old:
-
-            if(s[1] == 2 and s[2] == 2):
-                result1 = allfrank(u[:min_new], v[:min_new])
-                result2 = allfrank(u[min_new:min_old], v[min_new:min_old])
-                R = R * 3
-            else:
-                if(s[1] == 1 and s[2] == 2):
-                    result1 = allclayton(u[:min_new], v[:min_new])
-                    result2 = allfrank(u[min_new:min_old], v[min_new:min_old])
-                    R = R * 3/2
-                else:
-                    if(s[1] == 2 and s[2] == 1):
-                        result1 = allfrank(u[:min_new], v[:min_new])
-                        result2 = allclayton(u[min_new:min_old], v[min_new:min_old])
-                        R = R * 3/2
-                    else:
-                        if(s[1] == 2 and s[2] == 3):
-                            result1 = allfrank(u[:min_new], v[:min_new])
-                            result2 = allgumbel(u[min_new:min_old], v[min_new:min_old])
-                            R = R * 3/2
-                        else:
-                            if(s[1] == 3 and s[2] == 2):
-                                result1 = allgumbel(u[:min_new], v[:min_new])
-                                result2 = allfrank(u[min_new:min_old], v[min_new:min_old])
-                                R = R * 3/2
-
-            resultOld = allfrank(u[:min_old], v[:min_old])
-
-            BFu = result1["BFu"] + result2["BFu"] - resultOld["BFu"]
-
-            if BFu.imag:
-                ss = -2
-                print("Error\n")
-
-            U2 = np.random.uniform()
-
-            if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and BFu.imag == 0:
-                new_model = new
-                rejected = current
-                QQ = Q
-                w = 29
-            else:
-                new_model = current
-                rejected = new
-                QQ = q
-                w = 30
-
+        if kn - new[pick + j - 1][0] > 0:
+            s = q[pick][0]
         else:
-            if max_new > max_old and max_old != 0:
+            s = q[pick - 1][0]
+    else:
+        if pick == 1 and j == numbrk - 1:
 
-                if(s[1] == 2 and s[2] == 2):
-                    result1 = allfrank(u[max_old:max_new], v[max_old:max_new])
-                    result2 = allfrank(u[max_new:L], v[max_new:L])
-                    R = R * 3
-                else:
-                    if(s[1] == 1 and s[2] == 2):
-                        result1 = allclayton(u[max_old:max_new], v[max_old:max_new])
-                        result2 = allfrank(u[max_new:L], v[max_new:L])
-                        R = R * 3/2
-                    else:
-                        if(s[1] == 2 and s[2] == 1):
-                            result1 = allfrank(u[max_old:max_new], v[max_old:max_new])
-                            result2 = allclayton(u[max_new:L], v[max_new:L])
-                            R = R * 3/2
-                        else:
-                            if(s[1] == 2 and s[2] == 3):
-                                result1 = allfrank(u[max_old:max_new], v[max_old:max_new])
-                                result2 = allgumbel(u[max_new:L], v[max_new:L])
-                                R = R * 3/2
-                            else:
-                                if(s[1] == 3 and s[2] == 2):
-                                    result1 = allgumbel(u[max_old:max_new], v[max_old:max_new])
-                                    result2 = allfrank(u[max_new:L], v[max_new:L])
-                                    R = R * 3/2
-
-                resultOld = allfrank(u[max_old:L], v[max_old:L])
-
-                BFu = result1["BFu"] + result2["BFu"] - resultOld["BFu"]
-
-                if BFu.imag:
-                    ss = -2
-                    print("Error\n")
-
-                U2 = np.random.uniform()
-
-                if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and BFu.imag == 0:
-                    new_model = new
-                    rejected = current
-                    QQ = Q
-                    w = 31
-                else:
-                    new_model = current
-                    rejected = new
-                    QQ = q
-                    w = 32
-
+            z = (kn >= dist - 1) and (sample - kn > dist) and (kn - new[pick + j - 1][0] != 0)
+            if kn - new[pick + j - 1][0] > 0:
+                s = q[pick][0]
             else:
+                s = q[pick - 1][0]
+        else:
+            if pick == L:
+                z = (np.absolute(kn - current[pick + j - 2][0]) >= dist) and (kn >= dist - 1) and (sample - kn > dist) and (kn - new[pick + j - 1][0] != 0)
 
-                place = np.where(new == kn)
-
-                if(s[1] == 2 and s[2] == 2):
-                    result1 = allfrank(u[new[place - 2]:new[place - 1]], v[new[place - 2]:new[place - 1]])
-                    result2 = allfrank(u[new[place - 1]:new[place]], v[new[place - 1]:new[place]])
-                    R = R * 3
+                if kn - new[pick + j - 1][0] > 0:
+                    s = q[pick][0]
                 else:
-                    if(s[1] == 1 and s[2] == 2):
-                        result1 = allclayton(u[new[place - 2]:new[place - 1]], v[new[place - 2]:new[place - 1]])
-                        result2 = allfrank(u[new[place - 1]:new[place]], v[new[place - 1]:new[place]])
-                        R = R * 3/2
-                    else:
-                        if(s[1] == 2 and s[2] == 1):
-                            result1 = allfrank(u[new[place - 2]:new[place - 1]], v[new[place - 2]:new[place - 1]])
-                            result2 = allclayton(u[new[place - 1]:new[place]], v[new[place - 1]:new[place]])
-                            R = R * 3/2
-                        else:
-                            if(s[1] == 2 and s[2] == 3):
-                                result1 = allfrank(u[new[place - 2]:new[place - 1]], v[new[place - 2]:new[place - 1]])
-                                result2 = allgumbel(u[new[place - 1]:new[place]], v[new[place - 1]:new[place]])
-                                R = R * 3/2
-                            else:
-                                if(s[1] == 3 and s[2] == 2):
-                                    result1 = allgumbel(u[new[place - 2]:new[place - 1]], v[new[place - 2]:new[place - 1]])
-                                    result2 = allfrank(u[new[place - 1]:new[place]], v[new[place - 1]:new[place]])
-                                    R = R * 3/2
-
+                    s = q[pick - 1][0]
+            else:
+                z = np.absolute(kn - current[pick - 2 + j][0] >= dist) and (np.absolute(kn - current[pick + j][0] >= dist)) and (kn >= dist - 1) and (sample - kn > dist) and (kn - new[pick + j - 1][0] != 0)
+                if kn - new[pick + j - 1][0] > 0:
+                    s = q[pick][0]
+                else:
+                    s = q[pick - 1][0]
 
     result = {"new_model": new_model, "pick": pick, "z": z, "Q": Q, "s": s}
-
 
     return result
 

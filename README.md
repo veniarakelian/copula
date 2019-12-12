@@ -12,5 +12,5 @@ To-do
 - [x] birth.py
 - [x] kill.py
 - [x] bayes_change.py
-- [] move_lapl.py
+- [x] move_lapl.py
 - [] laplace_tourlou.py
