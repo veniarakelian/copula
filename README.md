@@ -9,8 +9,8 @@ To-do
 - [x] bayes_birth_frank.py
 - [x] bayes_move_frank.py
 - [x] bayes_kill_frank.py
-- [] birth.py
-- [] kill.py
-- [] bayes_change.py
+- [x] birth.py
+- [x] kill.py
+- [x] bayes_change.py
 - [] move_lapl.py
 - [] laplace_tourlou.py
