@@ -93,284 +93,48 @@ def laplace_tourlou(currentModel, u, v, q, numbrk, dist, q, zita, chain):
                         QQ = q
                         w = z
                         ss = -3
-                W = 0.3
-
-    R = 1/3
-    ss = -1
-    q_new = 0
-
-    if np.any(current != np.zeros(shape=(l,1))):
-
-        temp = current[current != 0]
-        z = temp.shape[0]
-
-        p = np.random.uniform(low=1, high=z+1)
-
-        if p > 1 and p <= z:
-            lower = temp[p - 2][0]
-            upper = temp[p - 1][0]
-            if q[p - 1][0] == 1:
-                a = np.random.uniform()
-
-                if a <= 1/2:
-
-                    result1 = allclayton(u[lower:upper], v[lower:upper])
-                    result2 = allfrank(u[lower:upper], v[lower:upper])
-                    q_new = 2
+                    W = 0.3
                 else:
-
-                    result1 = allclayton(u[lower:upper], v[lower:upper])
-                    result2 = allgumbel(u[lower:upper], v[lower:upper])
-                    q_new = 3
-            else:
-                if q[p - 1][0] == 2:
-                    a = np.random.uniform()
-
-                    if a <= 1/2:
-
-                        result1 = allfrank(u[lower:upper], v[lower:upper])
-                        result2 = allclayton(u[lower:upper], v[lower:upper])
-                        q_new = 1
-                    else:
-
-                        result1 = allfrank(u[lower:upper], v[lower:upper])
-                        result2 = allgumbel(u[lower:upper], v[lower:upper])
-                        q_new = 3
-                else:
-
-                    a = np.random.uniform()
-
-                    if a <= 1/2:
-
-                        result1 = allgumbel(u[lower:upper], v[lower:upper])
-                        result2 = allfrank(u[lower:upper], v[lower:upper])
-                        q_new = 2
-                    else:
-
-                        result1 = allgumbel(u[lower:upper], v[lower:upper])
-                        result2 = allclayton(u[lower:upper], v[lower:upper])
-                        q_new = 1
-
-            BFu = result2["BFu"] - result1["BFu"]
-
-            if BFu.imag:
-                ss = -2
-                print("Error\n")
-
-            U2 = np.random.uniform()
-
-            if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and BFu.imag == 0:
-                new_model = new
-                q[p - 1][0] = q_new
-                QQ = Q
-                rejected = current
-                w = 37
-            else:
-                new_model = current
-                QQ = q
-                rejected = current
-                w = 38
-        else:
-            if p > z and p != 1:
-                if q[p - 1][0] == 1:
-                    a = np.random.uniform()
-
-                    if a <= 1/2:
-
-                        result1 = allclayton(u[np.max(temp):L], v[np.max(temp):L])
-                        result2 = allfrank(u[np.max(temp):L], v[np.max(temp):L])
-                        q_new = 2
-                        j = 0
-                    else:
-
-                        result1 = allclayton(u[np.max(temp):L], v[np.max(temp):L])
-                        result2 = allgumbel(u[np.max(temp):L], v[np.max(temp):L])
-                        q_new = 3
-                        j = 1
-                else:
-                    if q[p - 1] == 2:
-                        a = np.random.uniform()
-
-                        if a <= 1/2:
-
-                            result1 = allfrank(u[np.max(temp):L], v[np.max(temp):L])
-                            result2 = allclayton(u[np.max(temp):L], v[np.max(temp):L])
-                            q_new = 1
-                            j = 3
-                        else:
-
-                            result1 = allfrank(u[np.max(temp):L], v[np.max(temp):L])
-                            result2 = allgumbel(u[np.max(temp):L], v[np.max(temp):L])
-                            q_new = 3
-                            j = 4
-                    else:
-
-                        a = np.random.uniform()
-
-                        if a <= 1/2:
-
-                            result1 = allgumbel(u[np.max(temp):L], v[np.max(temp):L])
-                            result2 = allclayton(u[np.max(temp):L], v[np.max(temp):L])
-                            q_new = 1
-                            j = 5
-                        else:
-
-                            result1 = allgumbel(u[np.max(temp):L], v[np.max(temp):L])
-                            result2 = allfrank(u[np.max(temp):L], v[np.max(temp):L])
-                            q_new = 2
-                            j = 6
-
-                BFu = result2["BFu"] - result1["BFu"]
-
-                if BFu.imag:
-                    ss = -2
-                    print("Error\n")
-
-                U2 = np.random.uniform()
-
-                if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and BFu.imag == 0:
-                    new_model = current # correct ??? 
-                    q[p - 1][0] = q_new
-                    QQ = Q
-                    j = 7
-                    QQ[p - 1:numbrk + 1][0] = q_new
-                    rejected = current
-                    w = 41
-                else:
-                    new_model = current
-                    QQ = q
-                    j = 8
-                    rejected = current
-                    w = 42
-            else:
-
-                if p == 1:
-                    if q[p - 1][0] == 1:
-                        a = np.random.uniform()
-
-                        if a <= 1/2:
-
-                            result1 = allclayton(u[:np.min(temp)], v[:np.min(temp)])
-                            result2 = allfrank(u[:np.min(temp)], v[:np.min(temp)])
-                            q_new = 2
-                        else:
-
-                            result1 = allclayton(u[:np.min(temp)], v[:np.min(temp)])
-                            result2 = allgumbel(u[:np.min(temp)], v[:np.min(temp)])
-                            q_new = 3
-                    else:
-                        if q[p - 1][0] == 2:
-                            a = np.random.uniform()
-
-                            if a <= 1/2:
-
-                                result1 = allfrank(u[:np.min(temp)], v[:np.min(temp)])
-                                result2 = allclayton(u[:np.min(temp)], v[:np.min(temp)])
-                                q_new = 1
-                            else:
-
-                                result1 = allfrank(u[:np.min(temp)], v[:np.min(temp)])
-                                result2 = allgumbel(u[:np.min(temp)], v[:np.min(temp)])
-                                q_new = 3
-                        else:
-
-                            a = np.random.uniform()
-
-                            if a <= 1/2:
-
-                                result1 = allgumbel(u[:np.min(temp)], v[:np.min(temp)])
-                                result2 = allclayton(u[:np.min(temp)], v[:np.min(temp)])
-                                q_new = 1
-                            else:
-
-                                result1 = allgumbel(u[:np.min(temp)], v[:np.min(temp)])
-                                result2 = allfrank(u[:np.min(temp)], v[:np.min(temp)])
-                                q_new = 2
-
-                    BFu = result2["BFu"] - result1["BFu"]
-
-                    if BFu.imag:
-                        ss = -2
-                        print("Error\n")
-
-                    U2 = np.random.uniform()
-
-                    if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and BFu.imag == 0:
-                        new_model = current # correct ??? 
-                        q[p - 1][0] = q_new
-                        QQ = Q
-                        QQ[p - 1:numbrk + 1][0] = q_new
-                        rejected = current
-                        w = 61
-                    else:
-                        new_model = current
-                        QQ = q
-                        rejected = current
-                        w = 62
+                    if P > p3:
+                        result = bayes_change(currentModel, u, v, numbrk, zita, chain)
+                        newModel = result["new_model"]
+                        rejected = result["rejected"]
+                        QQ = result["QQ"]
+                        w = result["w"]
+                        ss = result["ss"]
+                        W = 0.4
 
     else:
-        if np.any(current == np.zeros(shape=(l, 1))):
+        if LENGTH == numbrk and j == 0:
+            L = len(currentModel) - j
+            p1 = 1/3
+            p2 = 2/3
+            P = np.random.uniform()
 
-            if q == 2 * np.ones(shape=(numbrk+1, 1)):
-                a = np.random.uniform()
+            if P <= p1:
+                result = kill(currentModel, q, numbrk)
 
-                if a <= 1/2:
-
-                    result1 = allfrank(u[:L], v[:L])
-                    result2 = allclayton(u[:L], v[:L])
-                    q_new = 1
+                if result["s"][2] == 1:
+                    print("clay")
                 else:
-
-                    result1 = allfrank(u[:L], v[:L])
-                    result2 = allgumbel(u[:L], v[:L])
-                    q_new = 3
-            else:
-                if q == np.ones(shape=(numbrk+1, 1)):
-                    a = np.random.uniform()
-
-                    if a <= 1/2:
-
-                        result1 = allclayton(u[:L], v[:L])
-                        result2 = allfrank(u[:L], v[:L])
-                        q_new = 2
+                    if result["s"][2] == 2:
+                        result = bayes_kill_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain)
                     else:
+                        if result["s"][2] == 3:
+                            print("gumbel")
 
-                        result1 = allclayton(u[:L], v[:L])
-                        result2 = allgumbel(u[:L], v[:L])
-                        q_new = 3
-                else:
-                    if q == 3 * np.ones(shape=(numbrk + 1, 1)):
-                        a = np.random.uniform()
+                newModel = result["new_model"]
+                rejected = result["rejected"]
+                QQ = result["QQ"]
+                w = result["w"]
+                ss = result["ss"]
 
-                        if a <= 1/2:
+                W = 0.5
 
-                            result1 = allgumbel(u[:L], v[:L])
-                            result2 = allfrank(u[:L], v[:L])
-                            q_new = 2
-                        else:
-
-                            result1 = allgumbel(u[:L], v[:L])
-                            result2 = allclayton(u[:L], v[:L])
-                            q_new = 1
-
-            BFu = result2["BFu"] - result1["BFu"]
-
-            if BFu.imag:
-                ss = -2
-                print("Error\n")
-
-            U2 = np.random.uniform()
-
-            if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and BFu.imag == 0:
-                new_model = current
-                QQ = q_new * np.ones(shape=(numbrk+1, 1))
-                rejected = current
-                w = 49
             else:
-                new_model = current
-                QQ = q
-                rejected = current
-                w = 50
+
+                if P > p1 and P <= p2:
+
 
     result = {"new_model": new_model, "rejected": rejected, "w": w, "QQ": QQ, "ss": ss}
 
