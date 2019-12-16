@@ -1,7 +1,7 @@
 import numpy as np
 from itertools import combinations
 
-def birth(currentModel, numbrk, q):
+def kill(currentModel, numbrk, q):
 
     current = np.sort(currentModel)
     j = np.count_nonzero(currentModel == 0, axis=0)[0]
@@ -65,6 +65,6 @@ if __name__ == "__main__":
     q = np.array([[1], [0], [0], [0], [50]])
     numbrk = 0
 
-    result = birth(currentModel, numbrk, q)
+    result = kill(currentModel, numbrk, q)
 
     print(result)

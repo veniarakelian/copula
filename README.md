@@ -13,4 +13,4 @@ To-do
 - [x] kill.py
 - [x] bayes_change.py
 - [x] move_lapl.py
-- [] laplace_tourlou.py
+- [x] laplace_tourlou.py
