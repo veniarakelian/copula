@@ -14,7 +14,7 @@ To-do
 - [x] bayes_change.py
 - [x] move_lapl.py
 - [x] laplace_tourlou.py
-- []  favoredmodel.py
+- [x]  favoredmodel.py
 - []  averagekendall.py
 - []  averagevolatility.py
 - []  copulaprobability.py
