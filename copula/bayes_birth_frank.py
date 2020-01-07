@@ -157,6 +157,27 @@ def bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
                                     result2 = allfrank(u[new[place - 1]:new[place]], v[new[place - 1]:new[place]])
                                     R = R * 3/2
 
+                resultOld = allfrank(u[new[place - 2]:new[place + 1]], v[new[place - 2]:new[place + 1]])
+
+                BFu = result1["BFu"] + result2["BFu"] - resultOld["BFu"]
+
+                if BFu.imag:
+                    ss = -2
+                    print("Error\n")
+
+                U2 = np.random.uniform()
+
+                if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and BFu.imag == 0:
+                    new_model = new
+                    rejected = current
+                    QQ = Q
+                    w = 33
+                else:
+                    new_model = current
+                    rejected = new
+                    QQ = q
+                    w = 34
+
         result = {"new_model": new_model, "rejected": rejected, "w": w, "QQ": QQ, "ss": ss}
 
     else:
