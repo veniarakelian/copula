@@ -18,3 +18,8 @@ To-do
 - []  averagekendall.py
 - []  averagevolatility.py
 - []  copulaprobability.py
+
+Checked
+- [x] birth.py
+
+
