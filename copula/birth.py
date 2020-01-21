@@ -1,45 +1,53 @@
 import numpy as np
 from itertools import combinations
 from pandas import read_excel
+from numpy.linalg import inv
 
 def birth(currentModel, u, dist, numbrk, q):
 
     sample = len(u)
     j = np.count_nonzero(currentModel == 0)
     L = len(currentModel) - j
-
     new = np.sort(currentModel)
 
-    k = np.random.uniform(low=dist, high=sample - dist)
+    k = np.random.uniform(low=dist, high=sample - dist + 1)
     w = np.random.uniform()
 
-    if j < numbrk and not np.all(np.any(np.absolute(k * np.ones(shape=(L+j,1)) - new)) <= dist* np.ones(shape=(L+j,1))):
+    k = 290
+
+    if j < numbrk and not np.all(np.any(np.absolute(k * np.ones(shape=(L+j)) - new)  <= dist * np.ones(shape=(L+j,1)))):
         z = 1
         kn = k
-        new[j][0] = kn
+        new[j - 1] = kn
         bir = np.sort(new)
-        j2 = np.count_nonzero(currentModel == 0)
-
+        j2 = np.count_nonzero(new == 0)
+        d = np.argwhere(bir == kn) + 1
+        d = int(d)
         t2 = currentModel[np.sort(currentModel) != 0]
 
         if kn > np.max(t2):
-            Q = q[:numbrk - j2 - 2]
+
+            Q = np.ones(numbrk + 1)
+            Q[:numbrk - j2 - 1] = q[:numbrk - j2 - 1]
             temp = [comb for comb in combinations([1, 2, 3], 2)]
             j = 0
             G = 0
 
             while j < 3 and G == 0:
-                if np.all(temp[j:] != np.ones(shape=(1,2)) * q[:numbrk - j2 - 1]):
+
+                if np.all(temp[j] != np.ones(shape=(1,2)) * q[:numbrk - j2 - 1]):
                     G = 1
-                    temp[j:] = []
+                    del temp[j]
 
                 j += 1
 
             a = np.random.uniform()
-            row = np.random.uniform(low=1 , high=2)
+            row = np.random.randint(low=1 , high=3)
 
-            if a < 1/3:
-                Q[numbrk - j2 - 1: numbrk - j2 + 1] = temp[row:].H
+            row = 2
+            a = 0.26
+            if a < float(1)/3:
+                Q[numbrk - j2 - 1:numbrk - j2 + 1] = list(temp[row - 1])
             else:
                 if a >= 1/3 and a < 2/3:
                     Q[numbrk - j2 - 1: numbrk - j2 + 1] = np.fliplr(temp[row:]).H
@@ -47,9 +55,8 @@ def birth(currentModel, u, dist, numbrk, q):
                     if a >= 2/3:
                         Q[numbrk - j2 - 1: numbrk - j2 + 1] = np.ones(shape=(2,1)) * q[numbrk - j2][0]
 
-            Q[d - j2 + 1: numbrk + 1] = np.ones(shape=(1,1)) * Q[d- j2]
-            s = np.concatenate((q[numbrk - j2 - 1], Q[numbrk - j2 - 1: numbrk - j2 + 1]), axis=0)
-
+            Q[d - j2:numbrk + 1] = Q[d - j2]
+            s = np.concatenate((np.asarray([q[numbrk - j2 - 1]]), Q[numbrk - j2 - 1: numbrk - j2 + 1]), axis=0)
         else:
             if kn < np.min(t2):
                 Q = np.zeros(shape=(numbrk + 1, 1))
@@ -107,11 +114,11 @@ def birth(currentModel, u, dist, numbrk, q):
                 Q[d - j2 + 1: numbrk + 1] = q[d - j2:numbrk]
                 s = np.concatenate((q[d - j2 - 1], Q[d - j2 - 1:d - j2 + 1]), axis=0)
 
-    elif j == numbrk and not np.all(np.any(np.absolute(k * np.ones(shape=(L+j,1)) - new)) <= dist* np.ones(shape=(L+j,1))):
+    elif j == numbrk and not np.all(np.any(np.absolute(k * np.ones(shape=(L+j,1)) - new), axis=0) <= dist* np.ones(shape=(L+j,1))):
         z = 1
         kn = k
         new[j][0] = kn
-        bir = np.sort(new) 
+        bir = np.sort(new)
         temp = [comb for comb in combinations([1, 2, 3], 2)]
         j = 0
         G = 0
@@ -139,8 +146,7 @@ def birth(currentModel, u, dist, numbrk, q):
 
         s = np.concatenate((q[0], Q[:2]), axis=0)
 
-
-    elif np.all(np.any(np.absolute(k * np.ones(shape=(L+j,1)) - new)) <= dist* np.ones(shape=(L+j,1))):
+    elif np.all(np.any(np.absolute(k * np.ones(shape=(L+j,1)) - new), axis=0) <= dist* np.ones(shape=(L+j,1))):
         z = -3
         bir = currentModel
         kn = k
@@ -155,12 +161,12 @@ def birth(currentModel, u, dist, numbrk, q):
 # Test #
 if __name__ == "__main__":
 
-    df = read_excel("/home/petropoulakis/Desktop/xy.xlsx", sheet_name='Sheet1', header=None)
+    df = read_excel("/home/petropoulakis/Desktop/artificial_data_iosif.xlsx", sheet_name='Sheet1') #, header=None)
 
     u = []
 
     for index, row in df.iterrows():
-        u.append([row[0]])
+        u.append([float(row['u'])])
 
     u = np.asarray(u, dtype=np.float32)
 
@@ -168,8 +174,8 @@ if __name__ == "__main__":
     numbrk = 5
     currentModel = np.zeros(numbrk)
     currentModel[numbrk - 1] = 50
-
     q = np.ones(numbrk + 1)
+
     result = birth(currentModel, u, dist, numbrk, q)
 
     print(result)
