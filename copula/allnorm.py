@@ -1,7 +1,6 @@
 from scipy.stats import norm
 import numpy as np
-
-# TODO fminsearch + indeterminacy #
+from pandas import read_excel
 
 # Transform to normal distribution #
 def allnorm(x, y):
@@ -17,18 +16,27 @@ def allnorm(x, y):
     meany = phat2[0]
     sigmay = phat2[1]
 
+    # Save frequent  calculations #
+    x_minus_mean_x = x - meanx
+    y_minus_mean_y = y - meany
+    sigmax_pow_3 = sigmax ** 3
+    sigmax_pow_2 = sigmax ** 2
+    sigmay_pow_3 = sigmay ** 3
+    sigmay_pow_2 = sigmay ** 2
+    minus_sample = -sample
+
     # Calculate hessian matrix of log-likelihood #
-    hes_normx = np.array([[-sample / (sigmax**2), -2*np.sum(x - meanx) / (sigmax**3)],
-                           [-2*np.sum(x - meanx) / (sigmax**3), (sample / (sigmax**2)) - (3*np.sum((x - meanx)**2) / (sigmax**4))]
+    hes_normx = np.array([[minus_sample / (sigmax_pow_2), -2*np.sum(x_minus_mean_x) / (sigmax_pow_3)],
+                           [-2*np.sum(x_minus_mean_x) / (sigmax_pow_3), (sample / (sigmax_pow_2)) - (3*np.sum((x_minus_mean_x)**2) / (sigmax**4))]
                           ])
 
-    hes_normy = np.array([[-sample / (sigmay**2), -2*np.sum(y - meany) / (sigmay**3)],
-                           [-2*np.sum(x - meany) / (sigmay**3), (sample / (sigmay**2)) - (3*np.sum((y - meany)**2) / sigmay**4)]
+    hes_normy = np.array([[minus_sample / (sigmay_pow_2), -2*np.sum(y_minus_mean_y) / (sigmay_pow_3)],
+                           [-2*np.sum(x - meany) / (sigmay_pow_3), (sample / (sigmay_pow_2)) - (3*np.sum((y_minus_mean_y)**2) / sigmay**4)]
                           ])
 
     # Calculate cumulative of x and y #
-    u = norm.cdf((x - meanx) / sigmax, loc=0, scale=1)
-    v = norm.cdf((y - meany) / sigmay, loc=0, scale=1)
+    u = norm.cdf(x_minus_mean_x / sigmax, loc=0, scale=1)
+    v = norm.cdf(y_minus_mean_y / sigmay, loc=0, scale=1)
 
     # Fix output #
     zeros_tmp = np.zeros((2, 2))
@@ -50,20 +58,17 @@ def allnorm(x, y):
 # Test #
 if __name__ == "__main__":
 
-    # Mean of x: 0 + sigma: 0.1 #
-    x = np.array([[0.02408731], [-0.01143883], [-0.05187822],  [0.02934885], [-0.01896763], [-0.1215414],
-                  [0.1308636],  [-0.00410573], [-0.02659866], [-0.03115632],  [0.04915726],  [0.17748823],
-                  [-0.17470189], [-0.03623728],  [0.20036427], [-0.04309518], [-0.12871291],  [0.11440636],
-                  [-0.10981895], [-0.12949878],  [0.04235601], [-0.02640793],  [0.04188305], [-0.07620245],
-                  [0.10796665], [-0.10832592], [-0.05327015], [-0.02708483],  [0.07881769],  [0.10335654]
-                  ])
+    df = read_excel("/home/petropoulakis/Desktop/artificial_data_iosif.xlsx", sheet_name='Sheet1')
+    x = []
+    y = []
 
-    y = np.array([[1], [1]])
+    for index, row in df.iterrows():
+        x.append([float(row['x'])])
+        y.append([float(row['y'])])
 
     result = allnorm(x, y)
 
-    print("[ALLNORM]\n")
-    print("sigma\n", result["sigma"])
-    print("hess_norm\n", result["hes_norm"])
-    print("u\n", result["u"])
-    print("v\n", result["v"])
+    print(result['sigma'])
+    print(result['hes_norm'])
+    print(result['u'][:5])
+    print(result['v'][:5])

@@ -21,5 +21,6 @@ To-do
 
 Checked
 - [x] birth.py
+- [x] allnorm.py
 
 
