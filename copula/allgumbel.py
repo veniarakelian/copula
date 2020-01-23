@@ -4,7 +4,7 @@ from scipy.linalg import det, inv
 from math import pi
 import numpy as np
 from allnorm import allnorm
-from copulalib.copulalib import Copula
+from copulalib import Copula
 
 def allgumbel(x, y):
 

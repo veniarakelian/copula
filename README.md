@@ -1,7 +1,6 @@
 # Copula
 
 To-do
-- [x] allclayton.py
 - [x] allgumbel.py
 - [x] bayes_birth_only_frank.py
 - [x] bayes_birth_frank.py
@@ -20,5 +19,6 @@ Checked
 - [x] birth.py
 - [x] allnorm.py
 - [x] allfrank.py
+- [x] allclayton.py
 
 
