@@ -1,10 +1,9 @@
 from scipy.stats import norm, expon
-from scipy.optimize import minimize
 from scipy.linalg import det, inv
 from math import pi
 import numpy as np
 from allnorm import allnorm
-from copulalib.copulalib import Copula
+from copulalib import Copula
 from pandas import read_excel
 
 def allfrank(x, y):
@@ -24,15 +23,23 @@ def allfrank(x, y):
     ybar = y - sigma[3]
 
     # Calculate theta #
-    theta = Copula(x.flatten(),y.flatten(), family='frank').theta
+    theta = Copula(x.flatten(), y.flatten(), family='frank').theta
 
     # Find logLikelihood of theta #
     cop1 = logLikelihood(theta, sample, sigma, xbar, ybar, u, v)
 
-    # Calculate hessian of log-copula's density #
-    hes_cop = (-sample / (theta ** 2)) - (sample * np.exp(-theta) / ((2 - np.exp(-theta)) ** 2)) + 2 * np.sum(np.divide(((-np.exp(-theta)) - (np.multiply((u + v) ** 2,   np.exp(-theta * (u+v)))) + (np.multiply(u ** 2, np.exp(-theta * u))) + (np.multiply(v ** 2, np.exp(-theta * v)))), np.exp(-theta) - 1 + np.multiply(np.exp(-theta * u) - 1, np.exp(-theta*v) - 1))) + 2 * np.sum((np.divide(((-np.exp(-theta)) + (np.multiply(u + v,   np.exp(-theta * (u+v)))) - (np.multiply(u, np.exp(-theta * u))) - (np.multiply(v, np.exp(-theta * v)))), np.exp(-theta) - 1 + np.multiply(np.exp(-theta * u) - 1, np.exp((-theta*v) - 1)))) ** 2)
+    # Save frequent calculations #
+    minus_theta = -theta
+    minus_sample = -sample
+    u_plus_v = u + v
+    exp_of_minus_theta = np.exp(-theta)
+    exp_of_minus_theta_mult_v = np.exp(-theta * v)
+    exp_of_minus_theta_mult_u = np.exp(-theta * u)
 
-    s = -sample / hes_cop
+    # Calculate hessian of log-copula's density #
+    hes_cop = (minus_sample / (theta ** 2)) - (sample * exp_of_minus_theta / ((2 - exp_of_minus_theta) ** 2)) + 2 * np.sum(np.divide(((-exp_of_minus_theta) - (np.multiply((u_plus_v) ** 2, np.exp(-theta * (u_plus_v)))) + (np.multiply(u ** 2, exp_of_minus_theta_mult_u)) + (np.multiply(v ** 2, exp_of_minus_theta_mult_v))), exp_of_minus_theta - 1 + np.multiply(exp_of_minus_theta_mult_u - 1, exp_of_minus_theta_mult_v - 1))) + 2 * np.sum((np.divide(((-exp_of_minus_theta) + (np.multiply(u_plus_v, np.exp(-theta * (u_plus_v)))) - (np.multiply(u, exp_of_minus_theta_mult_u)) - (np.multiply(v, exp_of_minus_theta_mult_v))), exp_of_minus_theta - 1 + np.multiply(exp_of_minus_theta_mult_u - 1, np.exp((-theta*v) - 1)))) ** 2)
+
+    s = minus_sample / hes_cop
     hes_prior_cop = -1 / (s ** 2)
 
     if norm.pdf(theta, loc=0, scale=s) != 0:
@@ -71,7 +78,6 @@ if __name__ == "__main__":
 
     x = np.asarray(x, dtype=np.float32)
     y = np.asarray(y, dtype=np.float32)
-
 
     result = allfrank(x, y)
 
