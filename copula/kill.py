@@ -4,7 +4,7 @@ from itertools import combinations
 def kill(currentModel, numbrk, q):
 
     current = np.sort(currentModel)
-    j = np.count_nonzero(currentModel == 0, axis=0)[0]
+    j = np.count_nonzero(currentModel == 0)
     L = len(currentModel) - j
     l = len(currentModel)
 
@@ -15,7 +15,6 @@ def kill(currentModel, numbrk, q):
     Kn = kn + j
     w = np.random.uniform()
     Q = q
-
 
     if(Kn >= numbrk and L != 1):
         if(q[kn - 1][0] != q[kn][0]):
@@ -61,9 +60,9 @@ def kill(currentModel, numbrk, q):
 # Test #
 if __name__ == "__main__":
 
-    currentModel = np.array([[1], [0], [3],[4], [50]])
-    q = np.array([[1], [0], [0], [0], [50]])
-    numbrk = 0
+    numbrk = 5
+    q = np.ones(numbrk + 1)
+    currentModel = np.zeros(numbrk)
 
     result = kill(currentModel, numbrk, q)
 
