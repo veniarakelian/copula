@@ -25,13 +25,14 @@ def allclayton(x, y):
     # Calculate theta #
     theta = Copula(x.flatten(),y.flatten(), family='clayton').theta
 
-    # Find logLikelihood of theta #
-    cop1 = logLikelihood(theta, sample, sigma, xbar, ybar, u, v)
-
+    # Save frequent calculations #
     v_pow_minus_theta = v ** (-theta)
     u_pow_minus_theta = u ** (-theta)
     minus_sample = -sample
 
+    # Find logLikelihood of theta #
+    cop1 = (sample * np.log(1 + theta)) - ((theta + 1) * np.sum(np.log(u * v)))  - ((np.sum(np.log((u ** (-theta)) +  (v ** (-theta)) -1))) * (2 + (1/theta))) - (0.5 * sample * np.log(2 * pi * (sigma[0] ** 2))) - (0.5 * np.sum(xbar ** 2) / (sigma[0] ** 2)) - (0.5 * sample * np.log(2 * pi * (sigma[1] ** 2))) - (0.5 * np.sum(ybar ** 2) / (sigma[1] ** 2))
+    
     # Calculate hessian of log-copula's density #
     hes_cop = (minus_sample / ((theta + 1)**2)) -2 * (theta ** (-3) * np.sum(np.log(u_pow_minus_theta + v_pow_minus_theta - 1))) - 2*(theta ** (-2)) * np.sum(np.divide(np.multiply(np.log(u), u_pow_minus_theta) +  np.multiply(np.log(v), v_pow_minus_theta),u_pow_minus_theta + v_pow_minus_theta - 1)) - (2 + (1/theta))*np.sum(np.divide(np.multiply(np.multiply(np.log(u) ** 2, u ** (-theta)) + np.multiply(np.log(v) ** 2, v_pow_minus_theta), u_pow_minus_theta + v_pow_minus_theta - 1) - ((np.multiply((u_pow_minus_theta), np.log(u)) + np.multiply((v_pow_minus_theta), np.log(v)))** 2), (((u ** (-theta))  + (v ** (-theta)) - 1) ** 2)))
 
@@ -52,13 +53,6 @@ def allclayton(x, y):
     result = {"theta": theta, "cop1": cop1, "hes": hes, "hes_prior_cor": hes_prior_cop, "BF": BF, "BFu": BFu}
 
     return result
-
-# Log-likelihood #
-def logLikelihood(theta, sample, sigma, xbar, ybar, u, v):
-
-    lLikelihood =  (sample * np.log(1 + theta)) - ((theta + 1) * np.sum(np.log(u * v)))  - ((np.sum(np.log((u ** (-theta)) +  (v ** (-theta)) -1))) * (2 + (1/theta))) - (0.5 * sample * np.log(2 * pi * (sigma[0] ** 2))) - (0.5 * np.sum(xbar ** 2) / (sigma[0] ** 2)) - (0.5 * sample * np.log(2 * pi * (sigma[1] ** 2))) - (0.5 * np.sum(ybar ** 2) / (sigma[1] ** 2))
-
-    return lLikelihood
 
 # Test #
 if __name__ == "__main__":

@@ -8,7 +8,7 @@ def kill(currentModel, numbrk, q):
     L = len(currentModel) - j
     l = len(currentModel)
 
-    kn = np.random.randint(low=0, high=L - 1)
+    kn = np.random.randint(low=0, high=L + 1)
 
     currentModel[kn + j - 1:] = 0
     newModel = np.sort(currentModel)
@@ -17,7 +17,7 @@ def kill(currentModel, numbrk, q):
     Q = q
 
     if(Kn >= numbrk and L != 1):
-        if(q[kn - 1][0] != q[kn][0]):
+        if(q[kn - 1] != q[kn]):
             if(w <= 1/2):
                 Q[kn - 1: numbrk + 1] = q[kn]
             else:
@@ -25,7 +25,7 @@ def kill(currentModel, numbrk, q):
         else:
             Q[kn - 1: numbrk + 1] = q[kn - 1]
 
-        s = np.concatenate((q[kn - 1], Q[kn]), axis=0)
+        s = np.concatenate((np.asarray([q[kn - 1]]), np.asarray([Q[kn]])), axis=0)
 
     else:
         if(Kn == numbrk and L == 1):
