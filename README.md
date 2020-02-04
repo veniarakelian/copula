@@ -2,7 +2,6 @@
 
 To-do
 - [x] bayes_birth_only_frank.py
-- [x] bayes_birth_frank.py
 - [x] bayes_move_frank.py
 - [x] bayes_kill_frank.py
 - [x] kill.py
@@ -20,5 +19,6 @@ Checked
 - [x] allfrank.py
 - [x] allclayton.py
 - [x] allgumbel.py
+- [x] bayes_birth_frank.py
 
 

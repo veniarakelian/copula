@@ -94,9 +94,9 @@ if __name__ == "__main__":
     currentModel[numbrk - 1] = 50
 
     newModel = np.array([[0], [0], [0], [0], [45]])
-    kn =
+    kn = 1
     s = [1, 2, 3, 4]
-    q =
+    q = 1
     Q = 6
     zita = 0.8
 
