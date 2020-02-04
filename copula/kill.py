@@ -4,10 +4,14 @@ from itertools import combinations
 def kill(currentModel, numbrk, q):
 
     current = np.sort(currentModel)
-    j = np.count_nonzero(currentModel == 0)
-    L = len(currentModel) - j
-    l = len(currentModel)
+    j = np.count_nonzero(current == 0, axis=0)
+    L = len(current) - j
+    l = len(current)
 
+    print(current)
+    print(j)
+    print(L)
+    print(l)
     kn = np.random.randint(low=0, high=L + 1)
 
     currentModel[kn + j - 1:] = 0
@@ -61,8 +65,11 @@ def kill(currentModel, numbrk, q):
 if __name__ == "__main__":
 
     numbrk = 5
-    q = np.ones(numbrk + 1)
-    currentModel = np.zeros(numbrk)
+    q = [1, 2, 2, 3, 3, 3]
+    currentModel = np.zeros(numbrk, dtype=int)
+    currentModel[2] = 100
+    currentModel[3] = 180
+    currentModel[4] = 250    
 
     result = kill(currentModel, numbrk, q)
 

@@ -62,7 +62,7 @@ def bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
                 ss = -2
                 print("Error\n")
 
-            U2 = np.random.uniform()
+            U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
             if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and not BFu.imag:
                 new_model = new
@@ -110,7 +110,7 @@ def bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
                     ss = -2
                     print("Error\n")
 
-                U2 = np.random.uniform()
+                U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
                 if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and not BFu.imag:
                     new_model = new
@@ -158,7 +158,7 @@ def bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
                     ss = -2
                     print("Error\n")
                 
-                U2 = np.random.uniform()
+                U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
                 if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and not BFu.imag:
                     new_model = new
                     rejected = current
