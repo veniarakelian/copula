@@ -22,4 +22,6 @@ Checked
 - [x] bayes_birth_only_frank.py
 - [x] bayes_birth_gumbel.py
 - [x] bayes_birth_only_gumbel.py
+- [x] bayes_birth_clay.py
+- [x] bayes_birth_only_clay.py
 
