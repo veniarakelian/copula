@@ -1,8 +1,9 @@
 import numpy as np
 from allclayton import allclayton
 from allgumbel import allgumbel
-from pandas import read_excel
 from allfrank import allfrank
+from pandas import read_excel
+from bayes_birth_frank import *
 
 def bayes_birth_only_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
@@ -16,9 +17,9 @@ def bayes_birth_only_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chai
     l = len(current)
 
     ss = -1
-    R = 1/2
+    R = 1.0/2
 
-    if not np.all(current):
+    if not np.any(current):
 
         if(s[1] == 2 and s[2] == 2):
             result1 = allfrank(u[:max_new], v[:max_new])
@@ -28,34 +29,34 @@ def bayes_birth_only_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chai
             if(s[1] == 1 and s[2] == 2):
                 result1 = allclayton(u[:max_new], v[:max_new])
                 result2 = allfrank(u[max_new:L], v[max_new:L])
-                R = R * 3/2
+                R = R * 3.0/2
             else:
                 if(s[1] == 2 and s[2] == 1):
                     result1 = allfrank(u[:max_new], v[:max_new])
                     result2 = allclayton(u[max_new:L], v[max_new:L])
-                    R = R * 3/2
+                    R = R * 3.0/2
                 else:
                     if(s[1] == 2 and s[2] == 3):
                         result1 = allfrank(u[:max_new], v[:max_new])
                         result2 = allgumbel(u[max_new:L], v[max_new:L])
-                        R = R * 3/2
+                        R = R * 3.0/2
                     else:
                         if(s[1] == 3 and s[2] == 2):
                             result1 = allgumbel(u[:max_new], v[:max_new])
                             result2 = allfrank(u[max_new:L], v[max_new:L])
-                            R = R * 3/2
+                            R = R * 3.0/2
 
         resultOld = allfrank(u, v)
 
         BFu = result1["BFu"] + result2["BFu"] - resultOld["BFu"]
 
-        if BFu.imag:
+        if np.isnan(BFu):
             ss = -2
             print("Error\n")
 
         U2 = np.random.uniform()
 
-        if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and BFu.imag == 0:
+        if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and not np.isnan(BFu):
             new_model = new
             rejected = current
             QQ = Q
@@ -74,31 +75,32 @@ def bayes_birth_only_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chai
 
 # Test #
 if __name__ == "__main__":
-
-    df = read_excel("/home/petropoulakis/Desktop/xy.xlsx", sheet_name='Sheet1', header=None)
-
+    df = read_excel("/home/petropoulakis/Desktop/artificial_data_iosif.xlsx", sheet_name='Sheet1')
     u = []
     v = []
 
     for index, row in df.iterrows():
-        u.append([row[0]])
-        v.append([row[1]])
+        u.append([float(row['u'])])
+        v.append([float(row['v'])])
 
     u = np.asarray(u, dtype=np.float32)
     v = np.asarray(v, dtype=np.float32)
-
-    chain = 1
+    dist = 30
     numbrk = 5
+    kn = 137
+    s = [2, 1, 2]
+    q = [1, 2, 2, 3, 3, 3]
+    Q = [ 1, 2, 3, 2, 3, 3]
+    zita = 1
+    chain = 1
 
-    currentModel = np.zeros(numbrk)
-    currentModel[numbrk - 1] = 50
+    currentModel = np.zeros(numbrk, dtype=int)
 
-    newModel = np.array([[0], [0], [0], [0], [45]])
-    kn = 1
-    s = [1, 2, 3, 4]
-    q = 1
-    Q = 6
-    zita = 0.8
+    newModel = np.zeros(numbrk, dtype=int)
+    newModel[1] = 99
+    newModel[2] = 137
+    newModel[3] = 180
+    newModel[4] = 250
 
     result = bayes_birth_only_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain)
 

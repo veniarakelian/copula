@@ -2,7 +2,7 @@ import numpy as np
 from allfrank import allfrank
 from allclayton import allclayton
 from allgumbel import allgumbel
-from bayes_birth_only_frank import bayes_birth_only_frank
+from bayes_birth_only_frank import *
 from pandas import read_excel
 
 def bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
@@ -21,7 +21,7 @@ def bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
     ss = -1
 
     if j2 == 0:
-        R = 4/3
+        R = 4.0/3
     else:
         R = 1
 
@@ -38,22 +38,22 @@ def bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
                 if(s[1] == 1 and s[2] == 2):
                     result1 = allclayton(u[:min_new], v[:min_new])
                     result2 = allfrank(u[min_new:min_old], v[min_new:min_old])
-                    R = R * 3/2
+                    R = R * 3.0/2
                 else:
                     if(s[1] == 2 and s[2] == 1):
                         result1 = allfrank(u[:min_new], v[:min_new])
                         result2 = allclayton(u[min_new:min_old], v[min_new:min_old])
-                        R = R * 3/2
+                        R = R * 3.0/2
                     else:
                         if(s[1] == 2 and s[2] == 3):
                             result1 = allfrank(u[:min_new], v[:min_new])
                             result2 = allgumbel(u[min_new:min_old], v[min_new:min_old])
-                            R = R * 3/2
+                            R = R * 3.0/2
                         else:
                             if(s[1] == 3 and s[2] == 2):
                                 result1 = allgumbel(u[:min_new], v[:min_new])
                                 result2 = allfrank(u[min_new:min_old], v[min_new:min_old])
-                                R = R * 3/2
+                                R = R * 3.0/2
 
             resultOld = allfrank(u[:min_old], v[:min_old])
 
@@ -85,22 +85,22 @@ def bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
                     if(s[1] == 1 and s[2] == 2):
                         result1 = allclayton(u[max_old - 1:max_new], v[max_old - 1:max_new])
                         result2 = allfrank(u[max_new:L], v[max_new:L])
-                        R = R * 3/2
+                        R = R * 3.0/2
                     else:
                         if(s[1] == 2 and s[2] == 1):
                             result1 = allfrank(u[max_old - 1:max_new], v[max_old - 1:max_new])
                             result2 = allclayton(u[max_new:L], v[max_new:L])
-                            R = R * 3/2
+                            R = R * 3.0/2
                         else:
                             if(s[1] == 2 and s[2] == 3):
                                 result1 = allfrank(u[max_old - 1:max_new], v[max_old - 1:max_new])
                                 result2 = allgumbel(u[max_new:L], v[max_new:L])
-                                R = R * 3/2
+                                R = R * 3.0/2
                             else:
                                 if(s[1] == 3 and s[2] == 2):
                                     result1 = allgumbel(u[max_old:max_new], v[max_old:max_new])
                                     result2 = allfrank(u[max_new:L], v[max_new:L])
-                                    R = R * 3/2
+                                    R = R * 3.0/2
 
                 resultOld = allfrank(u[max_old - 1:L], v[max_old - 1:L])
 
@@ -134,22 +134,22 @@ def bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
                     if(s[1] == 1 and s[2] == 2):
                         result1 = allclayton(u[new[place - 2]:new[place - 1] + 1], v[new[place - 2]:new[place - 1] + 1])
                         result2 = allfrank(u[new[place - 1]:new[place] + 1], v[new[place - 1]:new[place] + 1])
-                        R = R * 3/2
+                        R = R * 3.0/2
                     else:
                         if(s[1] == 2 and s[2] == 1):
                             result1 = allfrank(u[new[place - 2]:new[place - 1] + 1], v[new[place - 2]:new[place - 1] + 1])
                             result2 = allclayton(u[new[place - 1]:new[place] + 1], v[new[place - 1]:new[place] + 1])
-                            R = R * 3/2
+                            R = R * 3.0/2
                         else:
                             if(s[1] == 2 and s[2] == 3):
                                 result1 = allfrank(u[new[place - 2]:new[place - 1] + 1], v[new[place - 2]:new[place - 1] + 1])
                                 result2 = allgumbel(u[new[place - 1]:new[place] + 1], v[new[place - 1]:new[place] + 1])
-                                R = R * 3/2
+                                R = R * 3.0/2
                             else:
                                 if(s[1] == 3 and s[2] == 2):
                                     result1 = allgumbel(u[new[place - 2]:new[place - 1] + 1], v[new[place - 2]:new[place - 1] + 1])
                                     result2 = allfrank(u[new[place - 1]:new[place] + 1], v[new[place - 1]:new[place] + 1])
-                                    R = R * 3/2
+                                    R = R * 3.0/2
 
                 resultOld = allfrank(u[new[place - 2]:new[place] + 1], v[new[place - 2]:new[place] + 1])
 
