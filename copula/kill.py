@@ -7,55 +7,51 @@ def kill(currentModel, numbrk, q):
     j = np.count_nonzero(current == 0, axis=0)
     L = len(current) - j
     l = len(current)
-
-    print(current)
-    print(j)
-    print(L)
-    print(l)
-    kn = np.random.randint(low=0, high=L + 1)
-
-    currentModel[kn + j - 1:] = 0
-    newModel = np.sort(currentModel)
+    
+    kn = np.random.randint(low=1, high=L + 1)
+    current[kn + j - 1] = 0
+    newModel = np.sort(current)
     Kn = kn + j
-    w = np.random.uniform()
-    Q = q
+    w = np.random.uniform(low=np.nextafter(0.0, 1.0))
+    Q = q[:]
 
     if(Kn >= numbrk and L != 1):
         if(q[kn - 1] != q[kn]):
-            if(w <= 1/2):
-                Q[kn - 1: numbrk + 1] = q[kn]
+            if(w <= 1.0/2):
+                Q[kn - 1: numbrk + 1] = q[kn] * np.ones(shape=(numbrk + 1 - kn))
             else:
-                Q[kn - 1: numbrk + 1] = q[kn - 1]
-        else:
-            Q[kn - 1: numbrk + 1] = q[kn - 1]
+                Q[kn - 1: numbrk + 1] = q[kn - 1] * np.ones(shape=(numbrk + 1 - kn))
 
-        s = np.concatenate((np.asarray([q[kn - 1]]), np.asarray([Q[kn]])), axis=0)
+        else:
+            Q[kn - 1: numbrk + 1] = q[kn - 1] * np.ones(shape=(numbrk + 1 - kn))
+
+        s = np.concatenate((np.asarray([q[kn - 1]]), np.asarray([q[kn]]), np.asarray([Q[kn]])), axis=0)
 
     else:
         if(Kn == numbrk and L == 1):
-            if(q[0][0] != q[1][0]):
-                Q = q
+            if q[0] != q[1]:
+                Q = q[:]
             else:
-                if(w <= 1/2):
-                    Q = q[0][0] * np.ones(shape=(numbrk + 1,1))
+                if(w <= 1.0/2):
+                    Q = q[0] * np.ones(shape=(numbrk + 1))
                 else:
-                    Q = q[1][0] * np.ones(shape=(numbrk + 1,1))
+                    Q = q[1] * np.ones(shape=(numbrk + 1))
 
-            s = np.concatenate((q[0], q[1], Q[0]), axis=0)
+            s = np.concatenate((np.asarray([q[0]]), np.asarray([q[1]]), np.asarray([Q[0]])), axis=0)
 
         else:
-            temp = Q[kn - 1]
-            Q[kn - 1] = []
-            if q[kn][0] != q[kn - 1][0]:
-                if w <= 1/2:
+            del Q[kn - 1]
+
+            if q[kn] != q[kn - 1]:
+                if w <= 1.0/2:
                     Q[kn - 1] = q[kn]
                 else:
                     Q[kn - 1] = q[kn - 1]
             else:
                 Q[kn - 1] = q[kn - 1]
 
-            Q[l] = q[l]
-            s = np.concatenate((q[kn - 1], q[kn], Q[kn - 1]), axis=0)
+            Q.append(q[l])
+            s = np.concatenate((np.asarray([q[kn - 1]]), np.asarray([q[kn]]), np.asarray([Q[kn - 1]])), axis=0)
 
     result = {"newModel": newModel, "Kn": Kn, "s": s, "Q": Q, "q": q}
 
