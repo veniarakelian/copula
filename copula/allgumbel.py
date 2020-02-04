@@ -29,7 +29,6 @@ def allgumbel(x, y):
 
     # Calculate theta #
     theta = Copula(x.flatten(),y.flatten(), family='gumbel').theta
-    theta = 2.711597926774898
 
     # Save frequent calculations #
     lv_pow_theta = lv ** theta
@@ -53,7 +52,10 @@ def allgumbel(x, y):
 
     log_prior = np.log(norm.pdf(theta, loc=0, scale=s)) + np.log(expon.pdf(sigma[0], scale=1)) + np.log(expon.pdf(sigma[1], scale=1))
     BF = 1
-    BFu = cop1 + log_prior + 0.5 * np.log(-1/(det(hes_norm) * (hes_cop - hes_prior_cop)))
+    if -1/(det(hes_norm) * (hes_cop - hes_prior_cop)) < 0:
+        BFu = np.array([np.nan + 2j])
+    else:
+        BFu = cop1 + log_prior + 0.5 * np.log(-1/(det(hes_norm) * (hes_cop - hes_prior_cop)))
     hes = det(hes_norm) * (hes_cop - hes_prior_cop)
     
     result = {"theta": theta, "cop1": cop1, "hes": hes, "hes_prior_cor": hes_prior_cop, "BF": BF, "BFu": BFu}

@@ -3,9 +3,9 @@ from allclayton import allclayton
 from allgumbel import allgumbel
 from allfrank import allfrank
 from pandas import read_excel
-from bayes_birth_frank import *
+from bayes_birth_gumbel import *
 
-def bayes_birth_only_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
+def bayes_birth_only_gumbel(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
     current = np.sort(currentModel)
     new = np.sort(newModel)
@@ -21,18 +21,18 @@ def bayes_birth_only_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chai
 
     if not np.any(current):
 
-        if(s[1] == 2 and s[2] == 2):
-            result1 = allfrank(u[:max_new], v[:max_new])
-            result2 = allfrank(u[max_new:L], v[max_new:L])
+        if(s[1] == 3 and s[2] == 3):
+            result1 = allgumbel(u[:max_new], v[:max_new])
+            result2 = allgumbel(u[max_new:L], v[max_new:L])
             R = R * 3
         else:
-            if(s[1] == 1 and s[2] == 2):
+            if(s[1] == 1 and s[2] == 3):
                 result1 = allclayton(u[:max_new], v[:max_new])
-                result2 = allfrank(u[max_new:L], v[max_new:L])
+                result2 = allgumbel(u[max_new:L], v[max_new:L])
                 R = R * 3.0/2
             else:
-                if(s[1] == 2 and s[2] == 1):
-                    result1 = allfrank(u[:max_new], v[:max_new])
+                if(s[1] == 3 and s[2] == 1):
+                    result1 = allgumbel(u[:max_new], v[:max_new])
                     result2 = allclayton(u[max_new:L], v[max_new:L])
                     R = R * 3.0/2
                 else:
@@ -46,26 +46,25 @@ def bayes_birth_only_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chai
                             result2 = allfrank(u[max_new:L], v[max_new:L])
                             R = R * 3.0/2
 
-        resultOld = allfrank(u, v)
+        resultOld = allgumbel(u, v)
 
         BFu = result1["BFu"] + result2["BFu"] - resultOld["BFu"]
-
+        
         if BFu.imag:
             ss = -2
             print("Error\n")
 
         U2 = np.random.uniform()
-
         if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and not BFu.imag:
             new_model = new
             rejected = current
             QQ = Q
-            w = 37
+            w = 35
         else:
             new_model = current
             rejected = new
             QQ = q
-            w = 38
+            w = 36
 
         result = {"new_model": new_model, "rejected": rejected, "w": w, "QQ": QQ, "ss": ss}
     else:
@@ -88,7 +87,7 @@ if __name__ == "__main__":
     dist = 30
     numbrk = 5
     kn = 137
-    s = [2, 1, 2]
+    s = [2, 3, 2]
     q = [1, 2, 2, 3, 3, 3]
     Q = [ 1, 2, 3, 2, 3, 3]
     zita = 1
@@ -102,6 +101,6 @@ if __name__ == "__main__":
     newModel[3] = 180
     newModel[4] = 250
 
-    result = bayes_birth_only_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain)
+    result = bayes_birth_only_gumbel(currentModel, newModel, kn, u, v, s, q, Q, zita, chain)
 
     print(result)

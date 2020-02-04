@@ -20,5 +20,6 @@ Checked
 - [x] allgumbel.py
 - [x] bayes_birth_frank.py
 - [x] bayes_birth_only_frank.py
-
+- [x] bayes_birth_gumbel.py
+- [x] bayes_birth_only_gumbel.py
 
