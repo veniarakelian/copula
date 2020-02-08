@@ -1,7 +1,6 @@
 # Copula
 
 To-do
-- [x] bayes_move_frank.py
 - [x] bayes_change.py
 - [x] move_lapl.py
 - [x] laplace_tourlou.py
@@ -34,3 +33,4 @@ Checked
 - [x] bayes_kill_max_frank.py
 - [x] bayes_kill_max_clay.py
 - [x] bayes_kill_max_gumbel.py
+- [x] bayes_move_frank.py
