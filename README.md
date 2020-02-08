@@ -29,3 +29,4 @@ Checked
 - [x] bayes_birth_only_clay.py
 - [x] kill.py
 - [x] bayes_kill_frank.py
+- [x] bayes_kill_clay.py
