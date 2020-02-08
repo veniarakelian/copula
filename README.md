@@ -32,3 +32,4 @@ Checked
 - [x] bayes_kill_clay.py
 - [x] bayes_kill_gumbel.py
 - [x] bayes_kill_max_frank.py
+- [x] bayes_kill_max_clay.py
