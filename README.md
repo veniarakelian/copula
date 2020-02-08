@@ -30,3 +30,4 @@ Checked
 - [x] kill.py
 - [x] bayes_kill_frank.py
 - [x] bayes_kill_clay.py
+- [x] bayes_kill_gumbel.py
