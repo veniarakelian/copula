@@ -49,6 +49,10 @@ def move_lapl(currentModel, u, v, dist, numbrk, q):
                 else:
                     s = q[pick - 1]
 
+    if z == True:
+        z = 1
+    else:
+        z = 0
     Q = q
     new_model = np.sort(current)
 

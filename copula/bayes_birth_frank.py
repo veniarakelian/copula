@@ -13,8 +13,8 @@ def bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
     # Find index of last occurrence of 0 #
     j2 = np.count_nonzero(new == 0, axis=0)
     t2 = new[new != 0]
-    min_new = np.min(t2)
-    max_new = np.max(t2)
+    min_new = int(np.min(t2))
+    max_new = int(np.max(t2))
     L = len(u)
     l = len(current)
 

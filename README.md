@@ -1,15 +1,13 @@
 # Copula
 
 To-do
-- [x] laplace_tourlou.py
 - [x]  favoredmodel.py
 - []  averagekendall.py
 - []  averagevolatility.py
 - []  copulaprobability.py
+- []  RJMCM.py
 
 extra:
-- copy
-- rand 
 - birth
 
 Checked
@@ -36,3 +34,4 @@ Checked
 - [x] bayes_move_gumbel.py
 - [x] bayes_change.py
 - [x] move_lapl.py
+- [x] laplace_tourlou.py

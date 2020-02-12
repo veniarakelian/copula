@@ -10,8 +10,8 @@ def bayes_kill_gumbel(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
     new = np.sort(newModel)
 
     t1 = current[current != 0]
-    min_old = np.min(t1)
-    max_old = np.max(t1)
+    min_old = int(np.min(t1))
+    max_old = int(np.max(t1))
     L = len(u)
     l = len(new)
     ss = -1
