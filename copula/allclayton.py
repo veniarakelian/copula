@@ -1,3 +1,4 @@
+from __future__ import division 
 from scipy.stats import norm, expon
 from scipy.linalg import det, inv
 from math import pi

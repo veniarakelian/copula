@@ -1,3 +1,4 @@
+from __future__ import division 
 import numpy as np
 from allfrank import allfrank
 from pandas import read_excel

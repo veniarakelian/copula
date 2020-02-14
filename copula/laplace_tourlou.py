@@ -1,3 +1,4 @@
+from __future__ import division
 import numpy as np
 from bayes_change import bayes_change
 from birth import birth

@@ -1,3 +1,4 @@
+from __future__ import division 
 from scipy.stats import norm
 import numpy as np
 from pandas import read_excel
