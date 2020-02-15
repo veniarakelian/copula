@@ -13,9 +13,9 @@ Checked
 - [x] bayes_birth_clay.py
 - [x] bayes_birth_only_clay.py
 - [x] kill.py
-- [] bayes_kill_frank.py
-- [] bayes_kill_clay.py
-- [] bayes_kill_gumbel.py
+- [x] bayes_kill_frank.py
+- [x] bayes_kill_clay.py
+- [x] bayes_kill_gumbel.py
 - [] bayes_kill_max_frank.py
 - [] bayes_kill_max_clay.py
 - [] bayes_kill_max_gumbel.py

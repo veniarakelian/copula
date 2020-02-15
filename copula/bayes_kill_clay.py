@@ -55,7 +55,6 @@ def bayes_kill_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
             BFu = resultOld["BFu"] - result1["BFu"] - result2["BFu"]
             if BFu.imag:
                 ss = -2
-                print("Error\n")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
             
@@ -103,7 +102,6 @@ def bayes_kill_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
                 if BFu.imag:
                     ss = -2
-                    print("Error\n")
             
                 U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -144,13 +142,12 @@ def bayes_kill_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
                                     result2 = allgumbel(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
                                     R = R * 2/3
 
-                resultOld = allclayton(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
+                resultOld = allclayton(u[current[place - 2] - 1:current[place]], v[current[place - 2] - 1:current[place]])
 
                 BFu = resultOld["BFu"] - result1["BFu"] - result2["BFu"]
 
                 if BFu.imag:
                     ss = -2
-                    print("Error\n")
 
                 U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -172,7 +169,7 @@ def bayes_kill_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
             if(s[1] == 1 and s[2] == 1):
                 result1 = allclayton(u[:max_old], v[:max_old])
                 result2 = allclayton(u[max_old:L], v[max_old:L])
-                R = R * 1.0/3
+                R = R * 1/3
             else:
                 if(s[1] == 1 and s[2] == 2):
                     result1 = allclayton(u[:max_old], v[:max_old])
@@ -200,7 +197,6 @@ def bayes_kill_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
             
             if BFu.imag:
                 ss = -2
-                print("Error\n")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
