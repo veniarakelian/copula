@@ -4,7 +4,7 @@ from allclayton import allclayton
 from allgumbel import allgumbel
 from allfrank import allfrank
 from pandas import read_excel
-from bayes_birth_clay import *
+from bayes_birth_clay import bayes_birth_clay
 
 def bayes_birth_only_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
@@ -53,7 +53,6 @@ def bayes_birth_only_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain
 
         if BFu.imag:
             ss = -2
-            print("Error\n")
 
         U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -61,16 +60,16 @@ def bayes_birth_only_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain
             new_model = new
             rejected = current
             QQ = Q
-            w = 37
+            w = 35
         else:
             new_model = current
             rejected = new
             QQ = q
-            w = 38
+            w = 36
 
         result = {"new_model": new_model, "rejected": rejected, "w": w, "QQ": QQ, "ss": ss}
     else:
-        result =  bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain)
+        result =  bayes_birth_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain)
 
     return result
 

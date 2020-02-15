@@ -9,9 +9,9 @@ Checked
 - [x] bayes_birth_frank.py
 - [x] bayes_birth_only_frank.py
 - [x] bayes_birth_gumbel.py
-- [] bayes_birth_only_gumbel.py
-- [] bayes_birth_clay.py
-- [] bayes_birth_only_clay.py
+- [x] bayes_birth_only_gumbel.py
+- [x] bayes_birth_clay.py
+- [x] bayes_birth_only_clay.py
 - [] kill.py
 - [] bayes_kill_frank.py
 - [] bayes_kill_clay.py

@@ -4,7 +4,7 @@ from allclayton import allclayton
 from allgumbel import allgumbel
 from allfrank import allfrank
 from pandas import read_excel
-from bayes_birth_gumbel import *
+from bayes_birth_gumbel import bayes_birth_gumbel
 
 def bayes_birth_only_gumbel(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
@@ -53,7 +53,6 @@ def bayes_birth_only_gumbel(currentModel, newModel, kn, u, v, s, q, Q, zita, cha
         
         if BFu.imag:
             ss = -2
-            print("Error\n")
 
         U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
         if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and not BFu.imag:
@@ -69,7 +68,7 @@ def bayes_birth_only_gumbel(currentModel, newModel, kn, u, v, s, q, Q, zita, cha
 
         result = {"new_model": new_model, "rejected": rejected, "w": w, "QQ": QQ, "ss": ss}
     else:
-        result =  bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain)
+        result =  bayes_birth_gumbel(currentModel, newModel, kn, u, v, s, q, Q, zita, chain)
 
     return result
 
