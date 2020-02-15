@@ -6,7 +6,7 @@ Checked
 - [] allfrank.py
 - [] allclayton.py
 - [] allgumbel.py
-- [] bayes_birth_frank.py
+- [x] bayes_birth_frank.py
 - [] bayes_birth_only_frank.py
 - [] bayes_birth_gumbel.py
 - [] bayes_birth_only_gumbel.py
