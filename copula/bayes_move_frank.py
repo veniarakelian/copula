@@ -31,7 +31,6 @@ def bayes_move_frank(currentModel, newModel, kn, u, v, q, zita, chain):
         BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
         if BFu.imag:
             s = -2
-            print("error\n")
 
         U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -54,7 +53,6 @@ def bayes_move_frank(currentModel, newModel, kn, u, v, q, zita, chain):
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
                 s = -2
-                print("error")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -76,7 +74,6 @@ def bayes_move_frank(currentModel, newModel, kn, u, v, q, zita, chain):
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
                 s = -2
-                print("error")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -98,7 +95,6 @@ def bayes_move_frank(currentModel, newModel, kn, u, v, q, zita, chain):
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
                 s = -2
-                print("error")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -120,7 +116,6 @@ def bayes_move_frank(currentModel, newModel, kn, u, v, q, zita, chain):
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
                 s = -2
-                print("error")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -135,14 +130,13 @@ def bayes_move_frank(currentModel, newModel, kn, u, v, q, zita, chain):
 
         elif min_new == min_old and max_old == max_old:
             result1 = allfrank(u[t2[kn - 2] - 1:t2[kn - 1]], v[t2[kn - 2] - 1:t2[kn - 1]])
-            result2 = allfrank(u[t2[kn - 1]:t2[kn]], v[t2[kn - 1]:t2[kn]])
+            result2 = allfrank(u[t2[kn - 1] - 1:t2[kn]], v[t2[kn - 1] - 1:t2[kn]])
             resultOld1 = allfrank(u[t1[kn - 2] - 1:t1[kn - 1]], v[t1[kn - 2] - 1:t1[kn - 1]])
-            resultOld2 = allfrank(u[t1[kn - 1]:t1[kn]], v[t1[kn  - 1]:t1[kn]])
+            resultOld2 = allfrank(u[t1[kn - 1] - 1:t1[kn]], v[t1[kn  - 1] - 1:t1[kn]])
 
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
                 s = -2
-                print("error")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 

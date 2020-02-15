@@ -30,7 +30,6 @@ def bayes_move_clay(currentModel, newModel, kn, u, v, q, zita, chain):
         BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
         if BFu.imag:
             s = -2
-            print("error\n")
 
         U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -53,7 +52,6 @@ def bayes_move_clay(currentModel, newModel, kn, u, v, q, zita, chain):
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
                 s = -2
-                print("error")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -75,7 +73,6 @@ def bayes_move_clay(currentModel, newModel, kn, u, v, q, zita, chain):
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
                 s = -2
-                print("error")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -97,7 +94,6 @@ def bayes_move_clay(currentModel, newModel, kn, u, v, q, zita, chain):
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
                 s = -2
-                print("error")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -119,7 +115,6 @@ def bayes_move_clay(currentModel, newModel, kn, u, v, q, zita, chain):
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
                 s = -2
-                print("error")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -133,15 +128,14 @@ def bayes_move_clay(currentModel, newModel, kn, u, v, q, zita, chain):
                 w = 10
 
         elif min_new == min_old and max_old == max_old:
-            result1 = allclayton(u[t2[kn - 2] - 1:t2[kn - 1]], v[t2[kn - 2] - 1:t2[kn - 1]])
-            result2 = allclayton(u[t2[kn - 1]:t2[kn]], v[t2[kn - 1]:t2[kn]])
-            resultOld1 = allclayton(u[t1[kn - 2] - 1:t1[kn - 1]], v[t1[kn - 2] - 1:t1[kn - 1]])
-            resultOld2 = allclayton(u[t1[kn - 1]:t1[kn]], v[t1[kn  - 1]:t1[kn]])
+            result1 = allclay(u[t2[kn - 2] - 1:t2[kn - 1]], v[t2[kn - 2] - 1:t2[kn - 1]])
+            result2 = allclay(u[t2[kn - 1] - 1:t2[kn]], v[t2[kn - 1] - 1:t2[kn]])
+            resultOld1 = allclay(u[t1[kn - 2] - 1:t1[kn - 1]], v[t1[kn - 2] - 1:t1[kn - 1]])
+            resultOld2 = allclay(u[t1[kn - 1] - 1:t1[kn]], v[t1[kn  - 1] - 1:t1[kn]])
 
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
                 s = -2
-                print("error")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 

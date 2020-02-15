@@ -15,7 +15,7 @@ def bayes_move_gumbel(currentModel, newModel, kn, u, v, q, zita, chain):
     max_old = np.max(t1)
     min_new = np.min(t2)
     max_new = np.max(t2)
-    print(max_new)
+    
     L = len(u)
     l = len(current)
 
@@ -32,7 +32,6 @@ def bayes_move_gumbel(currentModel, newModel, kn, u, v, q, zita, chain):
         BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
         if BFu.imag:
             s = -2
-            print("error\n")
 
         U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -55,7 +54,6 @@ def bayes_move_gumbel(currentModel, newModel, kn, u, v, q, zita, chain):
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
                 s = -2
-                print("error")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -77,7 +75,6 @@ def bayes_move_gumbel(currentModel, newModel, kn, u, v, q, zita, chain):
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
                 s = -2
-                print("error")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -99,7 +96,6 @@ def bayes_move_gumbel(currentModel, newModel, kn, u, v, q, zita, chain):
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
                 s = -2
-                print("error")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -121,7 +117,6 @@ def bayes_move_gumbel(currentModel, newModel, kn, u, v, q, zita, chain):
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
                 s = -2
-                print("error")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -136,14 +131,13 @@ def bayes_move_gumbel(currentModel, newModel, kn, u, v, q, zita, chain):
 
         elif min_new == min_old and max_old == max_old:
             result1 = allgumbel(u[t2[kn - 2] - 1:t2[kn - 1]], v[t2[kn - 2] - 1:t2[kn - 1]])
-            result2 = allgumbel(u[t2[kn - 1]:t2[kn]], v[t2[kn - 1]:t2[kn]])
+            result2 = allgumbel(u[t2[kn - 1] - 1:t2[kn]], v[t2[kn - 1] - 1:t2[kn]])
             resultOld1 = allgumbel(u[t1[kn - 2] - 1:t1[kn - 1]], v[t1[kn - 2] - 1:t1[kn - 1]])
-            resultOld2 = allgumbel(u[t1[kn - 1]:t1[kn]], v[t1[kn  - 1]:t1[kn]])
+            resultOld2 = allgumbel(u[t1[kn - 1] - 1:t1[kn]], v[t1[kn  - 1] - 1:t1[kn]])
 
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
                 s = -2
-                print("error")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
