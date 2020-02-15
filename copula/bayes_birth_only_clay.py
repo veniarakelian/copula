@@ -4,7 +4,7 @@ from allclayton import allclayton
 from allgumbel import allgumbel
 from allfrank import allfrank
 from pandas import read_excel
-from bayes_birth_clay import bayes_birth_clay
+from bayes_birth_clay import *
 
 def bayes_birth_only_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 

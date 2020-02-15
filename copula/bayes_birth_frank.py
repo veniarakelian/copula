@@ -3,7 +3,7 @@ import numpy as np
 from allfrank import allfrank
 from allclayton import allclayton
 from allgumbel import allgumbel
-from bayes_birth_only_frank import bayes_birth_only_frank
+from bayes_birth_only_frank import *
 from pandas import read_excel
 
 def bayes_birth_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):

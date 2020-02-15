@@ -26,7 +26,7 @@ def kill(currentModel, numbrk, q):
         else:
             Q[kn - 1: numbrk + 1] = q[kn - 1] * np.ones(shape=(numbrk + 2 - kn),dtype=int)
 
-        s = np.concatenate((np.asarray([q[kn - 1]]), np.asarray([q[kn]]), np.asarray([Q[kn]])), axis=0)
+        s = np.concatenate((np.asarray([q[kn - 1]]), np.asarray([q[kn]]), np.asarray([Q[kn-1]])), axis=0)
 
     else:
         if(Kn == numbrk and L == 1):
@@ -50,7 +50,7 @@ def kill(currentModel, numbrk, q):
                     Q[kn - 1] = q[kn - 1]
             else:
                 Q[kn - 1] = q[kn - 1]
-
+            
             Q = np.append(Q, q[l])
             s = np.concatenate((np.asarray([q[kn - 1]]), np.asarray([q[kn]]), np.asarray([Q[kn - 1]])), axis=0)
 
