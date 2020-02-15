@@ -11,14 +11,13 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
     l = len(currentModel)
     L = len(u)
 
-    R = 1.0/3
+    R = 1/3
     ss = -1
     q_new = 0
     
     if np.count_nonzero(current) != 0:
 
         temp = current[current != 0]
-        temp = temp.astype(int)
         z = temp.shape[0]
         p = np.random.randint(low=1, high=z+2)
         
@@ -28,7 +27,7 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
             if q[p - 1] == 1:
                 a = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
-                if a <= 1.0/2:
+                if a <= 1/2:
 
                     result1 = allclayton(u[lower - 1:upper], v[lower - 1:upper])
                     result2 = allfrank(u[lower - 1:upper], v[lower - 1:upper])
@@ -42,7 +41,7 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
                 if q[p - 1] == 2:
                     a = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
-                    if a <= 1.0/2:
+                    if a <= 1/2:
 
                         result1 = allfrank(u[lower - 1:upper], v[lower - 1:upper])
                         result2 = allclayton(u[lower - 1:upper], v[lower - 1:upper])
@@ -56,7 +55,7 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
 
                     a = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
-                    if a <= 1.0/2:
+                    if a <= 1/2:
 
                         result1 = allgumbel(u[lower - 1:upper], v[lower - 1:upper])
                         result2 = allfrank(u[lower - 1:upper], v[lower - 1:upper])
@@ -91,48 +90,48 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
                 if q[p - 1] == 1:
                     a = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
-                    if a <= 1.0/2:
+                    if a <= 1/2:
 
-                        result1 = allclayton(u[int(np.max(temp)) - 1:L], v[int(np.max(temp)) - 1:L])
-                        result2 = allfrank(u[int(np.max(temp)) - 1:L], v[int(np.max(temp)) - 1:L])
+                        result1 = allclayton(u[np.max(temp) - 1:L], v[np.max(temp) - 1:L])
+                        result2 = allfrank(u[np.max(temp) - 1:L], v[np.max(temp) - 1:L])
                         q_new = 2
                         j = 0
                     else:
 
-                        result1 = allclayton(u[int(np.max(temp)) - 1:L], v[int(np.max(temp)) - 1:L])
-                        result2 = allgumbel(u[int(np.max(temp)) - 1:L], v[int(np.max(temp)) - 1:L])
+                        result1 = allclayton(u[np.max(temp) - 1:L], v[np.max(temp) - 1:L])
+                        result2 = allgumbel(u[np.max(temp) - 1:L], v[np.max(temp) - 1:L])
                         q_new = 3
                         j = 1
                 else:
                     if q[p - 1] == 2:
                         a = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
-                        if a <= 1.0/2:
+                        if a <= 1/2:
 
-                            result1 = allfrank(u[int(np.max(temp)) - 1:L], v[int(np.max(temp)) - 1:L])
-                            result2 = allclayton(u[int(np.max(temp)) - 1:L], v[int(np.max(temp)) - 1:L])
+                            result1 = allfrank(u[np.max(temp) - 1:L], v[np.max(temp) - 1:L])
+                            result2 = allclayton(u[np.max(temp) - 1:L], v[np.max(temp) - 1:L])
                             q_new = 1
                             j = 3
                         else:
 
-                            result1 = allfrank(u[int(np.max(temp)) - 1:L], v[int(np.max(temp)) - 1:L])
-                            result2 = allgumbel(u[int(np.max(temp)) - 1:L], v[int(np.max(temp)) - 1:L])
+                            result1 = allfrank(u[np.max(temp) - 1:L], v[np.max(temp) - 1:L])
+                            result2 = allgumbel(u[np.max(temp) - 1:L], v[np.max(temp) - 1:L])
                             q_new = 3
                             j = 4
                     else:
 
                         a = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
-                        if a <= 1.0/2:
+                        if a <= 1/2:
 
-                            result1 = allgumbel(u[int(np.max(temp)) - 1:L], v[int(np.max(temp)) - 1:L])
-                            result2 = allclayton(u[int(np.max(temp)) - 1:L], v[int(np.max(temp)) - 1:L])
+                            result1 = allgumbel(u[np.max(temp) - 1:L], v[np.max(temp) - 1:L])
+                            result2 = allclayton(u[np.max(temp) - 1:L], v[np.max(temp) - 1:L])
                             q_new = 1
                             j = 5
                         else:
 
-                            result1 = allgumbel(u[int(np.max(temp)) - 1:L], v[int(np.max(temp)) - 1:L])
-                            result2 = allfrank(u[int(np.max(temp)) - 1:L], v[int(np.max(temp)) - 1:L])
+                            result1 = allgumbel(u[np.max(temp) - 1:L], v[np.max(temp) - 1:L])
+                            result2 = allfrank(u[np.max(temp) - 1:L], v[np.max(temp) - 1:L])
                             q_new = 2
                             j = 6
 
@@ -149,7 +148,7 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
                     q[p - 1] = q_new
                     QQ = q
                     j = 7
-                    QQ[p - 1:numbrk + 1] = q_new * np.ones(numbrk + 1 - (p - 1), dtype=np.int8)
+                    QQ[p - 1:numbrk + 1] = q_new * np.ones(numbrk + 1 - (p - 1), dtype=int)
                     rejected = current
                     w = 41
                 else:
@@ -164,21 +163,21 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
                     if q[p - 1] == 1:
                         a = np.random.uniform(low=np.nextafter(0.0, 1.0))
                         print(np.min(temp))
-                        if a <= 1.0/2:
+                        if a <= 1/2:
                             
-                            result1 = allclayton(u[:int(np.min(temp))], v[:int(np.min(temp))])
-                            result2 = allfrank(u[:int(np.min(temp))], v[:np.int(min(temp))])
+                            result1 = allclayton(u[:np.min(temp)], v[:np.min(temp)])
+                            result2 = allfrank(u[:np.min(temp)], v[:np.min(temp)])
                             q_new = 2
                         else:
 
-                            result1 = allclayton(u[:int(np.min(temp))], v[:int(np.min(temp))])
+                            result1 = allclayton(u[:np.min(temp)], v[:np.min(temp)])
                             result2 = allgumbel(u[:np.min(temp)], v[:np.min(temp)])
                             q_new = 3
                     else:
                         if q[p - 1] == 2:
                             a = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
-                            if a <= 1.0/2:
+                            if a <= 1/2:
 
                                 result1 = allfrank(u[:np.min(temp)], v[:np.min(temp)])
                                 result2 = allclayton(u[:np.min(temp)], v[:np.min(temp)])
@@ -192,7 +191,7 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
 
                             a = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
-                            if a <= 1.0/2:
+                            if a <= 1/2:
 
                                 result1 = allgumbel(u[:np.min(temp)], v[:np.min(temp)])
                                 result2 = allclayton(u[:np.min(temp)], v[:np.min(temp)])
@@ -215,7 +214,7 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
                         new_model = current # correct ??? 
                         q[p - 1] = q_new
                         QQ = q
-                        QQ[p - 1:numbrk + 1] = q_new * np.ones(numbrk + 1 - (p - 1), dtype=np.int8)
+                        QQ[p - 1:numbrk + 1] = q_new * np.ones(numbrk + 1 - (p - 1), dtype=int)
                         rejected = current
                         w = 61
                     else:
@@ -230,7 +229,7 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
             if (q == 2 * np.ones(numbrk+1)).all():
                 a = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
-                if a <= 1.0/2:
+                if a <= 1/2:
 
                     result1 = allfrank(u[:L], v[:L])
                     result2 = allclayton(u[:L], v[:L])
@@ -244,7 +243,7 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
                 if (q == np.ones(numbrk+1)).all():
                     a = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
-                    if a <= 1.0/2:
+                    if a <= 1/2:
 
                         result1 = allclayton(u[:L], v[:L])
                         result2 = allfrank(u[:L], v[:L])
@@ -258,7 +257,7 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
                     if (q == 3 * np.ones(numbrk+1)).all():
                         a = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
-                        if a <= 1.0/2:
+                        if a <= 1/2:
 
                             result1 = allgumbel(u[:L], v[:L])
                             result2 = allfrank(u[:L], v[:L])
@@ -279,7 +278,7 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
 
             if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and not BFu.imag:
                 new_model = current
-                QQ = q_new * np.ones(numbrk+1, dtype=np.int8)
+                QQ = q_new * np.ones(numbrk+1, dtype=int)
                 rejected = current
                 w = 49
             else:

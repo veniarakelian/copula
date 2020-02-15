@@ -27,7 +27,6 @@ def allfrank(x, y):
     theta = Copula(x.flatten(), y.flatten(), family='frank').theta
 
     # Save frequent calculations #
-    minus_theta = -theta
     minus_sample = -sample
     u_plus_v = u + v
     exp_of_minus_theta = np.exp(-theta)

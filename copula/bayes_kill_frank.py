@@ -69,8 +69,7 @@ def bayes_kill_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
                 rejected = new
                 QQ = q
                 w = 22
-
-	else:
+        else:
             if max_new < max_old and max_new != 0:
                 if(s[1] == 2 and s[2] == 2):
                     result1 = allfrank(u[max_new - 1:max_old], v[max_new -  1:max_old])

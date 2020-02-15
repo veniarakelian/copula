@@ -10,13 +10,15 @@ def move_lapl(currentModel, u, v, dist, numbrk, q):
     L = len(currentModel) - j
 
     current = new[new != 0]
-    current = np.append(current, np.zeros(j))
+    current = np.append(current, np.zeros(j,dtype=int))
     pick = np.random.randint(low=1, high=L + 1)
     b2 = current[pick - 1]
     scale = 5
+
     kn = np.random.randint(low=b2 - scale, high=b2 + scale + 1)
+    
     current[pick - 1] = kn
-    current[L:L + j] = 0 * np.zeros(j)
+    current[L:L + j] = 0 * np.zeros(j,dtype=int)
     current = np.sort(current)
 
     if pick == 1 and j < numbrk - 1:

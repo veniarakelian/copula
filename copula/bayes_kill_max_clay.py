@@ -71,7 +71,7 @@ def bayes_kill_max_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
                 QQ = q
                 w = 14
 
-	else:
+		else:
             if max_new < max_old and max_new != 0:
                 if(s[1] == 1 and s[2] == 1):
                     result1 = allclayton(u[max_new - 1:max_old], v[max_new -  1:max_old])

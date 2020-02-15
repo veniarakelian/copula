@@ -47,7 +47,7 @@ def bayes_move_frank(currentModel, newModel, kn, u, v, q, zita, chain):
     else:
         if min_new > min_old and max_old != min_old:
             result1 = allfrank(u[:min_new], v[:min_new])
-            result2 = allfrank(u[min_new:t1[1]), v[min_new:t1[1]])
+            result2 = allfrank(u[min_new:t1[1]], v[min_new:t1[1]])
             resultOld1 = allfrank(u[:min_old], v[:min_old])
             resultOld2 = allfrank(u[min_old:t1[1]], v[min_old:t1[1]])
 
@@ -68,8 +68,8 @@ def bayes_move_frank(currentModel, newModel, kn, u, v, q, zita, chain):
                 w = 4
 
         elif (min_new < min_old or max_new > max_old) and max_old == min_old:
-            result1 = allfrank(u[:t2[0]), v[:t2[0]])
-            result2 = allfrank(u[t2[0]:L], v[2[0]:L])
+            result1 = allfrank(u[:t2[0]], v[:t2[0]])
+            result2 = allfrank(u[t2[0]:L], v[t2[0]:L])
             resultOld1 = allfrank(u[:t1[0]], v[:t1[0]])
             resultOld2 = allfrank(u[t1[0]:L], v[t1[0]:L])
 

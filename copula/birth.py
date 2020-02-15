@@ -19,8 +19,7 @@ def birth(currentModel, u, dist, numbrk, q):
         new[j - 1] = kn
         bir = np.sort(new)
         j2 = np.count_nonzero(new == 0)
-        d = np.argwhere(bir == kn) + 1
-        d = d
+        d = (np.argwhere(bir == kn) + 1)[0][0]
         t2 = currentModel[np.sort(currentModel) != 0]
 
         if kn > np.max(t2):

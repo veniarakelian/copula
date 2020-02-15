@@ -19,20 +19,22 @@ from bayes_move_gumbel import bayes_move_gumbel
 from pandas import read_excel
 
 def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
+    
     LENGTH = len(currentModel)
     j = np.count_nonzero(currentModel == 0, axis=0)
-    new_model = np.zeros(numbrk)
+    
+    new_model = np.zeros(numbrk,dtype=int)
     rejected = new_model
     w = 1
-    QQ = np.zeros(numbrk + 1)
+    QQ = np.zeros(numbrk + 1,dtype=int)
     ss = 1
     
     if LENGTH == numbrk and (0 < j) and (j < numbrk):
 
         l = len(currentModel) - j
-        p1 = 1.0/4
-        p2 = 2.0/4
-        p3 = 3.0/4
+        p1 = 1/4
+        p2 = 2/4
+        p3 = 3/4
 
         P = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -121,8 +123,8 @@ def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
     else:
         if LENGTH == numbrk and j == 0:
             L = len(currentModel) - j
-            p1 = 1.0/3
-            p2 = 2.0/3
+            p1 = 1/3
+            p2 = 2/3
         
             P = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -188,7 +190,7 @@ def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
         else:
             if LENGTH == numbrk and j == numbrk:
                 L = len(currentModel) - j
-                p1 = 1.0/2
+                p1 = 1/2
                 P = np.random.uniform(low=np.nextafter(0.0, 1.0))
                 
                 if P <= p1:

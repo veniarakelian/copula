@@ -17,7 +17,6 @@ def bayes_kill_gumbel(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
     l = len(new)
     ss = -1
     if np.any(new):
-
         R = 1
         t2 = new[new != 0]
         min_new = np.min(t2)
@@ -69,101 +68,100 @@ def bayes_kill_gumbel(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
                 rejected = new
                 QQ = q
                 w = 22
-
-	else:
-            if max_new < max_old and max_new != 0:
-                if(s[1] == 3 and s[2] == 3):
-                    result1 = allgumbel(u[max_new - 1:max_old], v[max_new -  1:max_old])
-                    result2 = allgumbel(u[max_old:L], v[max_old:L])
-                    R = R * 1/3
-                else:
-                    if(s[1] == 3 and s[2] == 1):
-                        result2 = allgumbel(u[max_new - 1:max_old], v[max_new - 1:max_old])
-                        result1 = allclayton(u[max_old:L], v[max_old:L])
-                        R = R * 2/3
+        else:
+                if max_new < max_old and max_new != 0:
+                    if(s[1] == 3 and s[2] == 3):
+                        result1 = allgumbel(u[max_new - 1:max_old], v[max_new -  1:max_old])
+                        result2 = allgumbel(u[max_old:L], v[max_old:L])
+                        R = R * 1/3
                     else:
-                        if(s[1] == 1 and s[2] == 3):
-                            result2 = allclayton(u[max_new - 1:max_old], v[max_new - 1:max_old])
-                            result1 = allgumbel(u[max_old:L], v[max_old:L])
+                        if(s[1] == 3 and s[2] == 1):
+                            result2 = allgumbel(u[max_new - 1:max_old], v[max_new - 1:max_old])
+                            result1 = allclayton(u[max_old:L], v[max_old:L])
                             R = R * 2/3
                         else:
-                            if(s[1] == 2 and s[2] == 3):
-                                result2 = allfrank(u[max_new - 1:max_old], v[max_new - 1:max_old])
+                            if(s[1] == 1 and s[2] == 3):
+                                result2 = allclayton(u[max_new - 1:max_old], v[max_new - 1:max_old])
                                 result1 = allgumbel(u[max_old:L], v[max_old:L])
                                 R = R * 2/3
                             else:
-                                if(s[1] == 3 and s[2] == 2):
-                                    result1 = allgumbel(u[max_new - 1:max_old], v[max_new - 1:max_old])
-                                    result2 = allfrank(u[max_old:L], v[max_old:L])
+                                if(s[1] == 2 and s[2] == 3):
+                                    result2 = allfrank(u[max_new - 1:max_old], v[max_new - 1:max_old])
+                                    result1 = allgumbel(u[max_old:L], v[max_old:L])
                                     R = R * 2/3
+                                else:
+                                    if(s[1] == 3 and s[2] == 2):
+                                        result1 = allgumbel(u[max_new - 1:max_old], v[max_new - 1:max_old])
+                                        result2 = allfrank(u[max_old:L], v[max_old:L])
+                                        R = R * 2/3
 
-                resultOld = allgumbel(u[max_new - 1:L], v[max_new - 1:L])
+                    resultOld = allgumbel(u[max_new - 1:L], v[max_new - 1:L])
 
-                BFu = resultOld["BFu"] - result1["BFu"] - result2["BFu"]
+                    BFu = resultOld["BFu"] - result1["BFu"] - result2["BFu"]
 
-                if BFu.imag:
-                    ss = -2
-                    print("Error\n")
-            
-                U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
+                    if BFu.imag:
+                        ss = -2
+                        print("Error\n")
+                
+                    U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
-                if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and not BFu.imag:
-                    new_model = new
-                    rejected = current
-                    QQ = Q
-                    w = 23
-                else:
-                    new_model = current
-                    rejected = new
-                    QQ = q
-                    w = 24
-            else:
-                place = kn
-                if(s[1] == 3 and s[2] == 3):
-                    result1 = allgumbel(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
-                    result2 = allgumbel(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
-                    R = R * 1/3
-                else:
-                    if(s[1] == 1 and s[2] == 3):
-                        result1 = allclayton(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
-                        result2 = allgumbel(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
-                        R = R * 2/3
+                    if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and not BFu.imag:
+                        new_model = new
+                        rejected = current
+                        QQ = Q
+                        w = 23
                     else:
-                        if(s[1] == 3 and s[2] == 1):
-                            result1 = allgumbel(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
-                            result2 = allclayton(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
+                        new_model = current
+                        rejected = new
+                        QQ = q
+                        w = 24
+                else:
+                    place = kn
+                    if(s[1] == 3 and s[2] == 3):
+                        result1 = allgumbel(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
+                        result2 = allgumbel(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
+                        R = R * 1/3
+                    else:
+                        if(s[1] == 1 and s[2] == 3):
+                            result1 = allclayton(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
+                            result2 = allgumbel(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
                             R = R * 2/3
                         else:
-                            if(s[1] == 3 and s[2] == 2):
+                            if(s[1] == 3 and s[2] == 1):
                                 result1 = allgumbel(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
-                                result2 = allfrank(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
+                                result2 = allclayton(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
                                 R = R * 2/3
                             else:
-                                if(s[1] == 2 and s[2] == 3):
-                                    result1 = allfrank(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
-                                    result2 = allgumbel(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
+                                if(s[1] == 3 and s[2] == 2):
+                                    result1 = allgumbel(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
+                                    result2 = allfrank(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
                                     R = R * 2/3
+                                else:
+                                    if(s[1] == 2 and s[2] == 3):
+                                        result1 = allfrank(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
+                                        result2 = allgumbel(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
+                                        R = R * 2/3
 
-                resultOld = allgumbel(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
+                    resultOld = allgumbel(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
 
-                BFu = resultOld["BFu"] - result1["BFu"] - result2["BFu"]
+                    BFu = resultOld["BFu"] - result1["BFu"] - result2["BFu"]
 
-                if BFu.imag:
-                    ss = -2
-                    print("Error\n")
+                    if BFu.imag:
+                        ss = -2
+                        print("Error\n")
 
-                U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
+                    U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
-                if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and not BFu.imag:
-                    new_model = new
-                    rejected = current
-                    QQ = Q
-                    w = 25
-                else:
-                    new_model = current
-                    rejected = new
-                    QQ = q
-                    w = 26
+                    if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and not BFu.imag:
+                        new_model = new
+                        rejected = current
+                        QQ = Q
+                        w = 25
+                    else:
+                        new_model = current
+                        rejected = new
+                        QQ = q
+                        w = 26
 
     else:
         if not np.any(new):

@@ -7,22 +7,18 @@ def bayes_move_clay(currentModel, newModel, kn, u, v, q, zita, chain):
 
     current = np.sort(currentModel)
     new = np.sort(newModel)
-
     t1 = current[current != 0]
     t2 = new[new != 0]
     
-    t1 = t1.astype(int)        
-    t2 = t2.astype(int)  
-
-    min_old = int(np.min(t1))
-    max_old = int(np.max(t1))
-    min_new = int(np.min(t2))
-    max_new = int(np.max(t2))
+    min_old = np.min(t1)
+    max_old = np.max(t1)
+    min_new = np.min(t2)
+    max_new = np.max(t2)
     L = len(u)
     l = len(current)
 
     s = -1
-    R = 1.0
+    R = 1
 
     # Initialize variables #
     if min_new < min_old and max_old != min_old:

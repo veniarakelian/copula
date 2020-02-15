@@ -25,7 +25,6 @@ Checked
 - [] bayes_change.py
 - [] move_lapl.py
 - [] laplace_tourlou.py
-- [] favoredmodel.py
 - [] acceptrejectaux.py
-- []  RJMCM.py
+- [] laplacetest_volatility.py 
 
