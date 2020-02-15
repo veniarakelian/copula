@@ -10,6 +10,8 @@ def bayes_birth_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
     current = np.sort(currentModel)
     new = np.sort(newModel)
+
+
     current = current.astype(int)
     new = new.astype(int)
     # Find index of last occurrence of 0 #
