@@ -1,3 +1,4 @@
+from __future__ import division
 import numpy as np
 from allfrank import allfrank
 from allclayton import allclayton
@@ -13,12 +14,6 @@ itera = 1000000
 burnin = 250000
 Zita = 0.8
 delta = 0.1
-
-thetastart = [1.4, 1, 1]
-
-# x=EU_BANKS_5Y_Index;
-# y=EU_Other_Fin_5Y_Index; 
-# [x,y]=excludenan(x,y);
 
 chain1 = 1
 chain2 = 2
