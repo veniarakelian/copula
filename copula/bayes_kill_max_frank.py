@@ -16,7 +16,7 @@ def bayes_kill_max_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain)
     L = len(u)
     l = len(new)
     ss = -1
-    R = 3.0/4
+    R = 3/4
  
     if np.any(new):
 
@@ -28,27 +28,27 @@ def bayes_kill_max_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain)
             if(s[1] == 2 and s[2] == 2):
                 result1 = allfrank(u[:min_old], v[:min_old])
                 result2 = allfrank(u[min_old:min_new], v[min_old:min_new])
-                R = R * 1.0/3
+                R = R * 1/3
             else:
                 if(s[1] == 2 and s[2] == 1):
                     result1 = allfrank(u[:min_old], v[:min_old])
                     result2 = allclayton(u[min_old:min_new], v[min_old:min_new])
-                    R = R * 2.0/3
+                    R = R * 2/3
                 else:
                     if(s[1] == 1 and s[2] == 2):
                         result1 = allclayton(u[:min_old], v[:min_old])
                         result2 = allfrank(u[min_old:min_new], v[min_old:min_new])
-                        R = R * 2.0/3
+                        R = R * 2/3
                     else:
                         if(s[1] == 2 and s[2] == 3):
                             result1 = allfrank(u[:min_old], v[:min_old])
                             result2 = allgumbel(u[min_old:min_new], v[min_old:min_new])
-                            R = R * 2.0/3
+                            R = R * 2/3
                         else:
                             if(s[1] == 3 and s[2] == 2):
                                 result2 = allgumbel(u[:min_old], v[:min_old])
                                 result1 = allfrank(u[min_old:min_new], v[min_old:min_new])
-                                R = R * 2.0/3
+                                R = R * 2/3
 
             resultOld = allfrank(u[:min_new], v[:min_new])
 
@@ -76,27 +76,27 @@ def bayes_kill_max_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain)
                 if(s[1] == 2 and s[2] == 2):
                     result1 = allfrank(u[max_new - 1:max_old], v[max_new -  1:max_old])
                     result2 = allfrank(u[max_old:L], v[max_old:L])
-                    R = R * 1.0/3
+                    R = R * 1/3
                 else:
                     if(s[1] == 1 and s[2] == 2):
                         result2 = allclayton(u[max_new - 1:max_old], v[max_new - 1:max_old])
                         result1 = allfrank(u[max_old:L], v[max_old:L])
-                        R = R * 2.0/3
+                        R = R * 2/3
                     else:
                         if(s[1] == 2 and s[2] == 1):
                             result2 = allfrank(u[max_new - 1:max_old], v[max_new - 1:max_old])
                             result1 = allclayton(u[max_old:L], v[max_old:L])
-                            R = R * 2.0/3
+                            R = R * 2/3
                         else:
                             if(s[1] == 2 and s[2] == 3):
                                 result2 = allfrank(u[max_new - 1:max_old], v[max_new - 1:max_old])
                                 result1 = allgumbel(u[max_old:L], v[max_old:L])
-                                R = R * 2.0/3
+                                R = R * 2/3
                             else:
                                 if(s[1] == 3 and s[2] == 2):
                                     result1 = allgumbel(u[max_new - 1:max_old], v[max_new - 1:max_old])
                                     result2 = allfrank(u[max_old:L], v[max_old:L])
-                                    R = R * 2.0/3
+                                    R = R * 2/3
 
                 resultOld = allfrank(u[max_new - 1:L], v[max_new - 1:L])
 
@@ -123,27 +123,27 @@ def bayes_kill_max_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain)
                 if(s[1] == 2 and s[2] == 2):
                     result1 = allfrank(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
                     result2 = allfrank(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
-                    R = R * 1.0/3
+                    R = R * 1/3
                 else:
                     if(s[1] == 2 and s[2] == 1):
                         result1 = allfrank(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
                         result2 = allclayton(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
-                        R = R * 2.0/3
+                        R = R * 2/3
                     else:
                         if(s[1] == 1 and s[2] == 2):
                             result1 = allclayton(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
                             result2 = allfrank(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
-                            R = R * 2.0/3
+                            R = R * 2/3
                         else:
                             if(s[1] == 2 and s[2] == 3):
                                 result1 = allfrank(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
                                 result2 = allgumbel(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
-                                R = R * 2.0/3
+                                R = R * 2/3
                             else:
                                 if(s[1] == 3 and s[2] == 2):
                                     result1 = allgumbel(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
                                     result2 = allfrank(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
-                                    R = R * 2.0/3
+                                    R = R * 2/3
 
                 resultOld = allfrank(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
 
@@ -168,32 +168,32 @@ def bayes_kill_max_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain)
 
     else:
         if not np.any(new):
-            R = 2.0
+            R = 2
 
             if(s[1] == 2 and s[2] == 2):
                 result1 = allfrank(u[:max_old], v[:max_old])
                 result2 = allfrank(u[max_old:L], v[max_old:L])
-                R = R * 1.0/3
+                R = R * 1/3
             else:
                 if(s[1] == 2 and s[2] == 1):
                     result1 = allfrank(u[:max_old], v[:max_old])
                     result2 = allclayton(u[max_old:L], v[max_old:L])
-                    R = R * 2.0/3
+                    R = R * 2/3
                 else:
                     if(s[1] == 1 and s[2] == 2):
                         result1 = allclayton(u[:max_old], v[:max_old])
                         result2 = allfrank(u[max_old:L], v[max_old:L])
-                        R = R * 2.0/3
+                        R = R * 2/3
                     else:
                         if(s[1] == 3 and s[2] == 2):
                             result1 = allgumbel(u[:max_old], v[:max_old])
                             result2 = allfrank(u[max_old:L], v[max_old:L])
-                            R = R * 2.0/3
+                            R = R * 2/3
                         else:
                             if(s[1] == 2 and s[2] == 3):
                                 result2 = allfrank(u[:max_old], v[:max_old])
                                 result1 = allgumbel(u[max_old:L], v[max_old:L])
-                                R = R * 2.0/3
+                                R = R * 2/3
 
             resultOld = allfrank(u, v)
 

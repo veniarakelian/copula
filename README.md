@@ -2,10 +2,10 @@
 
 Checked
 - [] birth.py
-- [] allnorm.py
-- [] allfrank.py
-- [] allclayton.py
-- [] allgumbel.py
+- [x] allnorm.py
+- [x] allfrank.py
+- [x] allclayton.py
+- [x] allgumbel.py
 - [] bayes_birth_frank.py
 - [] bayes_birth_only_frank.py
 - [] bayes_birth_gumbel.py

@@ -11,25 +11,22 @@ def bayes_move_frank(currentModel, newModel, kn, u, v, q, zita, chain):
     t1 = current[current != 0]
     t2 = new[new != 0]
     
-    t1 = t1.astype(int)        
-    t2 = t2.astype(int)  
-
-    min_old = int(np.min(t1))
-    max_old = int(np.max(t1))
-    min_new = int(np.min(t2))
-    max_new = int(np.max(t2))
+    min_old = np.min(t1)
+    max_old = np.max(t1)
+    min_new = np.min(t2)
+    max_new = np.max(t2)
     L = len(u)
     l = len(current)
 
     s = -1
-    R = 1.0
+    R = 1
 
     # Initialize variables #
     if min_new < min_old and max_old != min_old:
         result1 = allfrank(u[:min_new], v[:min_new])
-        result2 = allfrank(u[min_new: int(t1[1])], v[min_new:int(t1[1])])
+        result2 = allfrank(u[min_new: t1[1]], v[min_new:t1[1]])
         resultOld1 = allfrank(u[:min_old], v[:min_old])
-        resultOld2 = allfrank(u[min_old:int(t1[1])], v[min_old:int(t1[1])])
+        resultOld2 = allfrank(u[min_old:t1[1]], v[min_old:t1[1]])
 
         BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
         if BFu.imag:
@@ -50,9 +47,9 @@ def bayes_move_frank(currentModel, newModel, kn, u, v, q, zita, chain):
     else:
         if min_new > min_old and max_old != min_old:
             result1 = allfrank(u[:min_new], v[:min_new])
-            result2 = allfrank(u[min_new:int(t1[1])], v[min_new:int(t1[1])])
+            result2 = allfrank(u[min_new:t1[1]), v[min_new:t1[1]])
             resultOld1 = allfrank(u[:min_old], v[:min_old])
-            resultOld2 = allfrank(u[min_old:int(t1[1])], v[min_old:int(t1[1])])
+            resultOld2 = allfrank(u[min_old:t1[1]], v[min_old:t1[1]])
 
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
@@ -71,10 +68,10 @@ def bayes_move_frank(currentModel, newModel, kn, u, v, q, zita, chain):
                 w = 4
 
         elif (min_new < min_old or max_new > max_old) and max_old == min_old:
-            result1 = allfrank(u[:int(t2[0])], v[:int(t2[0])])
-            result2 = allfrank(u[int(t2[0]):L], v[int(t2[0]):L])
-            resultOld1 = allfrank(u[:int(t1[0])], v[:int(t1[0])])
-            resultOld2 = allfrank(u[int(t1[0]):L], v[int(t1[0]):L])
+            result1 = allfrank(u[:t2[0]), v[:t2[0]])
+            result2 = allfrank(u[t2[0]:L], v[2[0]:L])
+            resultOld1 = allfrank(u[:t1[0]], v[:t1[0]])
+            resultOld2 = allfrank(u[t1[0]:L], v[t1[0]:L])
 
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
@@ -93,10 +90,10 @@ def bayes_move_frank(currentModel, newModel, kn, u, v, q, zita, chain):
                 w = 6
 
         elif max_new > max_old and max_old != min_old:
-            result1 = allfrank(u[int(t1[kn - 2]) - 1:max_new], v[int(t1[kn - 2]) - 1:max_new])
+            result1 = allfrank(u[t1[kn - 2] - 1:max_new], v[t1[kn - 2] - 1:max_new])
             result2 = allfrank(u[max_new:L], v[max_new:L])
-            resultOld1 = allfrank(u[int(t1[kn - 2]) - 1:int(t1[kn - 1])], v[int(t1[kn - 2]) -1:int(t1[kn - 1])])
-            resultOld2 = allfrank(u[int(t1[kn - 1]):L], v[int(t1[kn - 1]):L])
+            resultOld1 = allfrank(u[t1[kn - 2] - 1:t1[kn - 1]], v[t1[kn - 2] -1:t1[kn - 1]])
+            resultOld2 = allfrank(u[t1[kn - 1]:L], v[t1[kn - 1]:L])
 
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
@@ -115,10 +112,10 @@ def bayes_move_frank(currentModel, newModel, kn, u, v, q, zita, chain):
                 w = 8
 
         elif max_new < max_old and max_old != min_old:
-            result1 = allfrank(u[int(t1[kn - 2]) - 1:max_new], v[int(t1[kn - 2]) - 1:max_new])
+            result1 = allfrank(u[t1[kn - 2] - 1:max_new], v[t1[kn - 2] - 1:max_new])
             result2 = allfrank(u[max_new: L], v[max_new:L])
-            resultOld1 = allfrank(u[int(t1[kn - 2]) - 1:int(t1[kn - 1])], v[int(t1[kn - 2]) - 1:int(t1[kn - 1])])
-            resultOld2 = allfrank(u[int(t1[kn - 1]):L], v[int(t1[kn - 1]): L])
+            resultOld1 = allfrank(u[t1[kn - 2] - 1:t1[kn - 1]], v[t1[kn - 2] - 1:t1[kn - 1]])
+            resultOld2 = allfrank(u[t1[kn - 1]:L], v[t1[kn - 1]: L])
 
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
@@ -137,10 +134,10 @@ def bayes_move_frank(currentModel, newModel, kn, u, v, q, zita, chain):
                 w = 10
 
         elif min_new == min_old and max_old == max_old:
-            result1 = allfrank(u[int(t2[kn - 2]) - 1:int(t2[kn - 1])], v[int(t2[kn - 2]) - 1:int(t2[kn - 1])])
-            result2 = allfrank(u[int(t2[kn - 1]):int(t2[kn])], v[int(t2[kn - 1]):int(t2[kn])])
-            resultOld1 = allfrank(u[int(t1[kn - 2]) - 1:int(t1[kn - 1])], v[int(t1[kn - 2]) - 1:int(t1[kn - 1])])
-            resultOld2 = allfrank(u[int(t1[kn - 1]):int(t1[kn])], v[int(t1[kn  - 1]):int(t1[kn])])
+            result1 = allfrank(u[t2[kn - 2] - 1:t2[kn - 1]], v[t2[kn - 2] - 1:t2[kn - 1]])
+            result2 = allfrank(u[t2[kn - 1]:t2[kn]], v[t2[kn - 1]:t2[kn]])
+            resultOld1 = allfrank(u[t1[kn - 2] - 1:t1[kn - 1]], v[t1[kn - 2] - 1:t1[kn - 1]])
+            resultOld2 = allfrank(u[t1[kn - 1]:t1[kn]], v[t1[kn  - 1]:t1[kn]])
 
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:

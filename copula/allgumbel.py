@@ -7,8 +7,6 @@ from allnorm import allnorm
 from copulalib import Copula
 from pandas import read_excel
 
-np.set_printoptions(precision=20)
-
 def allgumbel(x, y):
 
     sample = len(x)

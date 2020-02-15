@@ -12,13 +12,13 @@ def bayes_birth_only_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain
     new = np.sort(newModel)
 
     t2 = new[new != 0]
-    min_new = int(np.min(t2))
-    max_new = int(np.max(t2))
+    min_new = np.min(t2)
+    max_new = np.max(t2)
     L = len(u)
     l = len(current)
 
     ss = -1
-    R = 1.0/2
+    R = 1/2
 
     if not np.any(current):
 
@@ -30,22 +30,22 @@ def bayes_birth_only_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain
             if(s[1] == 1 and s[2] == 2):
                 result1 = allclayton(u[:max_new], v[:max_new])
                 result2 = allfrank(u[max_new:L], v[max_new:L])
-                R = R * 3.0/2
+                R = R * 3/2
             else:
                 if(s[1] == 2 and s[2] == 1):
                     result1 = allfrank(u[:max_new], v[:max_new])
                     result2 = allclayton(u[max_new:L], v[max_new:L])
-                    R = R * 3.0/2
+                    R = R * 3/2
                 else:
                     if(s[1] == 1 and s[2] == 3):
                         result1 = allclayton(u[:max_new], v[:max_new])
                         result2 = allgumbel(u[max_new:L], v[max_new:L])
-                        R = R * 3.0/2
+                        R = R * 3/2
                     else:
                         if(s[1] == 3 and s[2] == 1):
                             result1 = allgumbel(u[:max_new], v[:max_new])
                             result2 = allclayton(u[max_new:L], v[max_new:L])
-                            R = R * 3.0/2
+                            R = R * 3/2
 
         resultOld = allclayton(u, v)
 

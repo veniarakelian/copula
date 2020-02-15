@@ -11,44 +11,44 @@ def bayes_kill_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
     new = np.sort(newModel)
 
     t1 = current[current != 0]
-    min_old = int(np.min(t1))
-    max_old = int(np.max(t1))
+    min_old = np.min(t1)
+    max_old = np.max(t1)
     L = len(u)
     l = len(new)
     ss = -1
 
     if np.any(new):
 
-        R = 1.0
+        R = 1
         t2 = new[new != 0]
-        min_new = int(np.min(t2))
-        max_new = int(np.max(t2))
+        min_new = np.min(t2)
+        max_new = np.max(t2)
 
         if min_old < min_new:
             if(s[1] == 1 and s[2] == 1):
                 result1 = allclayton(u[:min_old], v[:min_old])
                 result2 = allclayton(u[min_old:min_new], v[min_old:min_new])
-                R = R * 1.0/3
+                R = R * 1/3
             else:
                 if(s[1] == 1 and s[2] == 2):
                     result1 = allclayton(u[:min_old], v[:min_old])
                     result2 = allfrank(u[min_old:min_new], v[min_old:min_new])
-                    R = R * 2.0/3
+                    R = R * 2/3
                 else:
                     if(s[1] == 2 and s[2] == 1):
                         result1 = allfrank(u[:min_old], v[:min_old])
                         result2 = allclayton(u[min_old:min_new], v[min_old:min_new])
-                        R = R * 2.0/3
+                        R = R * 2/3
                     else:
                         if(s[1] == 3 and s[2] == 1):
                             result1 = allgumbel(u[:min_old], v[:min_old])
                             result2 = allclayton(u[min_old:min_new], v[min_old:min_new])
-                            R = R * 2.0/3
+                            R = R * 2/3
                         else:
                             if(s[1] == 1 and s[2] == 3):
                                 result2 = allclayton(u[:min_old], v[:min_old])
                                 result1 = allgumbel(u[min_old:min_new], v[min_old:min_new])
-                                R = R * 2.0/3
+                                R = R * 2/3
 
             resultOld = allclayton(u[:min_new], v[:min_new])
 
@@ -75,27 +75,27 @@ def bayes_kill_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
                 if(s[1] == 1 and s[2] == 1):
                     result1 = allclayton(u[max_new - 1:max_old], v[max_new -  1:max_old])
                     result2 = allclayton(u[max_old:L], v[max_old:L])
-                    R = R * 1.0/3
+                    R = R * 1/3
                 else:
                     if(s[1] == 2 and s[2] == 1):
                         result2 = allfrank(u[max_new - 1:max_old], v[max_new - 1:max_old])
                         result1 = allclayton(u[max_old:L], v[max_old:L])
-                        R = R * 2.0/3
+                        R = R * 2/3
                     else:
                         if(s[1] == 1 and s[2] == 2):
                             result2 = allclayton(u[max_new - 1:max_old], v[max_new - 1:max_old])
                             result1 = allfrank(u[max_old:L], v[max_old:L])
-                            R = R * 2.0/3
+                            R = R * 2/3
                         else:
                             if(s[1] == 1 and s[2] == 3):
                                 result2 = allclayton(u[max_new - 1:max_old], v[max_new - 1:max_old])
                                 result1 = allgumbel(u[max_old:L], v[max_old:L])
-                                R = R * 2.0/3
+                                R = R * 2/3
                             else:
                                 if(s[1] == 3 and s[2] == 1):
                                     result1 = allgumbel(u[max_new - 1:max_old], v[max_new - 1:max_old])
                                     result2 = allclayton(u[max_old:L], v[max_old:L])
-                                    R = R * 2.0/3
+                                    R = R * 2/3
 
                 resultOld = allclayton(u[max_new - 1:L], v[max_new - 1:L])
 
@@ -122,27 +122,27 @@ def bayes_kill_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
                 if(s[1] == 1 and s[2] == 1):
                     result1 = allclayton(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
                     result2 = allclayton(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
-                    R = R * 1.0/3
+                    R = R * 1/3
                 else:
                     if(s[1] == 1 and s[2] == 2):
                         result1 = allclayton(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
                         result2 = allfrank(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
-                        R = R * 2.0/3
+                        R = R * 2/3
                     else:
                         if(s[1] == 2 and s[2] == 1):
                             result1 = allfrank(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
                             result2 = allclayton(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
-                            R = R * 2.0/3
+                            R = R * 2/3
                         else:
                             if(s[1] == 3 and s[2] == 1):
                                 result1 = allgumbel(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
                                 result2 = allclayton(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
-                                R = R * 2.0/3
+                                R = R * 2/3
                             else:
                                 if(s[1] == 1 and s[2] == 3):
                                     result1 = allclayton(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
                                     result2 = allgumbel(u[current[place - 1]:current[place]], v[current[place - 1]:current[place]])
-                                    R = R * 2.0/3
+                                    R = R * 2/3
 
                 resultOld = allclayton(u[current[place - 2] - 1:current[place - 1]], v[current[place - 2] - 1:current[place - 1]])
 
@@ -167,7 +167,7 @@ def bayes_kill_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
     else:
         if not np.any(new):
-            R = 2.0
+            R = 2
 
             if(s[1] == 1 and s[2] == 1):
                 result1 = allclayton(u[:max_old], v[:max_old])
@@ -177,22 +177,22 @@ def bayes_kill_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
                 if(s[1] == 1 and s[2] == 2):
                     result1 = allclayton(u[:max_old], v[:max_old])
                     result2 = allfrank(u[max_old:L], v[max_old:L])
-                    R = R * 2.0/3
+                    R = R * 2/3
                 else:
                     if(s[1] == 2 and s[2] == 1):
                         result1 = allfrank(u[:max_old], v[:max_old])
                         result2 = allclayton(u[max_old:L], v[max_old:L])
-                        R = R * 2.0/3
+                        R = R * 2/3
                     else:
                         if(s[1] == 3 and s[2] == 1):
                             result1 = allgumbel(u[:max_old], v[:max_old])
                             result2 = allclayton(u[max_old:L], v[max_old:L])
-                            R = R * 2.0/3
+                            R = R * 2/3
                         else:
                             if(s[1] == 1 and s[2] == 3):
                                 result2 = allclayton(u[:max_old], v[:max_old])
                                 result1 = allgumbel(u[max_old:L], v[max_old:L])
-                                R = R * 2.0/3
+                                R = R * 2/3
 
             resultOld = allclayton(u, v)
 
