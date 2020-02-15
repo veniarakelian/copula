@@ -16,9 +16,9 @@ Checked
 - [x] bayes_kill_frank.py
 - [x] bayes_kill_clay.py
 - [x] bayes_kill_gumbel.py
-- [] bayes_kill_max_frank.py
-- [] bayes_kill_max_clay.py
-- [] bayes_kill_max_gumbel.py
+- [x] bayes_kill_max_frank.py
+- [x] bayes_kill_max_clay.py
+- [x] bayes_kill_max_gumbel.py
 - [] bayes_move_frank.py
 - [] bayes_move_clay.py
 - [] bayes_move_gumbel.py
