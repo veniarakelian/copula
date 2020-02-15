@@ -22,7 +22,7 @@ Checked
 - [x] bayes_move_frank.py
 - [x] bayes_move_clay.py
 - [x] bayes_move_gumbel.py
-- [] bayes_change.py
+- [x] bayes_change.py
 - [] move_lapl.py
 - [] laplace_tourlou.py
 - [] acceptrejectaux.py

@@ -24,6 +24,7 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
         if p > 1 and p <= z:
             lower = temp[p - 2]
             upper = temp[p - 1]
+
             if q[p - 1] == 1:
                 a = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -70,7 +71,6 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
 
             if BFu.imag:
                 ss = -2
-                print("Error\n")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -139,7 +139,6 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
 
                 if BFu.imag:
                     ss = -2
-                    print("Error\n")
 
                 U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -162,7 +161,6 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
                 if p == 1:
                     if q[p - 1] == 1:
                         a = np.random.uniform(low=np.nextafter(0.0, 1.0))
-                        print(np.min(temp))
                         if a <= 1/2:
                             
                             result1 = allclayton(u[:np.min(temp)], v[:np.min(temp)])
@@ -206,12 +204,11 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
 
                     if BFu.imag:
                         ss = -2
-                        print("Error\n")
 
                     U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
                     if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and not BFu.imag:
-                        new_model = current # correct ??? 
+                        new_model = current 
                         q[p - 1] = q_new
                         QQ = q
                         QQ[p - 1:numbrk + 1] = q_new * np.ones(numbrk + 1 - (p - 1), dtype=int)
@@ -272,7 +269,6 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
 
             if BFu.imag:
                 ss = -2
-                print("Error\n")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
