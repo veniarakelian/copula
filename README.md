@@ -1,11 +1,11 @@
 # Copula
 
 Checked
-- [] birth.py
-- [x] allnorm.py
-- [x] allfrank.py
-- [x] allclayton.py
-- [x] allgumbel.py
+- [x] birth.py
+- [] allnorm.py
+- [] allfrank.py
+- [] allclayton.py
+- [] allgumbel.py
 - [] bayes_birth_frank.py
 - [] bayes_birth_only_frank.py
 - [] bayes_birth_gumbel.py
