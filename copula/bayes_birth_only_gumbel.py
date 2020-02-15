@@ -12,8 +12,8 @@ def bayes_birth_only_gumbel(currentModel, newModel, kn, u, v, s, q, Q, zita, cha
     new = np.sort(newModel)
 
     t2 = new[new != 0]
-    min_new = np.min(t2)
-    max_new = np.max(t2)
+    min_new = int(np.min(t2))
+    max_new = int(np.max(t2))
     L = len(u)
     l = len(current)
 

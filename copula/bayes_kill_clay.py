@@ -21,8 +21,8 @@ def bayes_kill_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
         R = 1.0
         t2 = new[new != 0]
-        min_new = np.min(t2)
-        max_new = np.max(t2)
+        min_new = int(np.min(t2))
+        max_new = int(np.max(t2))
 
         if min_old < min_new:
             if(s[1] == 1 and s[2] == 1):

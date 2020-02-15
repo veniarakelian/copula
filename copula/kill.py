@@ -19,12 +19,12 @@ def kill(currentModel, numbrk, q):
     if(Kn >= numbrk and L != 1):
         if(q[kn - 1] != q[kn]):
             if(w <= 1.0/2):
-                Q[kn - 1: numbrk + 1] = q[kn] * np.ones(shape=(numbrk + 1 - kn))
+                Q[kn - 1: numbrk + 1] = q[kn] * np.ones(shape=(numbrk + 2 - kn))
             else:
-                Q[kn - 1: numbrk + 1] = q[kn - 1] * np.ones(shape=(numbrk + 1 - kn))
+                Q[kn - 1: numbrk + 1] = q[kn - 1] * np.ones(shape=(numbrk + 2 - kn))
 
         else:
-            Q[kn - 1: numbrk + 1] = q[kn - 1] * np.ones(shape=(numbrk + 1 - kn))
+            Q[kn - 1: numbrk + 1] = q[kn - 1] * np.ones(shape=(numbrk + 2 - kn))
 
         s = np.concatenate((np.asarray([q[kn - 1]]), np.asarray([q[kn]]), np.asarray([Q[kn]])), axis=0)
 
@@ -41,7 +41,7 @@ def kill(currentModel, numbrk, q):
             s = np.concatenate((np.asarray([q[0]]), np.asarray([q[1]]), np.asarray([Q[0]])), axis=0)
 
         else:
-            del Q[kn - 1]
+            Q = np.delete(Q, kn - 1)
 
             if q[kn] != q[kn - 1]:
                 if w <= 1.0/2:
@@ -51,7 +51,7 @@ def kill(currentModel, numbrk, q):
             else:
                 Q[kn - 1] = q[kn - 1]
 
-            Q.append(q[l])
+            Q = np.append(Q, q[l])
             s = np.concatenate((np.asarray([q[kn - 1]]), np.asarray([q[kn]]), np.asarray([Q[kn - 1]])), axis=0)
 
     result = {"newModel": newModel, "Kn": Kn, "s": s, "Q": Q, "q": q}

@@ -10,7 +10,8 @@ def bayes_birth_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
     current = np.sort(currentModel)
     new = np.sort(newModel)
-    
+    current = current.astype(int)
+    new = new.astype(int)
     # Find index of last occurrence of 0 #
     j2 = np.count_nonzero(new == 0, axis=0)
     t2 = new[new != 0]
@@ -28,8 +29,8 @@ def bayes_birth_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
     if np.any(current):
         t1 = current[current != 0]
-        min_old = np.min(t1)
-        max_old = np.max(t1)
+        min_old = int(np.min(t1))
+        max_old = int(np.max(t1))
         if min_new < min_old:
             if(s[1] == 1 and s[2] == 1):
                 result1 = allclayton(u[:min_new], v[:min_new])
@@ -126,7 +127,9 @@ def bayes_birth_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
             else:
                 place = np.where(new == kn)[0][0] + 1
-                
+               
+                place = int(place)
+
                 if(s[1] == 1 and s[2] == 1):
                     result1 = allclayton(u[new[place - 2]:new[place - 1] + 1], v[new[place - 2]:new[place - 1] + 1])
                     result2 = allclayton(u[new[place - 1]:new[place] + 1], v[new[place - 1]:new[place] + 1])

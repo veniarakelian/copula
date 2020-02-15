@@ -10,6 +10,9 @@ def bayes_move_gumbel(currentModel, newModel, kn, u, v, q, zita, chain):
 
     t1 = current[current != 0]
     t2 = new[new != 0]
+    
+    t1 = t1.astype(int)        
+    t2 = t2.astype(int)        
 
     min_old = int(np.min(t1))
     max_old = int(np.max(t1))
@@ -24,9 +27,9 @@ def bayes_move_gumbel(currentModel, newModel, kn, u, v, q, zita, chain):
     # Initialize variables #
     if min_new < min_old and max_old != min_old:
         result1 = allgumbel(u[:min_new], v[:min_new])
-        result2 = allgumbel(u[min_new: t1[1]], v[min_new:t1[1]])
+        result2 = allgumbel(u[min_new: int(t1[1])], v[min_new:int(t1[1])])
         resultOld1 = allgumbel(u[:min_old], v[:min_old])
-        resultOld2 = allgumbel(u[min_old:t1[1]], v[min_old:t1[1]])
+        resultOld2 = allgumbel(u[min_old:int(t1[1])], v[min_old:int(t1[1])])
 
         BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
         if BFu.imag:
@@ -47,9 +50,9 @@ def bayes_move_gumbel(currentModel, newModel, kn, u, v, q, zita, chain):
     else:
         if min_new > min_old and max_old != min_old:
             result1 = allgumbel(u[:min_new], v[:min_new])
-            result2 = allgumbel(u[min_new:t1[1]], v[min_new:t1[1]])
+            result2 = allgumbel(u[min_new:int(t1[1])], v[min_new:int(t1[1])])
             resultOld1 = allgumbel(u[:min_old], v[:min_old])
-            resultOld2 = allgumbel(u[min_old:t1[1]], v[min_old:t1[1]])
+            resultOld2 = allgumbel(u[min_old:int(t1[1])], v[min_old:int(t1[1])])
 
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:
@@ -68,10 +71,10 @@ def bayes_move_gumbel(currentModel, newModel, kn, u, v, q, zita, chain):
                 w = 4
 
         elif (min_new < min_old or max_new > max_old) and max_old == min_old:
-            result1 = allgumbel(u[:t2[0]], v[:t2[0]])
-            result2 = allgumbel(u[t2[0]:L], v[t2[0]:L])
-            resultOld1 = allgumbel(u[:t1[0]], v[:t1[0]])
-            resultOld2 = allgumbel(u[t1[0]:L], v[t1[0]:L])
+            result1 = allgumbel(u[:int(t2[0])], v[:int(t2[0])])
+            result2 = allgumbel(u[t2[0]:L], v[int(t2[0]):L])
+            resultOld1 = allgumbel(u[:t1[0]], v[:int(t1[0])])
+            resultOld2 = allgumbel(u[int(t1[0]):L], v[int(t1[0]):L])
 
             BFu = result1["BFu"] + result2["BFu"] - resultOld1["BFu"] - resultOld2["BFu"]
             if BFu.imag:

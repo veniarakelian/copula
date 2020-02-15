@@ -28,8 +28,8 @@ def bayes_birth_gumbel(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
     if np.any(current):
         t1 = current[current != 0]
-        min_old = np.min(t1)
-        max_old = np.max(t1)
+        min_old = int(np.min(t1))
+        max_old = int(np.max(t1))
 
         if min_new < min_old:
             if(s[1] == 3 and s[2] == 3):
@@ -128,6 +128,7 @@ def bayes_birth_gumbel(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
             else:
                 place = np.where(new == kn)[0][0] + 1
                 
+                place = int(place)
                 if(s[1] == 3 and s[2] == 3):
                     result1 = allgumbel(u[new[place - 2]:new[place - 1] + 1], v[new[place - 2]:new[place - 1] + 1])
                     result2 = allgumbel(u[new[place - 1]:new[place] + 1], v[new[place - 1]:new[place] + 1])

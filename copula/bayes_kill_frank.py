@@ -9,7 +9,8 @@ def bayes_kill_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
     current = np.sort(currentModel)
     new = np.sort(newModel)
-
+    current = current.astype(int)
+    new = new.astype(int)
     t1 = current[current != 0]
     min_old = int(np.min(t1))
     max_old = int(np.max(t1))
@@ -21,8 +22,8 @@ def bayes_kill_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
         R = 1.0
         t2 = new[new != 0]
-        min_new = np.min(t2)
-        max_new = np.max(t2)
+        min_new = int(np.min(t2))
+        max_new = int(np.max(t2))
 
         if min_old < min_new:
             if(s[1] == 2 and s[2] == 2):

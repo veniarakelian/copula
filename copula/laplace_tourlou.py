@@ -5,6 +5,9 @@ from birth import birth
 from bayes_birth_frank import bayes_birth_frank
 from bayes_birth_gumbel import bayes_birth_gumbel
 from bayes_birth_clay import bayes_birth_clay
+from bayes_birth_only_frank import bayes_birth_only_frank
+from bayes_birth_only_gumbel import bayes_birth_only_gumbel
+from bayes_birth_only_clay import bayes_birth_only_clay
 from kill import kill
 from bayes_kill_frank import bayes_kill_frank
 from bayes_kill_gumbel import bayes_kill_gumbel
@@ -16,11 +19,15 @@ from bayes_move_gumbel import bayes_move_gumbel
 from pandas import read_excel
 
 def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
-
     LENGTH = len(currentModel)
     j = np.count_nonzero(currentModel == 0, axis=0)
-
-    if LENGTH == numbrk and 0 < j and j < numbrk:
+    new_model = np.zeros(numbrk)
+    rejected = new_model
+    w = 1
+    QQ = np.zeros(numbrk + 1)
+    ss = 1
+    
+    if LENGTH == numbrk and (0 < j) and (j < numbrk):
 
         l = len(currentModel) - j
         p1 = 1.0/4
@@ -41,7 +48,6 @@ def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
                     else:
                         if result["s"][0] == 3:
                             result = bayes_birth_gumbel(currentModel, result["bir"], result["kn"], u, v, result["s"], result["q"], result["Q"], zita, chain)
-
                 new_model = result["new_model"]
                 rejected = result["rejected"]
                 QQ = result["QQ"]
@@ -103,6 +109,7 @@ def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
                     W = 0.3
                 else:
                     if P > p3:
+                        
                         result = bayes_change(currentModel, u, v, q, numbrk, zita, chain)
                         new_model = result["new_model"]
                         rejected = result["rejected"]
@@ -159,6 +166,7 @@ def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
                         ss = result["s"]
 
                     else:
+
                         new_model = np.sort(currentModel)
                         rejected = np.sort(result["new_model"])
                         QQ = q
@@ -187,13 +195,13 @@ def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
                     result = birth(currentModel, u, dist, numbrk, q)
                     if result["z"] == 1:
                         if result["s"][0] == 1:
-                            result = bayes_birth_only_clay(currentModel, result["bir"], result["kn"], u, v, result["s"], result["q"], zita, chain)
+                            result = bayes_birth_only_clay(currentModel, result["bir"], result["kn"], u, v, result["s"], result["q"], result["Q"], zita, chain)
                         else:
                             if result["s"][0] == 2:
-                                result = bayes_birth_only_frank(currentModel, result["bir"], result["kn"], u, v, result["s"], result["q"], zita, chain)
+                                result = bayes_birth_only_frank(currentModel, result["bir"], result["kn"], u, v, result["s"], result["q"], result["Q"], zita, chain)
                             else:
                                 if result["s"][0] == 3:
-                                    result = bayes_birth_only_gumbel(currentModel, result["bir"], result["kn"], u, v, result["s"], result["q"], zita, chain)
+                                    result = bayes_birth_only_gumbel(currentModel, result["bir"], result["kn"], u, v, result["s"], result["q"], result["Q"], zita, chain)
 
                         new_model = result["new_model"]
                         rejected = result["rejected"]
@@ -202,6 +210,7 @@ def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
                         ss = result["ss"]
 
                     else:
+                        
                         new_model = np.sort(currentModel)
                         rejected = np.sort(currentModel)
                         QQ = q
@@ -211,7 +220,8 @@ def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
                     W = 0.8
 
                 else:
-                    result = bayes_change(currentModel, u, v, result["q"], numbrk, zita, chain)
+                    
+                    result = bayes_change(currentModel, u, v, q, numbrk, zita, chain)
                     new_model = result["new_model"]
                     rejected = result["rejected"]
                     QQ = result["QQ"]
@@ -242,9 +252,7 @@ if __name__ == "__main__":
     chain = 1
 
     currentModel = np.zeros(numbrk, dtype=int)
-    currentModel[2] = 100
-    currentModel[3] = 180
-    currentModel[4] = 250
+    currentModel[0] = 100
 
     result = laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain)
 

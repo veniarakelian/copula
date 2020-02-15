@@ -8,7 +8,6 @@ from copulalib import Copula
 from pandas import read_excel
 
 def allclayton(x, y):
-
     sample = len(x)
 
     # Convert to normall #

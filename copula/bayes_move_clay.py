@@ -10,6 +10,9 @@ def bayes_move_clay(currentModel, newModel, kn, u, v, q, zita, chain):
 
     t1 = current[current != 0]
     t2 = new[new != 0]
+    
+    t1 = t1.astype(int)        
+    t2 = t2.astype(int)  
 
     min_old = int(np.min(t1))
     max_old = int(np.max(t1))
