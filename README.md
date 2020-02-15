@@ -7,8 +7,8 @@ Checked
 - [] allclayton.py
 - [] allgumbel.py
 - [x] bayes_birth_frank.py
-- [] bayes_birth_only_frank.py
-- [] bayes_birth_gumbel.py
+- [x] bayes_birth_only_frank.py
+- [x] bayes_birth_gumbel.py
 - [] bayes_birth_only_gumbel.py
 - [] bayes_birth_clay.py
 - [] bayes_birth_only_clay.py

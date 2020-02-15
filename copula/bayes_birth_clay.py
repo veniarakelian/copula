@@ -3,18 +3,14 @@ import numpy as np
 from allfrank import allfrank
 from allclayton import allclayton
 from allgumbel import allgumbel
-from bayes_birth_only_clay import *
+from bayes_birth_only_clay import bayes_birth_only_clay
 from pandas import read_excel
 
 def bayes_birth_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
     current = np.sort(currentModel)
     new = np.sort(newModel)
-
-
-    current = current.astype(int)
-    new = new.astype(int)
-    # Find index of last occurrence of 0 #
+    
     j2 = np.count_nonzero(new == 0, axis=0)
     t2 = new[new != 0]
     min_new = np.min(t2)
@@ -33,6 +29,7 @@ def bayes_birth_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
         t1 = current[current != 0]
         min_old = np.min(t1)
         max_old = np.max(t1)
+
         if min_new < min_old:
             if(s[1] == 1 and s[2] == 1):
                 result1 = allclayton(u[:min_new], v[:min_new])
@@ -64,7 +61,6 @@ def bayes_birth_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
             BFu = result1["BFu"] + result2["BFu"] - resultOld["BFu"]
             if BFu.imag:
                 ss = -2
-                print("Error\n")
 
             U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -112,7 +108,6 @@ def bayes_birth_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
                 if BFu.imag:
                     ss = -2
-                    print("Error\n")
 
                 U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
@@ -131,36 +126,35 @@ def bayes_birth_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
                 place = np.where(new == kn)[0][0] + 1
 
                 if(s[1] == 1 and s[2] == 1):
-                    result1 = allclayton(u[new[place - 2]:new[place - 1] + 1], v[new[place - 2]:new[place - 1] + 1])
-                    result2 = allclayton(u[new[place - 1]:new[place] + 1], v[new[place - 1]:new[place] + 1])
+                    result1 = allclayton(u[new[place - 2] - 1:new[place - 1]], v[new[place - 2] - 1:new[place - 1]])
+                    result2 = allclayton(u[new[place - 1]:new[place]], v[new[place - 1]:new[place]])
                     R = R * 3
                 else:
                     if(s[1] == 1 and s[2] == 2):
-                        result1 = allclayton(u[new[place - 2]:new[place - 1] + 1], v[new[place - 2]:new[place - 1] + 1])
-                        result2 = allfrank(u[new[place - 1]:new[place] + 1], v[new[place - 1]:new[place] + 1])
+                        result1 = allclayton(u[new[place - 2] - 1:new[place - 1]], v[new[place - 2] - 1:new[place - 1]])
+                        result2 = allfrank(u[new[place - 1]:new[place]], v[new[place - 1]:new[place]])
                         R = R * 3/2
                     else:
                         if(s[1] == 2 and s[2] == 1):
-                            result1 = allfrank(u[new[place - 2]:new[place - 1] + 1], v[new[place - 2]:new[place - 1] + 1])
-                            result2 = allclayton(u[new[place - 1]:new[place] + 1], v[new[place - 1]:new[place] + 1])
+                            result1 = allfrank(u[new[place - 2] - 1:new[place - 1]], v[new[place - 2] - 1:new[place - 1]])
+                            result2 = allclayton(u[new[place - 1]:new[place]], v[new[place - 1]:new[place]])
                             R = R * 3/2
                         else:
                             if(s[1] == 1 and s[2] == 3):
-                                result1 = allclayton(u[new[place - 2]:new[place - 1] + 1], v[new[place - 2]:new[place - 1] + 1])
-                                result2 = allgumbel(u[new[place - 1]:new[place] + 1], v[new[place - 1]:new[place] + 1])
+                                result1 = allclayton(u[new[place - 2] - 1:new[place - 1]], v[new[place - 2] - 1:new[place - 1]])
+                                result2 = allgumbel(u[new[place - 1]:new[place]], v[new[place - 1]:new[place]])
                                 R = R * 3/2
                             else:
                                 if(s[1] == 3 and s[2] == 1):
-                                    result1 = allgumbel(u[new[place - 2]:new[place - 1] + 1], v[new[place - 2]:new[place - 1] + 1])
-                                    result2 = allclayton(u[new[place - 1]:new[place] + 1], v[new[place - 1]:new[place] + 1])
+                                    result1 = allgumbel(u[new[place - 2] - 1:new[place - 1]], v[new[place - 2] - 1:new[place - 1]])
+                                    result2 = allclayton(u[new[place - 1]:new[place]], v[new[place - 1]:new[place]])
                                     R = R * 3/2
 
-                resultOld = allclayton(u[new[place - 2]:new[place] + 1], v[new[place - 2]:new[place] + 1])
+                resultOld = allclayton(u[new[place - 2] - 1:new[place]], v[new[place - 2] - 1:new[place]])
 
                 BFu = result1["BFu"] + result2["BFu"] - resultOld["BFu"]
                 if BFu.imag:
                     ss = -2
-                    print("Error\n")
                 
                 U2 = np.random.uniform(low=np.nextafter(0.0, 1.0))
                 if  (np.log(U2) <  min(0, ((zita ** (chain - 1)) * BFu) + np.log(R))) and not BFu.imag:
@@ -177,7 +171,7 @@ def bayes_birth_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
         result = {"new_model": new_model, "rejected": rejected, "w": w, "QQ": QQ, "ss": ss}
 
     else:
-        result = bayes_birth_only_frank(currentModel, newModel, kn, u, v, s, q, Q, zita, chain)
+        result = bayes_birth_only_clay(currentModel, newModel, kn, u, v, s, q, Q, zita, chain)
 
 
     return result
