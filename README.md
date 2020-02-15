@@ -34,4 +34,6 @@ Checked
 - [x] bayes_change.py
 - [x] move_lapl.py
 - [x] laplace_tourlou.py
-- [x]  favoredmodel.py
+- [x] favoredmodel.py
+- [x] acceptrejectaux.py
+
