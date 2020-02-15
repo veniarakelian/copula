@@ -24,6 +24,7 @@ Checked
 - [x] bayes_move_gumbel.py
 - [x] bayes_change.py
 - [x] move_lapl.py
+- [x] bayesfactor.py
 - [] laplace_tourlou.py
 - [] acceptrejectaux.py
 - [] laplacetest_volatility.py 
