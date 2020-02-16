@@ -23,15 +23,9 @@ def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
     LENGTH = len(currentModel)
     j = np.count_nonzero(currentModel == 0, axis=0)
     
-    new_model = np.zeros(numbrk,dtype=int)
-    rejected = new_model
-    w = 1
-    QQ = np.zeros(numbrk + 1,dtype=int)
-    ss = 1
-    
     if LENGTH == numbrk and (0 < j) and (j < numbrk):
 
-        l = len(currentModel) - j
+        L = len(currentModel) - j
         p1 = 1/4
         p2 = 2/4
         p3 = 3/4
@@ -87,6 +81,7 @@ def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
             else:
                 if P > p2 and P <= p3:
                     result = move_lapl(currentModel, u, v, dist, numbrk, q)
+
                     if result["z"] == 1:
                         if result["s"] == 1:
                             result = bayes_move_clay(currentModel, result["new_model"], result["pick"], u, v, result["Q"], zita, chain)
@@ -151,6 +146,7 @@ def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
             else:
                 if P > p1 and P <= p2:
                     result = move_lapl(currentModel, u, v, dist, numbrk, q)
+
                     if result["z"] == 1:
                         if result["s"] == 1:
                             result = bayes_move_clay(currentModel, result["new_model"], result["pick"], u, v, result["Q"], zita, chain)
@@ -195,6 +191,7 @@ def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
                 
                 if P <= p1:
                     result = birth(currentModel, u, dist, numbrk, q)
+
                     if result["z"] == 1:
                         if result["s"][0] == 1:
                             result = bayes_birth_only_clay(currentModel, result["bir"], result["kn"], u, v, result["s"], result["q"], result["Q"], zita, chain)
