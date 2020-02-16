@@ -6,7 +6,7 @@ import numpy as np
 from allnorm import allnorm
 from copulalib import Copula
 from pandas import read_excel
-
+import sys
 def allgumbel(x, y):
 
     sample = len(x)

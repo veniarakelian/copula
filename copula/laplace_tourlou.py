@@ -175,7 +175,7 @@ def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
 
                 else:
                     if P > p2:
-                        result = bayes_change(currentModel, u, v, result["q"], numbrk, zita, chain)
+                        result = bayes_change(currentModel, u, v, q, numbrk, zita, chain)
                         new_model = result["new_model"]
                         rejected = result["rejected"]
                         QQ = result["QQ"]

@@ -264,7 +264,7 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
                             result1 = allgumbel(u[:L], v[:L])
                             result2 = allclayton(u[:L], v[:L])
                             q_new = 1
-
+            
             BFu = result2["BFu"] - result1["BFu"]
 
             if BFu.imag:

@@ -27,5 +27,5 @@ Checked
 - [x] bayesfactor.py
 - [x] laplace_tourlou.py
 - [x] acceptrejectaux.py
-- [] laplacetest_volatility.py 
+- [x] laplacetest_volatility.py 
 

@@ -49,6 +49,14 @@ def allnorm(x, y):
 
     sigma = [sigmax, sigmay, meanx, meany]
 
+
+    # Fix overflow #
+    for i in range(len(u)):
+        if u[i] == 1:
+            u[i] = 0.99999999 
+        if v[i] == 1:
+            v[i] = 0.99999999 
+
     result = {"sigma": sigma,
               "hes_norm": hes_norm,
               "u": u, "v": v
