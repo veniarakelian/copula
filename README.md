@@ -14,8 +14,6 @@ pip install .
 cd copula/copula
 python laplacetest_volatility.py
 ```
-## Author
-Veni Arakelian veniarakelian@yahoo.com
 
-## Contributiors 
+### Contributors 
 Petropoulakis Panagiotis petropoulakispanagiotis@gmail.com
