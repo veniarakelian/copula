@@ -18,5 +18,5 @@ python laplacetest_volatility.py
 ### Contributors 
 * Petropoulakis Panagiotis petropoulakispanagiotis@gmail.com
 
-##### Acknowledgements
+###### Acknowledgements
 * [ambhas](https://github.com/neel9102/ambhas/blob/master/ambhas/copula.py) repository for the parameter estimation of copula
