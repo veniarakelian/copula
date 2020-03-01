@@ -9,11 +9,11 @@ cd copula
 pip install .
 ```
 
-## Run artificial example 
+## Run an artificial example 
 ```
 cd copula/copula
 python laplacetest_volatility.py
 ```
 
 ### Contributors 
-Petropoulakis Panagiotis petropoulakispanagiotis@gmail.com
+* Petropoulakis Panagiotis petropoulakispanagiotis@gmail.com
