@@ -1,31 +1,21 @@
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # Copula
+Code in python for paper: 
 
-Checked
-- [x] birth.py
-- [] allnorm.py
-- [] allfrank.py
-- [] allclayton.py
-- [] allgumbel.py
-- [x] bayes_birth_frank.py
-- [x] bayes_birth_only_frank.py
-- [x] bayes_birth_gumbel.py
-- [x] bayes_birth_only_gumbel.py
-- [x] bayes_birth_clay.py
-- [x] bayes_birth_only_clay.py
-- [x] kill.py
-- [x] bayes_kill_frank.py
-- [x] bayes_kill_clay.py
-- [x] bayes_kill_gumbel.py
-- [x] bayes_kill_max_frank.py
-- [x] bayes_kill_max_clay.py
-- [x] bayes_kill_max_gumbel.py
-- [x] bayes_move_frank.py
-- [x] bayes_move_clay.py
-- [x] bayes_move_gumbel.py
-- [x] bayes_change.py
-- [x] move_lapl.py
-- [x] bayesfactor.py
-- [x] laplace_tourlou.py
-- [x] acceptrejectaux.py
-- [x] laplacetest_volatility.py 
+## Installation
+```
+git clone https://github.com/PetropoulakisPanagiotis/copula.git
+cd copula
+pip install .
+```
 
+## Run artificial example 
+```
+cd copula/copula
+python laplacetest_volatility.py
+```
+## Author
+Veni Arakelian veniarakelian@yahoo.com
+
+## Contributiors 
+Petropoulakis Panagiotis petropoulakispanagiotis@gmail.com
