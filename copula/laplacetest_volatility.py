@@ -7,7 +7,7 @@ from acceptrejectaux import acceptrejectaux
 from pandas import read_excel
 import time
 
-df = read_excel("/home/petropoulakis/Desktop/artificial_data_iosif.xlsx", sheet_name='Sheet1')
+df = read_excel("/home/petropoulakis/Desktop/copula-master/data/artificial_data_iosif.xlsx", sheet_name='Sheet1')
 x = []
 y = []
 					
