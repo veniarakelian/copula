@@ -1,6 +1,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # Copula
-Code in python for paper: 
+This is the official implementation in Python for
 
 ## Installation
 ```
