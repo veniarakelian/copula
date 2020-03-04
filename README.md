@@ -6,12 +6,18 @@ This is the official implementation in Python for:
 If you find this code useful, please consider citing:
 
 ```
-@inproceedings{wang2019fast,
-    title={Fast online object tracking and segmentation: A unifying approach},
-    author={Wang, Qiang and Zhang, Li and Bertinetto, Luca and Hu, Weiming and Torr, Philip HS},
-    booktitle={Proceedings of the IEEE conference on computer vision and pattern recognition},
-    year={2019}
-}
+@article{doi:10.1080/14697688.2018.1562197,
+author = {Veni Arakelian and Petros Dellaportas and Roberto Savona and Marika Vezzoli},
+title = {Sovereign risk zones in Europe during and after the debt crisis},
+journal = {Quantitative Finance},
+volume = {19},
+number = {6},
+pages = {961-980},
+year  = {2019},
+publisher = {Routledge},
+doi = {10.1080/14697688.2018.1562197},
+URL = {https://doi.org/10.1080/14697688.2018.1562197},
+eprint = {https://doi.org/10.1080/14697688.2018.1562197}
 ```
 
 ## Installation
