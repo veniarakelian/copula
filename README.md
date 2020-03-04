@@ -1,5 +1,6 @@
 # Copula
-This is the official implementation in Python for: **Sovereign Risk Zones in Europe During and After the Debt Crisis.** [Veni Arakelian](https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=492068), [Petros Dellaportas](https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=383211), [Roberto Savona](https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=365367), [Marika Vezzoli](https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=1165311)
+This is the official implementation in Python for: **Sovereign Risk Zones in Europe During and After the Debt Crisis.** 
+<br /> [Veni Arakelian](https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=492068), [Petros Dellaportas](https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=383211), [Roberto Savona](https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=365367), [Marika Vezzoli](https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=1165311)
 [[Paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3217047&fbclid=IwAR0NVD4OpZEmGw0IaWVBtd4riLHyKzBrmBG2lhfD5qSWEvJuPlBR0OrrO80)]
 
 If you find this code useful, please consider citing:
