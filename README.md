@@ -1,5 +1,6 @@
 # Copula
-This is the official implementation in Python for
+This is the official implementation in Python for: 
+
 [[Paper](https://arxiv.org)]
 
 If you find this code useful, please consider citing:
