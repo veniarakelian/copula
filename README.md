@@ -1,3 +1,6 @@
+### GNU LGPL v3
+[![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)  
+
 # Copula
 This is the official implementation in Python for: **Sovereign Risk Zones in Europe During and After the Debt Crisis.** 
 <br /> [Veni Arakelian](https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=492068), [Petros Dellaportas](https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=383211), [Roberto Savona](https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=365367), [Marika Vezzoli](https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=1165311).
