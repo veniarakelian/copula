@@ -4,6 +4,7 @@ This is the official implementation in Python for: **Sovereign Risk Zones in Eur
 <br /> **Quantitative Finance 2019**
 <br /> [[Paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3217047&fbclid=IwAR0NVD4OpZEmGw0IaWVBtd4riLHyKzBrmBG2lhfD5qSWEvJuPlBR0OrrO80)]
 
+## BibTex
 
 If you find this code useful, please consider citing:
 
