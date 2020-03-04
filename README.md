@@ -1,7 +1,7 @@
 # Copula
 This is the official implementation in Python for: 
 
-[[Paper](https://arxiv.org)]
+[[Paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3217047&fbclid=IwAR0NVD4OpZEmGw0IaWVBtd4riLHyKzBrmBG2lhfD5qSWEvJuPlBR0OrrO80)]
 
 If you find this code useful, please consider citing:
 
