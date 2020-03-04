@@ -1,4 +1,3 @@
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # Copula
 This is the official implementation in Python for
 
@@ -12,6 +11,8 @@ pip install .
 ## Run an artificial example 
 ```
 cd copula/copula
+change the path in laplacetest_volatility.py line 10: 
+df = read_excel("/home/petropoulakis/Desktop/copula-master/data/artificial_data_iosif.xlsx", sheet_name='Sheet1')  
 python laplacetest_volatility.py
 ```
 
