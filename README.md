@@ -29,7 +29,6 @@ eprint = {https://doi.org/10.1080/14697688.2018.1562197}
 ## Installation
 
 Dependencies
-~~~~~~~~~~~~
 
 copula requires:
 
