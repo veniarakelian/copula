@@ -1,6 +1,5 @@
 from __future__ import division 
 import numpy as np
-from itertools import combinations
 
 def kill(currentModel, numbrk, q):
 

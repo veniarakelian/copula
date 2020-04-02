@@ -1,7 +1,7 @@
 from __future__ import division 
-import numpy as np
 from allclayton import allclayton
 from pandas import read_excel
+import numpy as np
 
 def bayes_move_clay(currentModel, newModel, kn, u, v, q, zita, chain):
 
@@ -20,7 +20,6 @@ def bayes_move_clay(currentModel, newModel, kn, u, v, q, zita, chain):
     s = -1
     R = 1
 
-    # Initialize variables #
     if min_new < min_old and max_old != min_old:
         result1 = allclayton(u[:min_new], v[:min_new])
         result2 = allclayton(u[min_new: t1[1]], v[min_new:t1[1]])
@@ -156,7 +155,7 @@ def bayes_move_clay(currentModel, newModel, kn, u, v, q, zita, chain):
 
 # Test #
 if __name__ == "__main__":
-    df = read_excel("/home/petropoulakis/Desktop/artificial_data_iosif.xlsx", sheet_name='Sheet1')
+    df = read_excel("../data/artificial_data.xlsx", sheet_name='Sheet1')
     u = []
     v = []
 
