@@ -1,7 +1,7 @@
 from __future__ import division 
 from scipy.stats import norm
-import numpy as np
 from pandas import read_excel
+import numpy as np
 
 # Transform to normal distribution #
 def allnorm(x, y):
@@ -67,7 +67,7 @@ def allnorm(x, y):
 # Test #
 if __name__ == "__main__":
 
-    df = read_excel("/home/petropoulakis/Desktop/artificial_data_iosif.xlsx", sheet_name='Sheet1')
+    df = read_excel("/home/petropoulakis/Desktop/artificial_data.xlsx", sheet_name='Sheet1')
     x = []
     y = []
 

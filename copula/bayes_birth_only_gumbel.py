@@ -1,10 +1,10 @@
 from __future__ import division 
-import numpy as np
 from allclayton import allclayton
 from allgumbel import allgumbel
 from allfrank import allfrank
 from pandas import read_excel
 from bayes_birth_gumbel import *
+import numpy as np
 
 def bayes_birth_only_gumbel(currentModel, newModel, kn, u, v, s, q, Q, zita, chain):
 
@@ -74,7 +74,7 @@ def bayes_birth_only_gumbel(currentModel, newModel, kn, u, v, s, q, Q, zita, cha
 
 # Test #
 if __name__ == "__main__":
-    df = read_excel("/home/petropoulakis/Desktop/artificial_data_iosif.xlsx", sheet_name='Sheet1')
+    df = read_excel("../data/artificial_data.xlsx", sheet_name='Sheet1')
     u = []
     v = []
 

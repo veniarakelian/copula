@@ -1,11 +1,11 @@
 from __future__ import division 
 from scipy.stats import norm, expon
 from scipy.linalg import det, inv
-from math import pi
-import numpy as np
 from allnorm import allnorm
 from pandas import read_excel
 from copulae import ClaytonCopula
+import numpy as np
+from math import pi
 
 def allclayton(x, y):
     sample = len(x)
@@ -63,7 +63,7 @@ def allclayton(x, y):
 
 # Test #
 if __name__ == "__main__":
-    df = read_excel("/home/petropoulakis/Desktop/artificial_data_iosif.xlsx", sheet_name='Sheet1')
+    df = read_excel("/home/petropoulakis/Desktop/artificial_data.xlsx", sheet_name='Sheet1')
     x = []
     y = []
 

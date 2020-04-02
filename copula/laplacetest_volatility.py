@@ -10,7 +10,7 @@ import time
 
 #np.random.seed(0)
 
-df = read_excel("../data/artificial_data_iosif.xlsx", sheet_name='Sheet1')
+df = read_excel("../data/artificial_data.xlsx", sheet_name='Sheet1')
 x = []
 y = []
 					

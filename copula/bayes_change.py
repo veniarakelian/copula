@@ -222,7 +222,7 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
 
     else:
         if np.count_nonzero(current == 0) != 0:
-
+            print(current)
             if (q == 2 * np.ones(numbrk+1)).all():
                 a = np.random.uniform(low=np.nextafter(0.0, 1.0))
 
