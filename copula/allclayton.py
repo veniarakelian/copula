@@ -7,7 +7,7 @@ from copulae import ClaytonCopula
 import numpy as np
 from math import pi
 
-def allclayton(x, y):
+def allclayton(x, y, thetaInit=1.4):
     sample = len(x)
 
     # Convert to normall #
@@ -28,7 +28,7 @@ def allclayton(x, y):
         data.append([u[i][0], v[i][0]])
    
     data = np.array(data)
-    cop = ClaytonCopula()
+    cop = ClaytonCopula(theta=thetaInit)
     cop.fit(data)
     theta = cop.params  
     

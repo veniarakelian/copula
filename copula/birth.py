@@ -1,7 +1,7 @@
 from __future__ import division
-import numpy as np
 from itertools import combinations
 from pandas import read_excel
+import numpy as np
 
 def birth(currentModel, u, dist, numbrk, q):
 
@@ -158,8 +158,7 @@ def birth(currentModel, u, dist, numbrk, q):
     return result
 
 if __name__ == "__main__":
-
-    df = read_excel("/home/petropoulakis/Desktop/artificial_data_iosif.xlsx", sheet_name='Sheet1')
+    df = read_excel("../data/artificial_data.xlsx", sheet_name='Sheet1')
     u = []
 
     for index, row in df.iterrows():

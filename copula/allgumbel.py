@@ -7,7 +7,7 @@ from copulae import GumbelCopula
 import numpy as np
 from math import pi
 
-def allgumbel(x, y):
+def allgumbel(x, y, thetaInit=1.4):
 
     sample = len(x)
 
@@ -32,7 +32,7 @@ def allgumbel(x, y):
         data.append([u[i][0], v[i][0]])
    
     data = np.array(data)
-    cop = GumbelCopula()
+    cop = GumbelCopula(theta=thetaInit)
     cop.fit(data)
     theta = cop.params    
 

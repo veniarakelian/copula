@@ -1,9 +1,9 @@
 from __future__ import division 
-import numpy as np
 from allfrank import allfrank
 from allclayton import allclayton
 from allgumbel import allgumbel
 from pandas import read_excel
+import numpy as np
 
 def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
 
@@ -211,7 +211,7 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
                         new_model = current 
                         q[p - 1] = q_new
                         QQ = q
-                        QQ[p - 1:numbrk + 1] = q_new * np.ones(numbrk + 1 - (p - 1), dtype=int)
+                        #QQ[p - 1:numbrk + 1] = q_new * np.ones(numbrk + 1 - (p - 1), dtype=int)
                         rejected = current
                         w = 61
                     else:
@@ -288,7 +288,7 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
 
 # Test #
 if __name__ == "__main__":
-    df = read_excel("/home/petropoulakis/Desktop/artificial_data_iosif.xlsx", sheet_name='Sheet1')
+    df = read_excel("../data/artificial_data.xlsx", sheet_name='Sheet1')
     u = []
     v = []
 

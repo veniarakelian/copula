@@ -7,7 +7,7 @@ from copulae import FrankCopula
 import numpy as np
 from math import pi
 
-def allfrank(x, y):
+def allfrank(x, y, thetaInit=1.4):
 
     sample = len(x)
 
@@ -29,7 +29,7 @@ def allfrank(x, y):
         data.append([u[i][0], v[i][0]])
    
     data = np.array(data)
-    cop = FrankCopula()
+    cop = FrankCopula(theta=thetaInit)
     cop.fit(data)
     theta = cop.params
     
