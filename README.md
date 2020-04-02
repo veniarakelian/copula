@@ -28,8 +28,9 @@ eprint = {https://doi.org/10.1080/14697688.2018.1562197}
 
 ## Dependencies
 
-copula requires:
+Copula requires:
 
+- python>=3.7
 - numpy>=1.16
 - copulae>=0.5.2
 - scipy>=1.4.1
@@ -40,15 +41,14 @@ copula requires:
 ```
 git clone https://github.com/PetropoulakisPanagiotis/copula.git
 cd copula
-pip install .
+pip3 install .
 ```
 
 ## Run an artificial example 
 ```
 cd copula/copula
-change the path in laplacetest_volatility.py line 10: 
-df = read_excel("/home/petropoulakis/Desktop/copula-master/data/artificial_data_iosif.xlsx", sheet_name='Sheet1')  
 python laplacetest_volatility.py
 ```
+
 ### Contributors 
 * Petropoulakis Panagiotis petropoulakispanagiotis@gmail.com
