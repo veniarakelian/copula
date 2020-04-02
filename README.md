@@ -1,4 +1,5 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![python](https://img.shields.io/badge/python-3.7-blue.svg)](https://www.python.org/downloads/release/python-370/)
 
 # Copula
 This is the official implementation in Python for: **Sovereign Risk Zones in Europe During and After the Debt Crisis.** 
@@ -26,6 +27,18 @@ eprint = {https://doi.org/10.1080/14697688.2018.1562197}
 ```
 
 ## Installation
+
+Dependencies
+~~~~~~~~~~~~
+
+copula requires:
+
+- numpy>=1.16
+- copulae>=0.5.2
+- scipy>=1.4.1
+- pandas>=1.0.3
+
+
 ```
 git clone https://github.com/PetropoulakisPanagiotis/copula.git
 cd copula
