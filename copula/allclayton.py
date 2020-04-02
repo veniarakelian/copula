@@ -4,8 +4,8 @@ from scipy.linalg import det, inv
 from math import pi
 import numpy as np
 from allnorm import allnorm
-from copulalib import Copula
 from pandas import read_excel
+from copulae import ClaytonCopula
 
 def allclayton(x, y):
     sample = len(x)
@@ -23,8 +23,15 @@ def allclayton(x, y):
     ybar = y - sigma[3]
 
     # Calculate theta #
-    theta = Copula(x.flatten(),y.flatten(), family='clayton').theta
-
+    data = []
+    for i in range(len(u)):
+        data.append([u[i][0], v[i][0]])
+   
+    data = np.array(data)
+    cop = ClaytonCopula()
+    cop.fit(data)
+    theta = cop.params  
+    
     # Save frequent calculations #
     v_pow_minus_theta = v ** (-theta)
     u_pow_minus_theta = u ** (-theta)

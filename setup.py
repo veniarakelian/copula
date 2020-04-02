@@ -2,8 +2,9 @@ from setuptools import setup, find_packages
 
 INSTALL_REQUIRES = [
     "numpy>=1.16",
-    "scipy",
-    "pandas",
+    "copulae>=0.5.2",
+    "scipy>=1.4.1",
+    "pandas>=1.0.3",
 ]
 
 setup(

@@ -193,6 +193,7 @@ def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
                     result = birth(currentModel, u, dist, numbrk, q)
 
                     if result["z"] == 1:
+                        #print(result["s"][0])
                         if result["s"][0] == 1:
                             result = bayes_birth_only_clay(currentModel, result["bir"], result["kn"], u, v, result["s"], result["q"], result["Q"], zita, chain)
                         else:

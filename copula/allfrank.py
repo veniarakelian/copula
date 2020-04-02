@@ -4,8 +4,8 @@ from scipy.linalg import det, inv
 from math import pi
 import numpy as np
 from allnorm import allnorm
-from copulalib import Copula
 from pandas import read_excel
+from copulae import FrankCopula
 
 def allfrank(x, y):
 
@@ -23,9 +23,15 @@ def allfrank(x, y):
     xbar = x - sigma[2]
     ybar = y - sigma[3]
 
-    # Calculate theta #
-    theta = Copula(x.flatten(), y.flatten(), family='frank').theta
-
+    data = []
+    for i in range(len(u)):
+        data.append([u[i][0], v[i][0]])
+   
+    data = np.array(data)
+    cop = FrankCopula()
+    cop.fit(data)
+    theta = cop.params
+    
     # Save frequent calculations #
     minus_sample = -sample
     u_plus_v = u + v
@@ -61,7 +67,7 @@ def allfrank(x, y):
 
 # Test #
 if __name__ == "__main__":
-    df = read_excel("/home/petropoulakis/Desktop/artificial_data_iosif.xlsx", sheet_name='Sheet1')
+    df = read_excel("../data/artificial_data_iosif.xlsx", sheet_name='Sheet1')
     x = []
     y = []
 

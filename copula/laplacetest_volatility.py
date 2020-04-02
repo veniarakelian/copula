@@ -5,9 +5,12 @@ import numpy as np
 from laplace_tourlou import laplace_tourlou
 from acceptrejectaux import acceptrejectaux
 from pandas import read_excel
+from timeit import timeit
 import time
 
-df = read_excel("/home/petropoulakis/Desktop/copula-master/data/artificial_data_iosif.xlsx", sheet_name='Sheet1')
+#np.random.seed(0)
+
+df = read_excel("../data/artificial_data_iosif.xlsx", sheet_name='Sheet1')
 x = []
 y = []
 					
@@ -18,8 +21,8 @@ for index, row in df.iterrows():
 x = np.asarray(x, dtype=np.float32)
 y = np.asarray(y, dtype=np.float32)
 
-x = np.append(x,x)
-y = np.append(y,y)
+#x = np.append(x,x)
+#y = np.append(y,y)
 
 dist = 30
 numbrk = 5
@@ -131,7 +134,6 @@ for i in range(0, itera):
                 current_model4 = np.vstack((current_model4, result["new_model"]))
                 rejected4 = np.vstack((rejected4, result["rejected"]))
                 QQ4 = np.vstack((QQ4, result["QQ"]))
-
                 result = laplace_tourlou(current_model5[i], x, y, numbrk, dist, QQ5[i], zita[j], chain5)
                 current_model5 = np.vstack((current_model5, result["new_model"]))
                 rejected5 = np.vstack((rejected5, result["rejected"]))
@@ -256,7 +258,7 @@ for i in range(0, itera):
         jump.append(jump[i])
 
 	# counts acceptance rate # 
-	acceptrate.append(jump[i + 1] / (i+1))
+    acceptrate.append(jump[i + 1] / (i+1))
 
 end = time.time()
 

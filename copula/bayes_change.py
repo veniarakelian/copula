@@ -264,11 +264,6 @@ def bayes_change(currentModel, u, v, q, numbrk, zita, chain):
                             result1 = allgumbel(u[:L], v[:L])
                             result2 = allclayton(u[:L], v[:L])
                             q_new = 1
-                    else:
-                        result2 = {}
-                        result1 = {}
-                        result2["BFu"] = 0 
-                        result1["BFu"] = 0
             
             BFu = result2["BFu"] - result1["BFu"]
 

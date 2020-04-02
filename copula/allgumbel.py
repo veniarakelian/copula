@@ -4,9 +4,10 @@ from scipy.linalg import det, inv
 from math import pi
 import numpy as np
 from allnorm import allnorm
-from copulalib import Copula
 from pandas import read_excel
+from copulae import GumbelCopula
 import sys
+
 def allgumbel(x, y):
 
     sample = len(x)
@@ -27,7 +28,14 @@ def allgumbel(x, y):
     ybar = y - sigma[3]
 
     # Calculate theta #
-    theta = Copula(x.flatten(),y.flatten(), family='gumbel').theta
+    data = []
+    for i in range(len(u)):
+        data.append([u[i][0], v[i][0]])
+   
+    data = np.array(data)
+    cop = GumbelCopula()
+    cop.fit(data)
+    theta = cop.params    
 
     # Save frequent calculations #
     lv_pow_theta = lv ** theta
@@ -63,7 +71,7 @@ def allgumbel(x, y):
 
 # Test #
 if __name__ == "__main__":
-    df = read_excel("/home/petropoulakis/Desktop/artificial_data_iosif.xlsx", sheet_name='Sheet1')
+    df = read_excel("../data/artificial_data_iosif.xlsx", sheet_name='Sheet1')
     x = []
     y = []
 
