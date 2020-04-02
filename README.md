@@ -26,9 +26,7 @@ URL = {https://doi.org/10.1080/14697688.2018.1562197},
 eprint = {https://doi.org/10.1080/14697688.2018.1562197}
 ```
 
-## Installation
-
-Dependencies
+## Dependencies
 
 copula requires:
 
@@ -37,6 +35,7 @@ copula requires:
 - scipy>=1.4.1
 - pandas>=1.0.3
 
+## Installation
 
 ```
 git clone https://github.com/PetropoulakisPanagiotis/copula.git
