@@ -1,14 +1,13 @@
 from __future__ import division
 from __future__ import print_function
-import sys
-import numpy as np
 from laplace_tourlou import laplace_tourlou
 from acceptrejectaux import acceptrejectaux
 from pandas import read_excel
-from timeit import timeit
+import numpy as np
+import sys
 import time
 
-#np.random.seed(0)
+np.random.seed(2)
 
 df = read_excel("../data/artificial_data.xlsx", sheet_name='Sheet1')
 x = []
@@ -20,9 +19,6 @@ for index, row in df.iterrows():
 
 x = np.asarray(x, dtype=np.float32)
 y = np.asarray(y, dtype=np.float32)
-
-#x = np.append(x,x)
-#y = np.append(y,y)
 
 dist = 30
 numbrk = 5
@@ -46,13 +42,11 @@ current_model5 = np.zeros(numbrk, dtype=int)
 current_model2[0] = 100
 current_model2[1] = 180
 
-
 current_model3[1] = 100
 current_model3[2] = 200
 
 current_model2 = np.sort(current_model2)
 current_model3 = np.sort(current_model3)
-
 
 QQ1 = np.ones(numbrk + 1, dtype=int)
 QQ2 = 2 * np.ones(numbrk + 1, dtype=int)
@@ -74,12 +68,12 @@ for i in range(0, itera):
     print("\rStep: {}/{}".format(i + 1, itera), end = "")
     sys.stdout.flush()
 
-    if i >= 10 and (i+1) % 10 == 0:
+    if i >= 9 and (i+1) % 10 == 0:
         j += 1
 
         # Updates zita #
-        if i >= 500 and ((i+1) % 500 == 0) and (i <= burnin):
-            zita.append(zita[j-1] + delta * (0.5 - (Accept[j-1] - Accept[j-49]) / 49))
+        if i >= 499 and ((i+1) % 500 == 0) and (i + 1 <= burnin):
+            zita.append(zita[j-1] + delta * (0.5 - (Accept[j-1] - Accept[j-50]) / 50))
         elif j == 0:
             zita.append(Zita)
         else:            
@@ -134,6 +128,7 @@ for i in range(0, itera):
                 current_model4 = np.vstack((current_model4, result["new_model"]))
                 rejected4 = np.vstack((rejected4, result["rejected"]))
                 QQ4 = np.vstack((QQ4, result["QQ"]))
+        
                 result = laplace_tourlou(current_model5[i], x, y, numbrk, dist, QQ5[i], zita[j], chain5)
                 current_model5 = np.vstack((current_model5, result["new_model"]))
                 rejected5 = np.vstack((rejected5, result["rejected"]))
@@ -250,7 +245,6 @@ for i in range(0, itera):
             rejected5 = np.vstack((rejected5, result["rejected"]))
             QQ5 = np.vstack((QQ5, result["QQ"]))
 
- 
     # Counts models jumps #
     if (np.any(current_model1[i+1] - current_model1[i] != np.zeros(numbrk)) or (np.all(current_model1[i+1] - current_model1[i] == np.zeros(numbrk)) and np.any(QQ1[i+1] - QQ1[i] != np.zeros(numbrk+1)))):
         jump.append(jump[i] + 1)

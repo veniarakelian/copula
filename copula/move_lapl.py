@@ -1,6 +1,6 @@
 from __future__ import division 
-import numpy as np
 from pandas import read_excel
+import numpy as np
 
 def move_lapl(currentModel, u, v, dist, numbrk, q):
 
@@ -12,7 +12,7 @@ def move_lapl(currentModel, u, v, dist, numbrk, q):
     current = new[new != 0]
     current = np.append(current, np.zeros(j, dtype=int))
 
-    pick = np.random.randint(low=1, high=L + 1) ##
+    pick = np.random.randint(low=1, high=L + 1)
     b2 = current[pick - 1]
     scale = 5
 
@@ -67,7 +67,7 @@ def move_lapl(currentModel, u, v, dist, numbrk, q):
 
 # Test #
 if __name__ == "__main__":
-    df = read_excel("/home/petropoulakis/Desktop/artificial_data_iosif.xlsx", sheet_name='Sheet1')
+    df = read_excel("../data/artificial_data.xlsx", sheet_name='Sheet1')
     u = []
     v = []
 

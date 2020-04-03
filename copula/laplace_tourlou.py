@@ -1,5 +1,4 @@
 from __future__ import division
-import numpy as np
 from bayes_change import bayes_change
 from birth import birth
 from bayes_birth_frank import bayes_birth_frank
@@ -17,6 +16,7 @@ from bayes_move_clay import bayes_move_clay
 from bayes_move_frank import bayes_move_frank
 from bayes_move_gumbel import bayes_move_gumbel
 from pandas import read_excel
+import numpy as np
 
 def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
     
@@ -44,6 +44,7 @@ def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
                     else:
                         if result["s"][0] == 3:
                             result = bayes_birth_gumbel(currentModel, result["bir"], result["kn"], u, v, result["s"], result["q"], result["Q"], zita, chain)
+                
                 new_model = result["new_model"]
                 rejected = result["rejected"]
                 QQ = result["QQ"]
@@ -193,7 +194,6 @@ def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
                     result = birth(currentModel, u, dist, numbrk, q)
 
                     if result["z"] == 1:
-                        #print(result["s"][0])
                         if result["s"][0] == 1:
                             result = bayes_birth_only_clay(currentModel, result["bir"], result["kn"], u, v, result["s"], result["q"], result["Q"], zita, chain)
                         else:
@@ -235,7 +235,7 @@ def laplace_tourlou(currentModel, u, v, numbrk, dist, q, zita, chain):
 
 # Test #
 if __name__ == "__main__":
-    df = read_excel("/home/petropoulakis/Desktop/artificial_data_iosif.xlsx", sheet_name='Sheet1')
+    df = read_excel("../data/artificial_data.xlsx", sheet_name='Sheet1')
     u = []
     v = []
 
