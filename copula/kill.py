@@ -29,7 +29,7 @@ def kill(currentModel, numbrk, q):
 
     else:
         if(Kn == numbrk and L == 1):
-            if q[0] != q[1]:
+            if q[0] == q[1]:
                 Q = q[:]
             else:
                 if(w <= 1/2):

@@ -7,7 +7,7 @@ import numpy as np
 import sys
 import time
 
-np.random.seed(2)
+np.random.seed(14)
 
 df = read_excel("../data/artificial_data.xlsx", sheet_name='Sheet1')
 x = []
