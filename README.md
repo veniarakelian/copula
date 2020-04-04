@@ -47,7 +47,7 @@ pip3 install .
 ## Run an artificial example 
 ```
 cd copula/copula
-python laplacetest_volatility.py
+python3 laplacetest_volatility.py
 ```
 
 * Note: change initial guess of theta in allfrank.py, allgumbel.py, allclayto.py if needed.
