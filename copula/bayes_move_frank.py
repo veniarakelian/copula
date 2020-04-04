@@ -21,15 +21,6 @@ def bayes_move_frank(currentModel, newModel, kn, u, v, q, zita, chain):
     s = -1
     R = 1
 
-    print(current)
-    print(new)
-    print(t1)
-    print(t2)
-    print(min_old)
-    print(max_old)
-    print(min_new)
-    print(max_new)
-    print(u.shape)
     if min_new < min_old and max_old != min_old:
         result1 = allfrank(u[:min_new], v[:min_new])
         result2 = allfrank(u[min_new: t1[1]], v[min_new:t1[1]])
