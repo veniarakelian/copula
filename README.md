@@ -30,11 +30,11 @@ eprint = {https://doi.org/10.1080/14697688.2018.1562197}
 
 Copula requires:
 
-- python>=3.7
-- numpy>=1.16
-- copulae>=0.5.2
-- scipy>=1.4.1
-- pandas>=1.0.3
+- Python (>=3.7)
+- Numpy (>=1.16)
+- Copulae (>=0.5.2)
+- Scipy (>=1.4.1)
+- Pandas (>=1.0.3)
 
 ## Installation
 
