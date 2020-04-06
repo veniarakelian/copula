@@ -49,7 +49,7 @@ cd copula/copula
 python3 laplacetest_volatility.py
 ```
 
-* Note: change initial guess of theta in allfrank.py, allgumbel.py, allclayto.py if needed.
+* Note: change initial guess of theta in allfrank.py, allgumbel.py, allclayton.py if needed.
 
 ### Contributors 
 * Petropoulakis Panagiotis petropoulakispanagiotis@gmail.com
