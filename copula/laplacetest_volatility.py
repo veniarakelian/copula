@@ -5,6 +5,7 @@ from acceptrejectaux import acceptrejectaux
 from pandas import read_excel
 import numpy as np
 import sys
+import os
 import time
 
 #np.random.seed(14)
@@ -258,3 +259,31 @@ end = time.time()
 
 print("\nElapsed: " + str(round(end - start,3)) + "sec")
 
+print("Saving files...")
+
+# Save #
+dirPath = "results/"
+
+if not os.path.exists(dirPath):
+    os.mkdir(dirPath)
+
+np.save(dirPath + "QQ1.npy", QQ1)
+np.save(dirPath + "QQ2.npy", QQ2)
+np.save(dirPath + "QQ3.npy", QQ3)
+np.save(dirPath + "QQ4.npy", QQ4)
+np.save(dirPath+ "QQ5.npy", QQ5)
+
+np.save(dirPath + "current_model1.npy", current_model1)
+np.save(dirPath + "current_model2.npy", current_model2)
+np.save(dirPath + "current_model3.npy", current_model3)
+np.save(dirPath + "current_model4.npy", current_model4)
+np.save(dirPath + "current_model5.npy", current_model5)
+
+np.save(dirPath + "rejected1.npy", rejected1)
+np.save(dirPath + "rejected2.npy", rejected2)
+np.save(dirPath + "rejected3.npy", rejected3)
+np.save(dirPath + "rejected4.npy", rejected4)
+np.save(dirPath + "rejected5.npy", rejected5)
+
+np.save(dirPath + "jump.npy", jump)
+np.save(dirPath + "acceptrate.npy", acceptrate)

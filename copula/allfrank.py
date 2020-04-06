@@ -23,7 +23,6 @@ def allfrank(x, y, thetaInit=1.4):
     xbar = x - sigma[2]
     ybar = y - sigma[3]
 
-
     data = []
     for i in range(len(u)):
         data.append([u[i][0], v[i][0]])

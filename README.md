@@ -38,7 +38,7 @@ Copula requires:
 ## Installation
 
 ```
-git clone https://github.com/PetropoulakisPanagiotis/copula.git
+git clone https://github.com/veniarakelian/copula.git
 cd copula
 pip3 install .
 ```
@@ -50,6 +50,7 @@ python3 laplacetest_volatility.py
 ```
 
 * Note: change initial guess of theta in allfrank.py, allgumbel.py, allclayton.py if needed.
+* By running the script the output will be saved in a newly created folder called "results" in the same directory.
 
 ### Contributors 
 * Petropoulakis Panagiotis petropoulakispanagiotis@gmail.com

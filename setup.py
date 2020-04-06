@@ -12,7 +12,7 @@ setup(
     version="1.0.0",
     author="VeniArakelian",
     author_email="veniarakelian@yahoo.com",
-    download_url="https://github.com/PetropoulakisPanagiotis/copula/archive/master.zip",
+    download_url="https://github.com/veniarakelian/copula/archive/master.zip",
     install_requires=INSTALL_REQUIRES,
     packages=find_packages(),
     include_package_data=True,
