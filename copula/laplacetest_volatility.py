@@ -2,7 +2,7 @@ from __future__ import division
 from __future__ import print_function
 from laplace_tourlou import laplace_tourlou
 from acceptrejectaux import acceptrejectaux
-from pandas import read_excel
+from pandas import read_csv
 import numpy as np
 import sys
 import os
@@ -10,13 +10,16 @@ import time
 
 #np.random.seed(14)
 
-df = read_excel("../data/artificial_data.xlsx", sheet_name='Sheet1')
+dfx = read_csv("../data/x_data.csv")
+dfy = read_csv("../data/y_data.csv")
 x = []
 y = []
 					
-for index, row in df.iterrows():
-	x.append([float(row['x'])])
-	y.append([float(row['y'])])
+for index, row in dfx.iterrows():
+	x.append([float(row[0])])
+
+for index, row in dfy.iterrows():
+	y.append([float(row[0])])
 
 x = np.asarray(x, dtype=np.float32)
 y = np.asarray(y, dtype=np.float32)
