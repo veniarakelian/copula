@@ -3,13 +3,13 @@ from __future__ import print_function
 from laplace_tourlou import laplace_tourlou
 from acceptrejectaux import acceptrejectaux
 from pandas import read_csv
+from pandas import read_excel
 import numpy as np
 import sys
 import os
 import time
-
+'''
 #np.random.seed(14)
-
 dfx = read_csv("../data/x_data.csv")
 dfy = read_csv("../data/y_data.csv")
 x = []
@@ -23,11 +23,24 @@ for index, row in dfy.iterrows():
 
 x = np.asarray(x, dtype=np.float32)
 y = np.asarray(y, dtype=np.float32)
+'''
+
+tmp = read_excel("../data/JSS_simulation.xlsx", error_bad_lines=False)
+x = []
+y = []
+					
+for index, row in tmp.iterrows():
+	x.append([float(row[0])])
+	y.append([float(row[1])])
+
+
+x = np.asarray(x, dtype=np.float32)
+y = np.asarray(y, dtype=np.float32)
 
 dist = 30
 numbrk = 5
-itera = 50
-burnin = 2000
+itera = 15000
+burnin = 2500
 Zita = 0.8
 delta = 0.1
 
@@ -48,6 +61,9 @@ current_model2[1] = 180
 
 current_model3[1] = 100
 current_model3[2] = 200
+current_model3[3] = 400
+
+current_model5[0] = 70
 
 current_model2 = np.sort(current_model2)
 current_model3 = np.sort(current_model3)
@@ -55,8 +71,8 @@ current_model3 = np.sort(current_model3)
 QQ1 = np.ones(numbrk + 1, dtype=int)
 QQ2 = 2 * np.ones(numbrk + 1, dtype=int)
 QQ3 = 3 * np.ones(numbrk + 1, dtype=int)
-QQ4 = np.ones(numbrk + 1, dtype=int)
-QQ5 = np.ones(numbrk + 1, dtype=int)
+QQ4 = 3 * np.ones(numbrk + 1, dtype=int)
+QQ5 = 2 * np.ones(numbrk + 1, dtype=int)
 
 # Initial conditions
 accept = 0
@@ -270,23 +286,23 @@ dirPath = "results/"
 if not os.path.exists(dirPath):
     os.mkdir(dirPath)
 
-np.save(dirPath + "QQ1.npy", QQ1)
-np.save(dirPath + "QQ2.npy", QQ2)
-np.save(dirPath + "QQ3.npy", QQ3)
-np.save(dirPath + "QQ4.npy", QQ4)
-np.save(dirPath+ "QQ5.npy", QQ5)
+np.savetxt(dirPath + "QQ1.npy", QQ1, delimiter="\t")
+np.savetxt(dirPath + "QQ2.npy", QQ2, delimiter="\t")
+np.savetxt(dirPath + "QQ3.npy", QQ3, delimiter="\t")
+np.savetxt(dirPath + "QQ4.npy", QQ4, delimiter="\t")
+np.savetxt(dirPath+ "QQ5.npy", QQ5, delimiter="\t")
 
-np.save(dirPath + "current_model1.npy", current_model1)
-np.save(dirPath + "current_model2.npy", current_model2)
-np.save(dirPath + "current_model3.npy", current_model3)
-np.save(dirPath + "current_model4.npy", current_model4)
-np.save(dirPath + "current_model5.npy", current_model5)
+np.savetxt(dirPath + "current_model1.npy", current_model1, delimiter="\t")
+np.savetxt(dirPath + "current_model2.npy", current_model2, delimiter="\t")
+np.savetxt(dirPath + "current_model3.npy", current_model3, delimiter="\t")
+np.savetxt(dirPath + "current_model4.npy", current_model4, delimiter="\t")
+np.savetxt(dirPath + "current_model5.npy", current_model5, delimiter="\t")
 
-np.save(dirPath + "rejected1.npy", rejected1)
-np.save(dirPath + "rejected2.npy", rejected2)
-np.save(dirPath + "rejected3.npy", rejected3)
-np.save(dirPath + "rejected4.npy", rejected4)
-np.save(dirPath + "rejected5.npy", rejected5)
+np.savetxt(dirPath + "rejected1.npy", rejected1, delimiter="\t")
+np.savetxt(dirPath + "rejected2.npy", rejected2, delimiter="\t")
+np.savetxt(dirPath + "rejected3.npy", rejected3, delimiter="\t")
+np.savetxt(dirPath + "rejected4.npy", rejected4, delimiter="\t")
+np.savetxt(dirPath + "rejected5.npy", rejected5, delimiter="\t")
 
-np.save(dirPath + "jump.npy", jump)
-np.save(dirPath + "acceptrate.npy", acceptrate)
+np.savetxt(dirPath + "jump.npy", jump, delimiter="\t")
+np.savetxt(dirPath + "acceptrate.npy", acceptrate, delimiter="\t")
